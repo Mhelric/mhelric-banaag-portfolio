@@ -16,22 +16,25 @@ const NAV_LINKS: NavLink[] = [
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const closeMenu = () => setIsMenuOpen(false)
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 h-16 border-b border-border bg-bg/85 backdrop-blur-md">
       <nav
         aria-label="Main navigation"
-        className="mx-auto flex max-w-[1100px] items-center justify-between px-6 py-4"
+        className="mx-auto flex h-full max-w-[1160px] items-center justify-between px-4 sm:px-6 lg:px-8"
       >
-        {/* Brand / Logo */}
+        {/* Brand / Logo -> scrolls to #hero */}
         <a
-          href="#"
+          href="#hero"
+          onClick={closeMenu}
           className="font-mono text-sm font-medium tracking-wider text-text transition-colors hover:text-accent"
         >
           MHELRIC<span className="text-accent">.DEV</span>
         </a>
 
         {/* Desktop Nav Links */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-7 md:flex lg:gap-8">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -58,29 +61,38 @@ export function Navbar() {
           onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-expanded={isMenuOpen}
           aria-label="Toggle navigation menu"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface p-2 text-muted transition-colors hover:text-text md:hidden"
+          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-muted transition-colors hover:text-text md:hidden"
         >
           <span className="font-mono text-xs">
-            {isMenuOpen ? 'CLOSE' : 'MENU'}
+            {isMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}
           </span>
         </button>
       </nav>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Overlay Dropdown Menu */}
       {isMenuOpen && (
-        <div className="border-t border-border bg-surface px-6 py-4 md:hidden">
-          <ul className="flex flex-col gap-3">
+        <div className="absolute inset-x-0 top-full border-b border-border bg-surface/95 px-4 py-4 shadow-2xl backdrop-blur-md md:hidden">
+          <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block py-1 text-sm text-muted transition-colors hover:text-accent"
+                  onClick={closeMenu}
+                  className="block rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-bg/60 hover:text-accent"
                 >
                   {link.label}
                 </a>
               </li>
             ))}
+            <li className="mt-2 border-t border-border pt-3">
+              <a
+                href="#contact"
+                onClick={closeMenu}
+                className="block w-full rounded-lg bg-accent py-2.5 text-center font-mono text-xs font-medium text-white transition-opacity hover:opacity-90"
+              >
+                Hire / Collaborate →
+              </a>
+            </li>
           </ul>
         </div>
       )}
