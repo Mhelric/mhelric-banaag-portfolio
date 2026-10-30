@@ -76,7 +76,7 @@ export function Projects() {
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
-            01 // Selected Work
+            01 // Projects
           </p>
           <h2
             id="projects-heading"

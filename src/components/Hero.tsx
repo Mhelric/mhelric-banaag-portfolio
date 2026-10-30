@@ -48,7 +48,7 @@ export function Hero() {
               href="#projects"
               className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial sm:px-5 sm:text-sm"
             >
-              View Selected Work
+              View Projects
               <span aria-hidden="true">→</span>
             </a>
 

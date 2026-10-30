@@ -22,7 +22,7 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: 'pokedex-lens',
-    title: 'Pokédex Web App with Visual Search',
+    title: 'Pokédex Web App',
     category: 'API Integration • Visual Recognition UI',
     summary:
       'An interactive Pokédex web application combining PokéAPI data with SerpAPI Google Lens visual recognition to identify Pokémon directly from uploaded or captured images.',

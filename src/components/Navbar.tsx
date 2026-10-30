@@ -6,7 +6,7 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'Work', href: '#projects' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Art', href: '#art' },
   { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },

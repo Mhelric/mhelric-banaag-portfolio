@@ -1,3 +1,4 @@
+import { ArtGallery } from './components/ArtGallery'
 import { Hero } from './components/Hero'
 import { Navbar } from './components/Navbar'
 import { Projects } from './components/Projects'
@@ -9,22 +10,7 @@ function App() {
       <main className="mx-auto max-w-[1160px] px-4 pb-16 sm:px-6 lg:px-8">
         <Hero />
         <Projects />
-
-        {/* Phase 5 & 6 Viewport-Fitted Section Anchors */}
-        <section
-          id="art"
-          className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-12 sm:py-16"
-        >
-          <p className="font-mono text-xs uppercase tracking-widest text-accent">
-            02 // Art & Illustration
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-text sm:text-3xl">
-            Commission Gallery & TopDeck Studio
-          </h2>
-          <p className="mt-2 font-mono text-xs text-muted">
-            [Phase 5 Section Ready]
-          </p>
-        </section>
+        <ArtGallery />
 
         <section
           id="experience"
