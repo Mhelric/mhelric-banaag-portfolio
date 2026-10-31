@@ -228,7 +228,7 @@ export function Contact() {
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
+                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text transition-colors hover:border-white/25"
                 >
                   Download Resume
                 </a>

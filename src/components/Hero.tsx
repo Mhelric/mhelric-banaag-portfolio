@@ -33,12 +33,21 @@ export function Hero() {
             backed by five years of commercial digital illustration and UI design experience.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
+                    <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-3.5">
             <a
               href="#projects"
               className="inline-flex flex-1 items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial sm:text-sm"
             >
               View Projects
+            </a>
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-1 items-center justify-center rounded-lg border border-border bg-surface px-5 py-2.5 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial sm:text-sm"
+            >
+              Resume ↗
             </a>
 
             <a
