@@ -29,7 +29,7 @@ export const PROJECTS: Project[] = [
     techStack: ['JavaScript', 'HTML5', 'CSS3', 'PokéAPI', 'SerpAPI (Google Lens)', 'Vercel'],
     status: 'shipped',
     featured: true,
-    liveUrl: 'https://pokedex-delta-pearl.vercel.app/',
+    liveUrl: 'https://pokedex-app-v01.vercel.app/',
     repoUrl: 'https://github.com/Mhelric/pokedex',
     caseStudy: {
       problem:

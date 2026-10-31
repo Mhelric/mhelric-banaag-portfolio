@@ -70,45 +70,17 @@ export function Projects() {
       className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
       aria-labelledby="projects-heading"
     >
-      {/* Section Header + Carousel Controls */}
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-accent">
-            Projects
-          </p>
-          <h2
-            id="projects-heading"
-            className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
-          >
-            Featured Projects
-          </h2>
-        </div>
-
-        <div className="flex shrink-0 items-center gap-3">
-          <span className="font-mono text-xs text-muted">
-            {String(currentIndex + 1).padStart(2, '0')} /{' '}
-            {String(totalSlides).padStart(2, '0')}
-          </span>
-
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={prevSlide}
-              aria-label="Previous project"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-sm text-muted transition-colors hover:border-white/25 hover:text-text sm:h-9 sm:w-9"
-            >
-              Prev
-            </button>
-            <button
-              type="button"
-              onClick={nextSlide}
-              aria-label="Next project"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-sm text-muted transition-colors hover:border-white/25 hover:text-text sm:h-9 sm:w-9"
-            >
-              Next
-            </button>
-          </div>
-        </div>
+      {/* Section Header */}
+      <div>
+        <p className="text-xs font-medium uppercase tracking-widest text-accent">
+          Projects
+        </p>
+        <h2
+          id="projects-heading"
+          className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
+        >
+          Featured Projects
+        </h2>
       </div>
 
       {/* Smooth Carousel Viewport */}
@@ -270,22 +242,42 @@ export function Projects() {
         </div>
       </div>
 
-      {/* Bottom Slide Indicator Dots */}
-      <div className="mt-4 flex items-center justify-center gap-2 sm:mt-5">
-        {PROJECTS.map((project, index) => {
-          const isActive = index === currentIndex
-          return (
-            <button
-              key={project.id}
-              type="button"
-              onClick={() => setCurrentIndex(index)}
-              aria-label={`Go to slide ${index + 1}: ${project.title}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                isActive ? 'w-7 bg-accent' : 'w-2 bg-border hover:bg-muted'
-              }`}
-            />
-          )
-        })}
+      {/* Bottom Centered Controls: Prev + Slide Dots + Next */}
+      <div className="mt-5 flex items-center justify-center gap-4 sm:mt-6">
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Previous project"
+          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
+        >
+          Prev
+        </button>
+
+        <div className="flex items-center gap-2">
+          {PROJECTS.map((project, index) => {
+            const isActive = index === currentIndex
+            return (
+              <button
+                key={project.id}
+                type="button"
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Go to slide ${index + 1}: ${project.title}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  isActive ? 'w-7 bg-accent' : 'w-2 bg-border hover:bg-muted'
+                }`}
+              />
+            )
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Next project"
+          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
+        >
+          Next
+        </button>
       </div>
 
       {/* Case Study Modal */}

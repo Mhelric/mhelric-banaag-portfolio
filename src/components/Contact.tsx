@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { useState, type FormEvent, type ReactNode } from 'react'
 
 const EMAIL_ADDRESS = 'mhelricbanaag102703@gmail.com'
 const WEB3FORMS_ACCESS_KEY = '5d885f30-c0bc-431e-b43f-5397a423e263'
@@ -113,22 +113,20 @@ const SOCIAL_NETWORKS = [
 ]
 
 const INQUIRY_TYPES = [
-  'Software Dev Role',
-  'Web / Full-Stack Project',
+  'Software Dev',
+  'Web Project',
   'Art Commission',
-  'General Inquiry',
+  'General',
 ]
 
 type SendStatus = 'idle' | 'sending' | 'success' | 'error'
 
 export function Contact() {
   const [copied, setCopied] = useState(false)
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
 
   const [senderName, setSenderName] = useState('')
   const [senderEmail, setSenderEmail] = useState('')
   const [inquiryType, setInquiryType] = useState(INQUIRY_TYPES[0])
-  const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
   const [sendStatus, setSendStatus] = useState<SendStatus>('idle')
 
@@ -141,24 +139,6 @@ export function Contact() {
       window.location.href = `mailto:${EMAIL_ADDRESS}`
     }
   }
-
-  const closeEmailModal = () => {
-    setIsEmailModalOpen(false)
-    if (sendStatus === 'success') {
-      setSendStatus('idle')
-    }
-  }
-
-  useEffect(() => {
-    if (!isEmailModalOpen) return
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsEmailModalOpen(false)
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isEmailModalOpen])
 
   const handleSendEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -178,7 +158,7 @@ export function Contact() {
           email: senderEmail,
           replyto: senderEmail,
           Category: inquiryType,
-          subject: `[Portfolio - ${inquiryType}] ${subject}`,
+          subject: `[Portfolio · ${inquiryType}] Message from ${senderName}`,
           message,
         }),
       })
@@ -192,7 +172,6 @@ export function Contact() {
       setSendStatus('success')
       setSenderName('')
       setSenderEmail('')
-      setSubject('')
       setMessage('')
     } catch {
       setSendStatus('error')
@@ -215,7 +194,7 @@ export function Contact() {
         >
           Let&apos;s build something polished together.
         </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
           I&apos;m currently open to{' '}
           <strong className="font-semibold text-text">
             Front-End, Full-Stack, and UI Developer
@@ -223,41 +202,24 @@ export function Contact() {
           opportunities, as well as freelance web or illustration projects.
         </p>
 
-        {/* Clean 2-Column Editorial Contact Layout */}
-        <div className="mt-10 grid grid-cols-1 gap-10 border-t border-border pt-8 lg:grid-cols-12">
-          {/* Left Column: Direct Email & Actions */}
-          <div className="flex flex-col justify-between lg:col-span-7">
+        {/* 2-Column Layout: Left = Email + Elsewhere + Socials | Right = Elevated Form */}
+        <div className="mt-8 grid grid-cols-1 gap-8 border-t border-border pt-8 lg:grid-cols-12 lg:gap-10">
+          {/* Left Column: Direct Email + Elsewhere + Socials */}
+          <div className="flex flex-col justify-between space-y-7 lg:col-span-5">
+            {/* Direct Email */}
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted">
                 Direct Email
               </p>
-              <p className="mt-2 break-all text-lg font-semibold text-text sm:text-2xl">
+              <p className="mt-1.5 break-all text-base font-semibold text-text sm:text-xl">
                 {EMAIL_ADDRESS}
               </p>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
-                Whether you&apos;re hiring for a software engineering role or
-                looking for custom character and UI art, send a message directly
-                through the form or connect via LinkedIn and GitHub.
-              </p>
-            </div>
 
-            <div className="mt-8">
-              <div className="flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSendStatus('idle')
-                    setIsEmailModalOpen(true)
-                  }}
-                  className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial sm:text-sm"
-                >
-                  Send Email
-                </button>
-
+              <div className="mt-3.5 flex flex-wrap items-center gap-2.5">
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg border border-border bg-surface px-4 py-2.5 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial sm:text-sm"
+                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text transition-colors hover:border-white/25"
                 >
                   {copied ? 'Copied to Clipboard' : 'Copy Email'}
                 </button>
@@ -266,52 +228,48 @@ export function Contact() {
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full whitespace-nowrap items-center justify-center rounded-lg border border-border bg-surface px-4 py-2.5 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text sm:w-auto sm:text-sm"
+                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
                 >
                   Download Resume
                 </a>
               </div>
-
-              <p className="mt-6 text-xs text-muted">
-                Based in Cavite, Philippines (GMT+8) · Open to remote &amp; hybrid roles
-              </p>
             </div>
-          </div>
 
-          {/* Right Column: Elsewhere + Socials with Icons */}
-          <div className="lg:col-span-5">
-            <p className="text-xs font-medium uppercase tracking-wider text-muted">
-              Elsewhere
-            </p>
-            <ul className="mt-3 divide-y divide-border border-t border-b border-border">
-              {ELSEWHERE_LINKS.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-3 text-sm transition-colors"
-                  >
-                    <span className="flex items-center gap-3 font-medium text-text group-hover:text-accent">
-                      <span className="text-muted transition-colors group-hover:text-accent">
-                        {item.icon}
+            {/* Elsewhere */}
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wider text-muted">
+                Elsewhere
+              </p>
+              <ul className="mt-2.5 divide-y divide-border border-t border-b border-border">
+                {ELSEWHERE_LINKS.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between py-2.5 text-sm transition-colors"
+                    >
+                      <span className="flex items-center gap-2.5 font-medium text-text group-hover:text-accent">
+                        <span className="text-muted transition-colors group-hover:text-accent">
+                          {item.icon}
+                        </span>
+                        {item.label}
                       </span>
-                      {item.label}
-                    </span>
-                    <span className="text-xs text-muted group-hover:text-text">
-                      {item.handle}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+                      <span className="text-xs text-muted group-hover:text-text">
+                        {item.handle}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            {/* Socials Icon Strip */}
-            <div className="mt-6">
+            {/* Socials */}
+            <div>
               <p className="text-xs font-medium uppercase tracking-wider text-muted">
                 Socials
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
+              <div className="mt-2.5 flex flex-wrap items-center gap-2">
                 {SOCIAL_NETWORKS.map((social) => (
                   <a
                     key={social.label}
@@ -319,13 +277,182 @@ export function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-text"
+                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-1.5 text-xs font-medium text-muted transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-text"
                   >
                     <span className="text-accent">{social.icon}</span>
                     <span>{social.label}</span>
                   </a>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Right Column: Elevated, High-Contrast Message Card */}
+          <div className="lg:col-span-7">
+            <div className="relative overflow-hidden rounded-2xl border border-accent/35 bg-[#14161d] p-5 shadow-[0_20px_50px_-15px_rgba(79,140,255,0.22),inset_0_1px_0_0_rgba(255,255,255,0.12)] sm:p-7">
+              {/* Top Electric-Blue Accent Highlight Bar */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
+              />
+
+              {/* Subtle Top-Right Radial Glow */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-accent/15 blur-3xl"
+              />
+
+              <div className="relative flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <h3 className="text-lg font-bold tracking-tight text-white sm:text-xl">
+                    Send a Message
+                  </h3>
+                  <p className="mt-0.5 text-xs text-zinc-300">
+                    Goes straight to my inbox — I&apos;ll reply to your email.
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  Direct Inbox
+                </span>
+              </div>
+
+              {sendStatus === 'success' ? (
+                <div className="relative py-12 text-center">
+                  <p className="text-lg font-bold text-white">
+                    Message Sent Successfully
+                  </p>
+                  <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-zinc-300">
+                    Thanks for reaching out! Your message has been sent to{' '}
+                    <span className="font-medium text-white">{EMAIL_ADDRESS}</span>.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSendStatus('idle')}
+                    className="mt-5 rounded-lg border border-white/15 bg-[#0a0b0e] px-4 py-2 text-xs font-medium text-white transition-colors hover:border-accent"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSendEmail} className="relative mt-4 space-y-4">
+                  {/* Topic Selector */}
+                  <div>
+                    <span className="block text-xs font-medium text-zinc-200">
+                      Topic
+                    </span>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {INQUIRY_TYPES.map((type) => {
+                        const isSelected = inquiryType === type
+                        return (
+                          <button
+                            key={type}
+                            type="button"
+                            onClick={() => setInquiryType(type)}
+                            className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
+                              isSelected
+                                ? 'border-accent bg-accent text-white shadow-[0_0_14px_rgba(79,140,255,0.4)]'
+                                : 'border-white/12 bg-[#0a0b0e] text-zinc-300 hover:border-white/25 hover:text-white'
+                            }`}
+                          >
+                            {type}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Name & Email Row */}
+                  <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                    <div>
+                      <label
+                        htmlFor="sender-name"
+                        className="block text-xs font-medium text-zinc-200"
+                      >
+                        Your Name
+                      </label>
+                      <input
+                        id="sender-name"
+                        type="text"
+                        required
+                        value={senderName}
+                        onChange={(e) => setSenderName(e.target.value)}
+                        placeholder="Jane Doe"
+                        className="mt-1.5 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3.5 py-2.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none sm:text-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="sender-email"
+                        className="block text-xs font-medium text-zinc-200"
+                      >
+                        Your Email
+                      </label>
+                      <input
+                        id="sender-email"
+                        type="email"
+                        required
+                        value={senderEmail}
+                        onChange={(e) => setSenderEmail(e.target.value)}
+                        placeholder="jane@example.com"
+                        className="mt-1.5 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3.5 py-2.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none sm:text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label
+                      htmlFor="email-message"
+                      className="block text-xs font-medium text-zinc-200"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="email-message"
+                      rows={4}
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Hi Mhelric, I'd love to talk about..."
+                      className="mt-1.5 w-full resize-none rounded-lg border border-white/15 bg-[#0a0b0e] p-3.5 text-xs leading-relaxed text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none sm:text-sm"
+                    />
+                  </div>
+
+                  {sendStatus === 'error' && (
+                    <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
+                      Could not send automatically. Please email {EMAIL_ADDRESS} directly.
+                    </p>
+                  )}
+
+                  <div className="flex items-center justify-between gap-3 border-t border-white/10 pt-3.5">
+                    <span className="text-[11px] text-zinc-400">
+                      Cavite, PH (GMT+8) · Remote &amp; Hybrid
+                    </span>
+
+                    <button
+                      type="submit"
+                      disabled={sendStatus === 'sending'}
+                      className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-xs font-semibold text-white shadow-[0_0_20px_rgba(79,140,255,0.4)] transition-all hover:brightness-110 disabled:opacity-50 sm:text-sm"
+                    >
+                      <span>{sendStatus === 'sending' ? 'Sending...' : 'Send Message'}</span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-3.5 w-3.5"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>
@@ -341,204 +468,6 @@ export function Contact() {
           Back to top
         </a>
       </footer>
-
-      {/* Built-In Email Composer Modal */}
-      {isEmailModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="email-composer-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 backdrop-blur-md sm:p-6"
-          onClick={closeEmailModal}
-        >
-          <div
-            className="max-h-[90svh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-surface shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
-              <h3
-                id="email-composer-title"
-                className="text-sm font-bold text-text sm:text-base"
-              >
-                New Message
-              </h3>
-
-              <button
-                type="button"
-                onClick={closeEmailModal}
-                className="rounded-lg border border-border bg-bg px-3 py-1 text-xs font-medium text-muted transition-colors hover:text-text"
-              >
-                Close
-              </button>
-            </div>
-
-            {sendStatus === 'success' ? (
-              <div className="p-6 text-center sm:p-10">
-                <h4 className="text-lg font-bold text-text sm:text-xl">
-                  Message Sent
-                </h4>
-                <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-muted sm:text-sm">
-                  Thank you for reaching out. Your message and contact details
-                  have been sent directly to{' '}
-                  <span className="font-medium text-text">{EMAIL_ADDRESS}</span>.
-                </p>
-                <div className="mt-6 flex justify-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setSendStatus('idle')}
-                    className="rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-muted hover:text-text"
-                  >
-                    Send Another
-                  </button>
-                  <button
-                    type="button"
-                    onClick={closeEmailModal}
-                    className="rounded-lg bg-accent px-5 py-2 text-xs font-medium text-white hover:opacity-90"
-                  >
-                    Done
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSendEmail} className="p-5 sm:p-6">
-                <div className="flex items-center gap-3 border-b border-border pb-3 text-xs">
-                  <span className="w-14 shrink-0 text-muted">To:</span>
-                  <span className="font-medium text-text">
-                    Mhelric Banaag ({EMAIL_ADDRESS})
-                  </span>
-                </div>
-
-                <div className="border-b border-border py-3">
-                  <span className="block text-xs text-muted">Category</span>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {INQUIRY_TYPES.map((type) => {
-                      const isSelected = inquiryType === type
-                      return (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setInquiryType(type)}
-                          className={`rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
-                            isSelected
-                              ? 'border-accent bg-accent text-white'
-                              : 'border-border bg-bg text-muted hover:text-text'
-                          }`}
-                        >
-                          {type}
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-3 border-b border-border py-3.5 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="sender-name"
-                      className="block text-xs text-muted"
-                    >
-                      Your Name *
-                    </label>
-                    <input
-                      id="sender-name"
-                      type="text"
-                      required
-                      value={senderName}
-                      onChange={(e) => setSenderName(e.target.value)}
-                      placeholder="Jane Doe"
-                      className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-2 text-xs text-text placeholder:text-muted/50 focus:border-accent focus:outline-none sm:text-sm"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="sender-email"
-                      className="block text-xs text-muted"
-                    >
-                      Your Email (Reply-To) *
-                    </label>
-                    <input
-                      id="sender-email"
-                      type="email"
-                      required
-                      value={senderEmail}
-                      onChange={(e) => setSenderEmail(e.target.value)}
-                      placeholder="jane@company.com"
-                      className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-2 text-xs text-text placeholder:text-muted/50 focus:border-accent focus:outline-none sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="border-b border-border py-3.5">
-                  <label
-                    htmlFor="email-subject"
-                    className="block text-xs text-muted"
-                  >
-                    Subject *
-                  </label>
-                  <input
-                    id="email-subject"
-                    type="text"
-                    required
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    placeholder={`Regarding ${inquiryType}...`}
-                    className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-2 text-xs text-text placeholder:text-muted/50 focus:border-accent focus:outline-none sm:text-sm"
-                  />
-                </div>
-
-                <div className="py-3.5">
-                  <label
-                    htmlFor="email-message"
-                    className="block text-xs text-muted"
-                  >
-                    Message *
-                  </label>
-                  <textarea
-                    id="email-message"
-                    rows={5}
-                    required
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Hi Mhelric, I checked out your portfolio and would love to discuss..."
-                    className="mt-1 w-full resize-none rounded-lg border border-border bg-bg p-3 text-xs leading-relaxed text-text placeholder:text-muted/50 focus:border-accent focus:outline-none sm:text-sm"
-                  />
-                </div>
-
-                {sendStatus === 'error' && (
-                  <p className="mb-3 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
-                    Could not send automatically. Please check your connection
-                    or email {EMAIL_ADDRESS} directly.
-                  </p>
-                )}
-
-                <div className="flex items-center justify-between gap-3 border-t border-border pt-4">
-                  <span className="text-xs text-muted">
-                    Replies go directly to your email
-                  </span>
-
-                  <div className="flex items-center gap-2.5">
-                    <button
-                      type="button"
-                      onClick={closeEmailModal}
-                      className="rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-muted hover:text-text"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={sendStatus === 'sending'}
-                      className="inline-flex items-center rounded-lg bg-accent px-5 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50 sm:text-sm"
-                    >
-                      {sendStatus === 'sending' ? 'Sending...' : 'Send Email'}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </section>
   )
 }
