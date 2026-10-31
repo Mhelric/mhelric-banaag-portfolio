@@ -47,6 +47,166 @@ body::before {
   color-scheme: dark;
 }
 
+/* =========================================================
+   1. Edison Fang Workshop Inspired Architectural Entry Loader
+   ========================================================= */
+.efw-entry-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: #0a0a0b;
+  color: #f4f4f6;
+  opacity: 1;
+  transition: opacity 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.efw-entry-loader.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.efw-entry-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: clamp(9.5rem, 20vw, 13.5rem);
+}
+
+.efw-brand-symbol {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.efw-level {
+  visibility: hidden;
+  stroke-dasharray: var(--path-len);
+  stroke-dashoffset: var(--path-len);
+}
+
+.efw-level--01 {
+  --path-len: 145;
+  animation: 0.52s cubic-bezier(0.65, 0, 0.35, 1) 0.07s forwards efw-logo-draw;
+}
+
+.efw-level--02 {
+  --path-len: 64;
+  animation: 0.42s cubic-bezier(0.65, 0, 0.35, 1) 0.48s forwards efw-logo-draw;
+}
+
+.efw-level--03 {
+  --path-len: 62;
+  animation: 0.34s cubic-bezier(0.65, 0, 0.35, 1) 0.85s forwards efw-logo-draw;
+}
+
+.efw-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1.35vw, 0.92rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-align: center;
+}
+
+.efw-wordmark > span {
+  opacity: 0;
+  transform: translateY(0.45em);
+}
+
+.efw-wordmark > span:first-child {
+  color: #f4f4f6;
+  animation: 0.26s cubic-bezier(0.22, 1, 0.36, 1) 1.13s forwards efw-wordmark-in;
+}
+
+.efw-wordmark > span:last-child {
+  font-size: 0.78em;
+  color: #8a8a8f;
+  animation: 0.26s cubic-bezier(0.22, 1, 0.36, 1) 1.26s forwards efw-wordmark-in;
+}
+
+@keyframes efw-logo-draw {
+  0% {
+    visibility: visible;
+    stroke-dashoffset: var(--path-len);
+  }
+  100% {
+    visibility: visible;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes efw-wordmark-in {
+  0% {
+    opacity: 0;
+    transform: translateY(0.45em);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   2. Daniel Ingrassia Custom Comet Cursor
+   ========================================================= */
+.ingrassia-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ingrassia-cursor[data-visible="true"] {
+  opacity: 1;
+}
+
+.ingrassia-cursor-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.ingrassia-cursor-head {
+  --s: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  border-radius: 50%;
+  background: #f2f2f2;
+  box-shadow: 0 0 10px 2px #f2f2f2;
+  will-change: transform;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    margin 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.ingrassia-cursor[data-hover="true"] .ingrassia-cursor-head {
+  --s: 40px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #f2f2f2;
+}
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
 /* Custom Dark Minimalist Scrollbar (Page & Modals) */
 ::-webkit-scrollbar {
   width: 6px;

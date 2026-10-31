@@ -1,3 +1,5 @@
+import { BinaryPortrait } from './BinaryPortrait'
+
 const HIGHLIGHTS = [
   { label: 'Education', value: 'BS Computer Science · CvSU' },
   { label: 'Core Web & Workflow', value: 'HTML, CSS, JavaScript & AI Tools' },
@@ -33,7 +35,7 @@ export function Hero() {
             backed by five years of commercial digital illustration and UI design experience.
           </p>
 
-                    <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-3.5">
+          <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
             <a
               href="#projects"
               className="inline-flex flex-1 items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial sm:text-sm"
@@ -49,23 +51,12 @@ export function Hero() {
             >
               Resume ↗
             </a>
-
-            <a
-              href="#contact"
-              className="inline-flex flex-1 items-center justify-center rounded-lg border border-border bg-surface px-5 py-2.5 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial sm:text-sm"
-            >
-              Contact Me
-            </a>
           </div>
         </div>
 
-        {/* Right Column: Transparent Portrait Anchored Flush to the Divider Line */}
+        {/* Right Column: Interactive Minimalist Binary Portrait */}
         <div className="flex justify-center lg:col-span-5 lg:justify-end">
-          <img
-            src="/mhelric-profile.webp"
-            alt="Mhelric Banaag"
-            className="block h-auto w-full max-w-[230px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.75)] sm:max-w-[290px] lg:max-w-[380px] xl:max-w-[420px]"
-          />
+          <BinaryPortrait />
         </div>
       </div>
 

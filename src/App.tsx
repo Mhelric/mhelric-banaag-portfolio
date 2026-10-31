@@ -1,8 +1,10 @@
 import { ArtGallery } from './components/ArtGallery'
 import { Contact } from './components/Contact'
+import { CustomCursor } from './components/CustomCursor'
 import { Experience } from './components/Experience'
 import { GridBackground } from './components/GridBackground'
 import { Hero } from './components/Hero'
+import { IntroSplash } from './components/IntroSplash'
 import { Navbar } from './components/Navbar'
 import { Projects } from './components/Projects'
 import { Reveal } from './components/Reveal'
@@ -11,6 +13,8 @@ import { Skills } from './components/Skills'
 function App() {
   return (
     <div className="relative min-h-screen">
+      <CustomCursor />
+      <IntroSplash />
       <GridBackground />
       <div className="relative z-10">
         <Navbar />

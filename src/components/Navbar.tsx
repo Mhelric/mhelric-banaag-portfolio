@@ -1,99 +1,224 @@
-import { useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
-interface NavLink {
+interface NavItem {
+  id: string
   label: string
   href: string
+  icon: ReactNode
 }
 
-const NAV_LINKS: NavLink[] = [
-  { label: 'Projects', href: '#projects' },
-  { label: 'Art', href: '#art' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+const NAV_ITEMS: NavItem[] = [
+  {
+    id: 'hero',
+    label: 'Home',
+    href: '#hero',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 shrink-0"
+      >
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    ),
+  },
+  {
+    id: 'projects',
+    label: 'Projects',
+    href: '#projects',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 shrink-0"
+      >
+        <rect width="7" height="7" x="3" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="14" rx="1" />
+        <rect width="7" height="7" x="3" y="14" rx="1" />
+      </svg>
+    ),
+  },
+  {
+    id: 'art',
+    label: 'Art',
+    href: '#art',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 shrink-0"
+      >
+        <path d="M12 19l7-7 3 3-7 7-3-3z" />
+        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+        <path d="M2 2l7.586 7.586" />
+        <circle cx="11" cy="11" r="2" />
+      </svg>
+    ),
+  },
+  {
+    id: 'experience',
+    label: 'Experience',
+    href: '#experience',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 shrink-0"
+      >
+        <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+    ),
+  },
+  {
+    id: 'skills',
+    label: 'Skills',
+    href: '#skills',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 shrink-0"
+      >
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+  },
+  {
+    id: 'contact',
+    label: 'Contact',
+    href: '#contact',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 shrink-0"
+      >
+        <rect width="20" height="16" x="2" y="4" rx="2" />
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+      </svg>
+    ),
+  },
 ]
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeId, setActiveId] = useState<string>('hero')
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
 
-  const closeMenu = () => setIsMenuOpen(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerLine = window.innerHeight * 0.38
+      let currentSection = 'hero'
+
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.id)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+        if (rect.top <= triggerLine) {
+          currentSection = item.id
+        }
+      }
+
+      setActiveId(currentSection)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-40 h-16 border-b border-border bg-bg/85 backdrop-blur-md">
-      <nav
-        aria-label="Main navigation"
-        className="mx-auto flex h-full max-w-[1160px] items-center justify-between px-4 sm:px-6 lg:px-8"
-      >
-        {/* Brand */}
-        <a
-          href="#hero"
-          onClick={closeMenu}
-          className="font-mono text-sm font-semibold tracking-wider text-text transition-colors hover:text-accent"
+    <>
+      {/* Top spacer so floating dock never overlaps the Hero section */}
+      <div className="h-16" aria-hidden="true" />
+
+      <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-3 sm:top-5">
+        <nav
+          aria-label="Main navigation"
+          className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/12 bg-[#111216]/80 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)] backdrop-blur-xl sm:gap-1.5 sm:px-2.5"
         >
-          MHELRIC<span className="text-accent">.DEV</span>
-        </a>
+          {/* Brand Monogram */}
+          <a
+            href="#hero"
+            onClick={() => setActiveId('hero')}
+            className="hidden items-center rounded-full px-2.5 py-1.5 font-mono text-xs font-semibold tracking-wider text-text transition-colors hover:text-accent sm:inline-flex"
+          >
+            MHELRIC<span className="text-accent">.DEV</span>
+          </a>
 
-        {/* Desktop Nav Links */}
-        <ul className="hidden items-center gap-7 md:flex lg:gap-8">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-sm text-muted transition-colors hover:text-text"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a
-              href="#contact"
-              className="rounded-lg border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-text transition-colors hover:border-white/25"
-            >
-              Get in Touch
-            </a>
-          </li>
-        </ul>
+          <span
+            aria-hidden="true"
+            className="hidden h-4 w-px bg-white/10 sm:inline-block"
+          />
 
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          aria-expanded={isMenuOpen}
-          aria-label="Toggle navigation menu"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:text-text md:hidden"
-        >
-          {isMenuOpen ? 'Close' : 'Menu'}
-        </button>
-      </nav>
+          {/* Interactive Icon-to-Label Section Pills */}
+          <ul className="flex items-center gap-1">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeId === item.id
+              const isHovered = hoveredId === item.id
+              const isExpanded = isActive || isHovered
 
-      {/* Mobile Overlay Dropdown Menu */}
-      {isMenuOpen && (
-        <div className="absolute inset-x-0 top-full border-b border-border bg-surface/95 px-4 py-4 shadow-2xl backdrop-blur-md md:hidden">
-          <ul className="flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={closeMenu}
-                  className="block rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-bg/60 hover:text-text"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li className="mt-2 border-t border-border pt-3">
-              <a
-                href="#contact"
-                onClick={closeMenu}
-                className="block w-full rounded-lg bg-accent py-2.5 text-center text-xs font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Get in Touch
-              </a>
-            </li>
+              return (
+                <li key={item.id}>
+                  <a
+                    href={item.href}
+                    onClick={() => setActiveId(item.id)}
+                    onMouseEnter={() => setHoveredId(item.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    onFocus={() => setHoveredId(item.id)}
+                    onBlur={() => setHoveredId(null)}
+                    aria-label={item.label}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`group relative flex items-center rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 ease-out ${
+                      isActive
+                        ? 'bg-accent text-white shadow-[0_0_16px_rgba(79,140,255,0.45)]'
+                        : 'text-muted hover:bg-white/8 hover:text-white'
+                    }`}
+                  >
+                    {item.icon}
+                    <span
+                      className={`overflow-hidden whitespace-nowrap transition-all duration-300 ease-out ${
+                        isExpanded
+                          ? 'ml-1.5 max-w-[84px] opacity-100'
+                          : 'ml-0 max-w-0 opacity-0'
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                  </a>
+                </li>
+              )
+            })}
           </ul>
-        </div>
-      )}
-    </header>
+        </nav>
+      </header>
+    </>
   )
 }
