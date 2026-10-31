@@ -7,6 +7,7 @@ export interface Certification {
   signatory?: string
   description: string
   imageUrl: string
+  thumbUrl: string
   pdfUrl?: string
   tags: string[]
 }
@@ -22,6 +23,7 @@ export const CERTIFICATIONS: Certification[] = [
     description:
       'Awarded in recognition of outstanding performance, dedication, leadership, and exceptional contributions as a Backend Developer Intern at Incub8 Space.',
     imageUrl: '/certificates/incub8-excellence-award.webp',
+    thumbUrl: '/certificates/incub8-excellence-award-thumb.webp',
     pdfUrl: '/certificates/incub8-excellence-award.pdf',
     tags: ['Backend Development', 'Internship Excellence', 'Supabase & PostgreSQL'],
   },

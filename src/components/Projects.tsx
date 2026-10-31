@@ -1,4 +1,4 @@
-import { useEffect, useState, type TouchEvent } from 'react'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { PROJECTS, type Project } from '../data/projects'
 
 const TECH_TAG_STYLES: Record<string, string> = {
@@ -19,11 +19,28 @@ const TECH_TAG_STYLES: Record<string, string> = {
 const DEFAULT_TAG_STYLE = 'border-border bg-bg text-muted'
 
 export function Projects() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [isSectionNear, setIsSectionNear] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
 
   const totalSlides = PROJECTS.length
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionNear(entry.isIntersecting)
+      },
+      { rootMargin: '250px 0px' },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1))
@@ -66,6 +83,7 @@ export function Projects() {
 
   return (
     <section
+      ref={sectionRef}
       id="projects"
       className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
       aria-labelledby="projects-heading"
@@ -93,8 +111,9 @@ export function Projects() {
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {PROJECTS.map((project) => {
+          {PROJECTS.map((project, slideIndex) => {
             const isShipped = project.status === 'shipped'
+            const shouldMountIframe = isSectionNear && slideIndex === currentIndex
             const cleanDomain = project.liveUrl
               ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
               : 'In development'
@@ -127,13 +146,19 @@ export function Projects() {
                           aria-label={`Open live preview of ${project.title}`}
                           className="group relative block aspect-[16/10] w-full overflow-hidden bg-bg"
                         >
-                          <iframe
-                            src={project.liveUrl}
-                            title={`${project.title} live preview`}
-                            loading="lazy"
-                            tabIndex={-1}
-                            className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
-                          />
+                          {shouldMountIframe ? (
+                            <iframe
+                              src={project.liveUrl}
+                              title={`${project.title} live preview`}
+                              loading="lazy"
+                              tabIndex={-1}
+                              className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-bg text-xs text-muted">
+                              Loading live preview…
+                            </div>
+                          )}
                           <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
                             <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
                               Visit Live Site

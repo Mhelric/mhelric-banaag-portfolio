@@ -9,6 +9,7 @@ interface RevealProps {
 export function Reveal({ children, delayMs = 0, className = '' }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [isDone, setIsDone] = useState(false)
 
   useEffect(() => {
     const element = ref.current
@@ -27,6 +28,22 @@ export function Reveal({ children, delayMs = 0, className = '' }: RevealProps) {
     observer.observe(element)
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (!isVisible) return
+    const timer = window.setTimeout(() => {
+      setIsDone(true)
+    }, delayMs + 750)
+    return () => window.clearTimeout(timer)
+  }, [isVisible, delayMs])
+
+  if (isDone) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    )
+  }
 
   return (
     <div

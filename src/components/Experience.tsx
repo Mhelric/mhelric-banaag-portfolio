@@ -227,9 +227,10 @@ export function Experience() {
                     className="group/img relative overflow-hidden rounded-xl border border-border bg-bg sm:col-span-5"
                   >
                     <img
-                      src={cert.imageUrl}
+                      src={cert.thumbUrl}
                       alt={cert.title}
                       loading="lazy"
+                      decoding="async"
                       className="aspect-[1.414/1] w-full object-cover transition-transform duration-300 group-hover/img:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[1px] transition-opacity duration-200 group-hover/img:opacity-100">
@@ -353,6 +354,7 @@ export function Experience() {
               <img
                 src={selectedCert.imageUrl}
                 alt={selectedCert.title}
+                decoding="async"
                 className="mx-auto max-h-[65svh] w-auto object-contain"
               />
             </div>

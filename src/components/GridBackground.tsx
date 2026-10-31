@@ -28,7 +28,8 @@ export function GridBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    let animationFrameId: number
+    let animationFrameId = 0
+    let isRunning = false
     let width = (canvas.width = window.innerWidth)
     let height = (canvas.height = window.innerHeight)
 
@@ -76,6 +77,12 @@ export function GridBackground() {
     const cells: GlowingCell[] = Array.from({ length: 6 }, () => createCell(true))
 
     const render = () => {
+      if (document.hidden) {
+        isRunning = false
+        animationFrameId = 0
+        return
+      }
+
       ctx.clearRect(0, 0, width, height)
 
       // 1. Draw softly pulsing 48x48 grid cells
@@ -130,11 +137,32 @@ export function GridBackground() {
       animationFrameId = window.requestAnimationFrame(render)
     }
 
-    animationFrameId = window.requestAnimationFrame(render)
+    const startLoop = () => {
+      if (!isRunning && !document.hidden) {
+        isRunning = true
+        animationFrameId = window.requestAnimationFrame(render)
+      }
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (animationFrameId) {
+          window.cancelAnimationFrame(animationFrameId)
+          animationFrameId = 0
+        }
+        isRunning = false
+      } else {
+        startLoop()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    startLoop()
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId)
+      if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
       window.removeEventListener('resize', handleResize)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
 

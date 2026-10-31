@@ -4,6 +4,7 @@ export interface Artwork {
   category: string
   clientType: string
   src: string
+  thumbSrc: string
   description: string
 }
 
@@ -14,6 +15,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Poster & Character Commission',
     clientType: 'Commission · meru_art',
     src: '/art/meru-art-bam-commission-2.webp',
+    thumbSrc: '/art/thumbs/meru-art-bam-commission-2.webp',
     description:
       'Editorial-style full-body character commission featuring custom display typography, seated pose composition, and luminous halo accents.',
   },
@@ -23,6 +25,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Stylized Illustration · Inktober',
     clientType: 'Illustration · meru_art',
     src: '/art/meru-art-deku-fanart-inktober-25.webp',
+    thumbSrc: '/art/thumbs/meru-art-deku-fanart-inktober-25.webp',
     description:
       'High-contrast split portrait juxtaposing Izuku Midoriya’s classic expression with his Dark Hero mask silhouette and One For All lightning effects.',
   },
@@ -32,6 +35,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Character Sheet & Expressions',
     clientType: 'Concept Sheet · meru_art',
     src: '/art/meru-art-meru.webp',
+    thumbSrc: '/art/thumbs/meru-art-meru.webp',
     description:
       'Complete character design sheet demonstrating full-body proportions, multi-angle head turnarounds, expression studies, and chibi mascot variants.',
   },
@@ -41,6 +45,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Fantasy Character Illustration',
     clientType: 'Commission · meru_art',
     src: '/art/meru-art-velimer-dnd.webp',
+    thumbSrc: '/art/thumbs/meru-art-velimer-dnd.webp',
     description:
       'Half-body character commission featuring custom horn silhouettes, heterochromia detail, and dynamic cape linework tailored to the player’s campaign brief.',
   },
@@ -50,6 +55,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Multi-Character Scene Illustration',
     clientType: 'Illustration · meru_art',
     src: '/art/meru-art-frieren-bg-fanart.webp',
+    thumbSrc: '/art/thumbs/meru-art-frieren-bg-fanart.webp',
     description:
       'Wide horizontal scene capturing character personality and stride rhythm across Frieren, Stark, and Fern.',
   },
@@ -59,6 +65,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Expressive Character Commission',
     clientType: 'Commission · meru_art',
     src: '/art/meru-art-loona-helluva-commission.webp',
+    thumbSrc: '/art/thumbs/meru-art-loona-helluva-commission.webp',
     description:
       'Bust commission emphasizing expressive facial acting, custom outfit styling, and accessory detailing.',
   },
@@ -68,6 +75,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Original Character & Costume Design',
     clientType: 'Commission · meru_art',
     src: '/art/meru-art-kitsunegem-full-body.webp',
+    thumbSrc: '/art/thumbs/meru-art-kitsunegem-full-body.webp',
     description:
       'Full-body character illustration combining playful pastel candy motifs, expressive pose silhouette, and multi-tail composition.',
   },
@@ -77,6 +85,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Full-Body Stylized Illustration',
     clientType: 'Commission · meru_art',
     src: '/art/meru-art-commission-art.webp',
+    thumbSrc: '/art/thumbs/meru-art-commission-art.webp',
     description:
       'Stylized full-body character piece emphasizing intricate curl textures, gold-trimmed uniform tailoring, and confident character posing.',
   },
@@ -86,6 +95,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Stylized Portrait Commission',
     clientType: 'Commission · meru_art',
     src: '/art/meru-art-commission-art-1-2.webp',
+    thumbSrc: '/art/thumbs/meru-art-commission-art-1-2.webp',
     description:
       'High-contrast character portrait balancing warm coral suit tones against a minimalist botanical mask motif.',
   },
@@ -95,6 +105,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Full-Body Character Illustration',
     clientType: 'Illustration · meru_art',
     src: '/art/meru-art-robin-egghex-1.webp',
+    thumbSrc: '/art/thumbs/meru-art-robin-egghex-1.webp',
     description:
       'Clean full-body character rendering highlighting glossy jacket materials, futuristic boots, and crisp lineweight.',
   },
@@ -104,6 +115,7 @@ export const ARTWORKS: Artwork[] = [
     category: 'Figure & Lighting Study',
     clientType: 'Illustration · meru_art',
     src: '/art/meru-art-momo-ayase.webp',
+    thumbSrc: '/art/thumbs/meru-art-momo-ayase.webp',
     description:
       'Dynamic figure study focusing on upper-body foreshortening, soft cel-shaded skin tones, and anatomical flow.',
   },

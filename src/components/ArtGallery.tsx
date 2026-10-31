@@ -138,9 +138,10 @@ export function ArtGallery() {
             >
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-bg">
                 <img
-                  src={art.src}
+                  src={art.thumbSrc}
                   alt={art.title}
                   loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -256,6 +257,7 @@ export function ArtGallery() {
               <img
                 src={activeArtwork.src}
                 alt={activeArtwork.title}
+                decoding="async"
                 className="max-h-[42svh] w-auto max-w-full rounded-lg object-contain sm:max-h-[54svh]"
               />
 
@@ -293,8 +295,10 @@ export function ArtGallery() {
                         }`}
                       >
                         <img
-                          src={item.src}
+                          src={item.thumbSrc}
                           alt=""
+                          loading="lazy"
+                          decoding="async"
                           className="h-full w-full object-cover object-top"
                         />
                       </button>

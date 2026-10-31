@@ -19,6 +19,60 @@ interface AmbientBit {
   maxLife: number
 }
 
+function samplePortraitCells(
+  img: HTMLImageElement,
+  logicalWidth: number,
+  logicalHeight: number,
+): { cells: BinaryCell[]; edgePoints: { x: number; y: number }[] } {
+  const sampleCanvas = document.createElement('canvas')
+  sampleCanvas.width = logicalWidth
+  sampleCanvas.height = logicalHeight
+  const sampleCtx = sampleCanvas.getContext('2d')
+  const cells: BinaryCell[] = []
+  const edgePoints: { x: number; y: number }[] = []
+
+  if (!sampleCtx) return { cells, edgePoints }
+
+  sampleCtx.drawImage(img, 0, 0, logicalWidth, logicalHeight)
+  const pixels = sampleCtx.getImageData(0, 0, logicalWidth, logicalHeight).data
+
+  const stepX = 6
+  const stepY = 7
+
+  for (let y = 0; y < logicalHeight; y += stepY) {
+    for (let x = 0; x < logicalWidth; x += stepX) {
+      const idx = (y * logicalWidth + x) * 4
+      const r = pixels[idx]
+      const g = pixels[idx + 1]
+      const b = pixels[idx + 2]
+      const a = pixels[idx + 3]
+
+      if (a > 40) {
+        const lum = Math.min(
+          1,
+          Math.max(0.15, ((0.299 * r + 0.587 * g + 0.114 * b) / 255) * 1.25),
+        )
+        cells.push({
+          x,
+          y,
+          char: Math.random() > 0.5 ? '1' : '0',
+          lum,
+          alpha: a / 255,
+        })
+
+        // Detect silhouette edges to spawn subtle floating ambient bits
+        if (a < 210 && y > logicalHeight * 0.18 && y < logicalHeight * 0.88) {
+          edgePoints.push({ x, y })
+        }
+      }
+    }
+  }
+
+  sampleCanvas.width = 0
+  sampleCanvas.height = 0
+  return { cells, edgePoints }
+}
+
 export function BinaryPortrait() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -33,18 +87,39 @@ export function BinaryPortrait() {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    const container = containerRef.current
+    if (!canvas || !container) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
     let rafId = 0
     let isCancelled = false
+    let isInViewport = true
+    let startLoop: (() => void) | null = null
 
-    const img = new Image()
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInViewport = entry.isIntersecting
+        if (isInViewport && startLoop) {
+          startLoop()
+        }
+      },
+      { rootMargin: '150px 0px' },
+    )
+    observer.observe(container)
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden && isInViewport && startLoop) {
+        startLoop()
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    let img: HTMLImageElement | null = new Image()
     img.src = '/mhelric-profile.webp'
 
     img.onload = () => {
-      if (isCancelled || !canvas) return
+      if (isCancelled || !canvas || !img) return
 
       const logicalWidth = 420
       const aspectRatio = img.height / img.width
@@ -54,49 +129,25 @@ export function BinaryPortrait() {
       canvas.width = logicalWidth * dpr
       canvas.height = logicalHeight * dpr
 
-      // Sample image pixels once for the interactive X-Ray Binary Lens
-      const offscreen = document.createElement('canvas')
-      offscreen.width = logicalWidth
-      offscreen.height = logicalHeight
-      const offCtx = offscreen.getContext('2d')
-      if (!offCtx) return
-
-      offCtx.drawImage(img, 0, 0, logicalWidth, logicalHeight)
-      const pixels = offCtx.getImageData(0, 0, logicalWidth, logicalHeight).data
-
-      const stepX = 6
-      const stepY = 7
-      const cells: BinaryCell[] = []
-      const edgePoints: { x: number; y: number }[] = []
-
-      for (let y = 0; y < logicalHeight; y += stepY) {
-        for (let x = 0; x < logicalWidth; x += stepX) {
-          const idx = (y * logicalWidth + x) * 4
-          const r = pixels[idx]
-          const g = pixels[idx + 1]
-          const b = pixels[idx + 2]
-          const a = pixels[idx + 3]
-
-          if (a > 40) {
-            const lum = Math.min(
-              1,
-              Math.max(0.15, ((0.299 * r + 0.587 * g + 0.114 * b) / 255) * 1.25)
-            )
-            cells.push({
-              x,
-              y,
-              char: Math.random() > 0.5 ? '1' : '0',
-              lum,
-              alpha: a / 255,
-            })
-
-            // Detect silhouette edges to spawn subtle floating ambient bits
-            if (a < 210 && y > logicalHeight * 0.18 && y < logicalHeight * 0.88) {
-              edgePoints.push({ x, y })
-            }
-          }
-        }
+      // Pre-scale the portrait once to exact display resolution so we can release
+      // the full 1215x1773 HTMLImageElement (~8.6 MB RGBA bitmap) from memory.
+      const portraitBuffer = document.createElement('canvas')
+      portraitBuffer.width = logicalWidth * dpr
+      portraitBuffer.height = logicalHeight * dpr
+      const bufferCtx = portraitBuffer.getContext('2d')
+      if (bufferCtx) {
+        bufferCtx.drawImage(img, 0, 0, portraitBuffer.width, portraitBuffer.height)
       }
+
+      const { cells, edgePoints } = samplePortraitCells(
+        img,
+        logicalWidth,
+        logicalHeight,
+      )
+
+      // Release original oversized image reference for GC
+      img.onload = null
+      img = null
 
       const spawnAmbientBit = (randomLife = false): AmbientBit => {
         const pt =
@@ -117,10 +168,18 @@ export function BinaryPortrait() {
       }
 
       const ambientBits: AmbientBit[] = Array.from({ length: 22 }, () =>
-        spawnAmbientBit(true)
+        spawnAmbientBit(true),
       )
 
+      let isRunning = false
+
       const render = () => {
+        if (isCancelled || !isInViewport || document.hidden) {
+          isRunning = false
+          rafId = 0
+          return
+        }
+
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
         ctx.clearRect(0, 0, logicalWidth, logicalHeight)
 
@@ -148,8 +207,8 @@ export function BinaryPortrait() {
           ctx.fillText(bit.char, bit.x, bit.y)
         }
 
-        // 2. Crisp, full-resolution portrait in the foreground
-        ctx.drawImage(img, 0, 0, logicalWidth, logicalHeight)
+        // 2. Crisp portrait in the foreground (from pre-scaled buffer)
+        ctx.drawImage(portraitBuffer, 0, 0, logicalWidth, logicalHeight)
 
         // 3. Interactive Binary X-Ray Lens when hovering over the portrait
         if (m.radius > 1.5) {
@@ -164,11 +223,11 @@ export function BinaryPortrait() {
             m.x - m.radius,
             m.y - m.radius,
             m.radius * 2,
-            m.radius * 2
+            m.radius * 2,
           )
 
           ctx.globalAlpha = 0.2
-          ctx.drawImage(img, 0, 0, logicalWidth, logicalHeight)
+          ctx.drawImage(portraitBuffer, 0, 0, logicalWidth, logicalHeight)
           ctx.globalAlpha = 1
 
           ctx.font = '600 6.5px "JetBrains Mono", monospace'
@@ -186,7 +245,10 @@ export function BinaryPortrait() {
                 cell.char = cell.char === '1' ? '0' : '1'
               }
               const edgeFade = 1 - Math.sqrt(distSq) / m.radius
-              const alpha = Math.min(1, (cell.lum * 0.9 + 0.2) * cell.alpha * (0.4 + edgeFade * 0.6))
+              const alpha = Math.min(
+                1,
+                (cell.lum * 0.9 + 0.2) * cell.alpha * (0.4 + edgeFade * 0.6),
+              )
 
               if (cell.lum > 0.58) {
                 ctx.fillStyle = `rgba(225, 240, 255, ${alpha})`
@@ -207,12 +269,21 @@ export function BinaryPortrait() {
         rafId = window.requestAnimationFrame(render)
       }
 
-      rafId = window.requestAnimationFrame(render)
+      startLoop = () => {
+        if (!isRunning && isInViewport && !document.hidden && !isCancelled) {
+          isRunning = true
+          rafId = window.requestAnimationFrame(render)
+        }
+      }
+
+      startLoop()
     }
 
     return () => {
       isCancelled = true
-      window.cancelAnimationFrame(rafId)
+      if (rafId) window.cancelAnimationFrame(rafId)
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
 

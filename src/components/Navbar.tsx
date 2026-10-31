@@ -133,7 +133,10 @@ export function Navbar() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId = 0
+
+    const updateActiveSection = () => {
+      rafId = 0
       const triggerLine = window.innerHeight * 0.38
       let currentSection = 'hero'
 
@@ -146,12 +149,21 @@ export function Navbar() {
         }
       }
 
-      setActiveId(currentSection)
+      setActiveId((prev) => (prev === currentSection ? prev : currentSection))
     }
 
-    handleScroll()
+    const handleScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateActiveSection)
+      }
+    }
+
+    updateActiveSection()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
