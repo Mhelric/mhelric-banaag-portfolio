@@ -12,7 +12,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'idoltav-poster-commission',
     title: 'IdolTav × TheTavern Poster',
     category: 'Poster & Character Commission',
-    clientType: 'Client Commission (MERURI_ART)',
+    clientType: 'Commission · meru_art',
     src: '/art/meru-art-bam-commission-2.webp',
     description:
       'Editorial-style full-body character commission featuring custom display typography, seated pose composition, and luminous halo accents.',
@@ -20,8 +20,8 @@ export const ARTWORKS: Artwork[] = [
   {
     id: 'deku-inktober-25',
     title: 'Deku — Dark Hero Split Portrait',
-    category: 'Stylized Illustration • Inktober',
-    clientType: 'Featured Illustration (MERURI_ART)',
+    category: 'Stylized Illustration · Inktober',
+    clientType: 'Illustration · meru_art',
     src: '/art/meru-art-deku-fanart-inktober-25.webp',
     description:
       'High-contrast split portrait juxtaposing Izuku Midoriya’s classic expression with his Dark Hero mask silhouette and One For All lightning effects.',
@@ -30,7 +30,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'meru-character-sheet',
     title: 'Meru — Character Reference Sheet',
     category: 'Character Sheet & Expressions',
-    clientType: 'Original Concept Sheet (MERURI_ART)',
+    clientType: 'Concept Sheet · meru_art',
     src: '/art/meru-art-meru.webp',
     description:
       'Complete character design sheet demonstrating full-body proportions, multi-angle head turnarounds, expression studies, and chibi mascot variants.',
@@ -39,7 +39,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'velimer-dnd',
     title: 'Velimer — D&D Character Portrait',
     category: 'Fantasy Character Illustration',
-    clientType: 'Private Client Commission (MERURI_ART)',
+    clientType: 'Commission · meru_art',
     src: '/art/meru-art-velimer-dnd.webp',
     description:
       'Half-body character commission featuring custom horn silhouettes, heterochromia detail, and dynamic cape linework tailored to the player’s campaign brief.',
@@ -48,7 +48,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'frieren-party-march',
     title: 'Frieren, Stark & Fern — Journey Scene',
     category: 'Multi-Character Scene Illustration',
-    clientType: 'Featured Illustration (MERURI_ART)',
+    clientType: 'Illustration · meru_art',
     src: '/art/meru-art-frieren-bg-fanart.webp',
     description:
       'Wide horizontal scene capturing character personality and stride rhythm across Frieren, Stark, and Fern.',
@@ -57,7 +57,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'loona-commission',
     title: 'Loona — Stylized Academia Portrait',
     category: 'Expressive Character Commission',
-    clientType: 'Private Client Commission (MERURI_ART)',
+    clientType: 'Commission · meru_art',
     src: '/art/meru-art-loona-helluva-commission.webp',
     description:
       'Bust commission emphasizing expressive facial acting, custom outfit styling, and accessory detailing.',
@@ -66,7 +66,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'kitsunegem-fullbody',
     title: 'KitsuneGem — Full-Body Design',
     category: 'Original Character & Costume Design',
-    clientType: 'Private Client Commission (MERURI_ART)',
+    clientType: 'Commission · meru_art',
     src: '/art/meru-art-kitsunegem-full-body.webp',
     description:
       'Full-body character illustration combining playful pastel candy motifs, expressive pose silhouette, and multi-tail composition.',
@@ -75,7 +75,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'academy-uniform',
     title: 'Military Academy Uniform Concept',
     category: 'Full-Body Stylized Illustration',
-    clientType: 'Private Client Commission (MERURI_ART)',
+    clientType: 'Commission · meru_art',
     src: '/art/meru-art-commission-art.webp',
     description:
       'Stylized full-body character piece emphasizing intricate curl textures, gold-trimmed uniform tailoring, and confident character posing.',
@@ -84,7 +84,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'floral-mask',
     title: 'Floral Mask — Half-Body Portrait',
     category: 'Stylized Portrait Commission',
-    clientType: 'Private Client Commission (MERURI_ART)',
+    clientType: 'Commission · meru_art',
     src: '/art/meru-art-commission-art-1-2.webp',
     description:
       'High-contrast character portrait balancing warm coral suit tones against a minimalist botanical mask motif.',
@@ -93,7 +93,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'robin-egghead',
     title: 'Nico Robin — Egghead Arc',
     category: 'Full-Body Character Illustration',
-    clientType: 'Featured Illustration (MERURI_ART)',
+    clientType: 'Illustration · meru_art',
     src: '/art/meru-art-robin-egghex-1.webp',
     description:
       'Clean full-body character rendering highlighting glossy jacket materials, futuristic boots, and crisp lineweight.',
@@ -102,7 +102,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'momo-ayase-study',
     title: 'Momo Ayase — Dynamic Pose Study',
     category: 'Figure & Lighting Study',
-    clientType: 'Featured Illustration (MERURI_ART)',
+    clientType: 'Illustration · meru_art',
     src: '/art/meru-art-momo-ayase.webp',
     description:
       'Dynamic figure study focusing on upper-body foreshortening, soft cel-shaded skin tones, and anatomical flow.',

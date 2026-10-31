@@ -24,11 +24,11 @@ export function Navbar() {
         aria-label="Main navigation"
         className="mx-auto flex h-full max-w-[1160px] items-center justify-between px-4 sm:px-6 lg:px-8"
       >
-        {/* Brand / Logo -> scrolls to #hero */}
+        {/* Brand */}
         <a
           href="#hero"
           onClick={closeMenu}
-          className="font-mono text-sm font-medium tracking-wider text-text transition-colors hover:text-accent"
+          className="font-mono text-sm font-semibold tracking-wider text-text transition-colors hover:text-accent"
         >
           MHELRIC<span className="text-accent">.DEV</span>
         </a>
@@ -48,9 +48,9 @@ export function Navbar() {
           <li>
             <a
               href="#contact"
-              className="rounded-lg border border-border bg-surface px-3.5 py-1.5 font-mono text-xs text-text transition-colors hover:border-accent/60 hover:text-accent"
+              className="rounded-lg border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-text transition-colors hover:border-white/25"
             >
-              Hire / Collaborate
+              Get in Touch
             </a>
           </li>
         </ul>
@@ -61,11 +61,9 @@ export function Navbar() {
           onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-expanded={isMenuOpen}
           aria-label="Toggle navigation menu"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-muted transition-colors hover:text-text md:hidden"
+          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:text-text md:hidden"
         >
-          <span className="font-mono text-xs">
-            {isMenuOpen ? 'CLOSE ✕' : 'MENU ☰'}
-          </span>
+          {isMenuOpen ? 'Close' : 'Menu'}
         </button>
       </nav>
 
@@ -78,7 +76,7 @@ export function Navbar() {
                 <a
                   href={link.href}
                   onClick={closeMenu}
-                  className="block rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-bg/60 hover:text-accent"
+                  className="block rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-bg/60 hover:text-text"
                 >
                   {link.label}
                 </a>
@@ -88,9 +86,9 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={closeMenu}
-                className="block w-full rounded-lg bg-accent py-2.5 text-center font-mono text-xs font-medium text-white transition-opacity hover:opacity-90"
+                className="block w-full rounded-lg bg-accent py-2.5 text-center text-xs font-medium text-white transition-opacity hover:opacity-90"
               >
-                Hire / Collaborate →
+                Get in Touch
               </a>
             </li>
           </ul>

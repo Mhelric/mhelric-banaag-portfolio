@@ -59,7 +59,6 @@ export function ArtGallery() {
     )
   }
 
-  // Keyboard support inside modals (Esc, Left, Right)
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -83,42 +82,42 @@ export function ArtGallery() {
   return (
     <section
       id="art"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-12 sm:py-16"
+      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
       aria-labelledby="art-heading"
     >
       {/* Section Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="font-mono text-xs uppercase tracking-widest text-accent">
-            02 // Art & Illustration
+          <p className="text-xs font-medium uppercase tracking-widest text-accent">
+            Illustration &amp; Character Art
           </p>
           <h2
             id="art-heading"
-            className="mt-1.5 text-2xl font-semibold tracking-tight text-text sm:mt-2 sm:text-3xl"
+            className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
           >
-            Commercial Art & Character Design
+            Selected Artwork
           </h2>
-          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted sm:text-sm">
-            Five years of freelance commission work (<span className="font-mono text-text">MERURI_ART</span>) and currently contracted with{' '}
-            <span className="font-medium text-text">TopDeck Studio</span>—translating client briefs into polished visual assets.
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+            Five years of freelance commissions (<span className="font-medium text-text">meru_art</span>) and currently contracted with{' '}
+            <span className="font-medium text-text">TopDeck Studio</span>.
           </p>
         </div>
 
-        {/* Header Actions: Lightbox + ArtStation */}
+        {/* Header Actions */}
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             type="button"
             onClick={() => setActiveIndex(0)}
-            className="rounded-lg border border-border bg-surface px-3.5 py-2 font-mono text-xs text-text transition-colors hover:border-accent/60 hover:text-accent"
+            className="rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text transition-colors hover:border-accent/60 hover:text-accent"
           >
-            Open Lightbox ({totalArtworks})
+            View All ({totalArtworks})
           </button>
 
           <a
             href={ARTSTATION_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3.5 py-2 font-mono text-xs text-muted transition-colors hover:border-accent/60 hover:text-text"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-muted transition-colors hover:border-accent/60 hover:text-text"
           >
             ArtStation ↗
           </a>
@@ -135,9 +134,8 @@ export function ArtGallery() {
               key={art.id}
               type="button"
               onClick={() => setActiveIndex(index)}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface text-left transition-all hover:-translate-y-1 hover:border-accent/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface text-left transition-all hover:-translate-y-0.5 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              {/* Thumbnail Aspect Container */}
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-bg">
                 <img
                   src={art.src}
@@ -147,25 +145,23 @@ export function ArtGallery() {
                 />
 
                 {isLastPreviewWithMore && (
-                  <div className="absolute top-2.5 right-2.5 rounded-md border border-border bg-bg/85 px-2 py-0.5 font-mono text-[11px] font-medium text-accent backdrop-blur-sm">
-                    +{extraCount} More
+                  <div className="absolute top-2.5 right-2.5 rounded-md border border-white/15 bg-black/80 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-md">
+                    +{extraCount} more
                   </div>
                 )}
 
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[1px] transition-opacity duration-200 group-hover:opacity-100">
-                  <span className="rounded-lg bg-accent px-3 py-1.5 font-mono text-[11px] font-medium text-white shadow-lg">
-                    Inspect Artwork ↗
+                <div className="absolute inset-0 flex items-center justify-center bg-black/45 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  <span className="rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-black shadow-lg">
+                    View Piece
                   </span>
                 </div>
               </div>
 
-              {/* Compact Card Footer */}
               <div className="p-3 sm:p-3.5">
-                <p className="truncate font-mono text-[10px] text-accent sm:text-[11px]">
+                <p className="truncate text-[11px] text-muted">
                   {art.category}
                 </p>
-                <h3 className="mt-0.5 truncate text-xs font-medium text-text sm:text-sm">
+                <h3 className="mt-0.5 truncate text-xs font-semibold text-text sm:text-sm">
                   {art.title}
                 </h3>
               </div>
@@ -174,68 +170,64 @@ export function ArtGallery() {
         })}
       </div>
 
-      {/* Commission Callout Strip */}
-      <div className="mt-5 flex flex-col items-start justify-between gap-4 rounded-xl border border-accent/30 bg-surface px-4 py-4 sm:mt-6 lg:flex-row lg:items-center sm:px-6">
-        <div className="flex items-start gap-3 sm:items-center">
-          <span className="mt-1 flex h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400 sm:mt-0"></span>
-          <div>
-            <p className="text-xs font-medium text-text sm:text-sm">
-              Want to commission custom art? Click here to see pricing, rates &amp; terms.
-            </p>
-            <p className="mt-0.5 text-[11px] text-muted sm:text-xs">
-              5+ years delivering character portraits, full-body designs, and studio assets under <span className="font-mono text-text">MERURI_ART</span>.
-            </p>
-          </div>
+      {/* Clean Commission Strip */}
+      <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-border pt-5 sm:flex-row sm:items-center">
+        <div>
+          <p className="text-sm font-medium text-text">
+            Looking to commission custom character art or illustrations?
+          </p>
+          <p className="mt-0.5 text-xs text-muted">
+            Open for portraits, full-body character designs, and studio assets under <span className="text-text">meru_art</span>.
+          </p>
         </div>
 
-        <div className="flex w-full flex-wrap items-center gap-2.5 lg:w-auto">
+        <div className="flex w-full items-center gap-2.5 sm:w-auto">
           <button
             type="button"
             onClick={() => setIsCommissionModalOpen(true)}
-            className="flex-1 rounded-lg border border-border bg-bg px-3.5 py-2 text-center font-mono text-xs text-text transition-colors hover:border-accent/60 hover:text-accent sm:flex-initial"
+            className="flex-1 whitespace-nowrap rounded-lg border border-border bg-surface px-4 py-2 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial"
           >
-            Quick Overview
+            Pricing &amp; Info
           </button>
 
           <a
             href={CARRD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 rounded-lg bg-accent px-4 py-2 text-center font-mono text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
+            className="flex-1 whitespace-nowrap rounded-lg bg-accent px-4 py-2 text-center text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
           >
-            Commission Sheet (Carrd) ↗
+            Commission Sheet ↗
           </a>
         </div>
       </div>
 
-      {/* Modal 1: Full-Screen Artwork Lightbox */}
+      {/* Modal 1: Fixed-Bounds Full-Screen Lightbox */}
       {activeArtwork && activeIndex !== null && (
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="lightbox-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 backdrop-blur-md sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-3 backdrop-blur-md sm:p-6"
           onClick={() => setActiveIndex(null)}
         >
           <div
             className="flex max-h-[90svh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Top Bar */}
-            <div className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-6">
-              <div className="flex items-center gap-3">
-                <span className="rounded-md border border-accent/30 bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
-                  {String(activeIndex + 1).padStart(2, '0')} /{' '}
-                  {String(totalArtworks).padStart(2, '0')}
+            {/* Modal Top Bar (No awkward line wrapping on phone) */}
+            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-6">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="shrink-0 whitespace-nowrap rounded-md border border-border bg-bg px-2.5 py-1 font-mono text-xs text-muted">
+                  {String(activeIndex + 1).padStart(2, '0')} / {String(totalArtworks).padStart(2, '0')}
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h3
                     id="lightbox-title"
-                    className="text-sm font-semibold text-text sm:text-base"
+                    className="truncate text-sm font-semibold text-text sm:text-base"
                   >
                     {activeArtwork.title}
                   </h3>
-                  <p className="font-mono text-[11px] text-muted">
+                  <p className="truncate text-xs text-muted">
                     {activeArtwork.clientType}
                   </p>
                 </div>
@@ -244,19 +236,19 @@ export function ArtGallery() {
               <button
                 type="button"
                 onClick={() => setActiveIndex(null)}
-                className="rounded-lg border border-border bg-bg px-2.5 py-1 font-mono text-xs text-muted transition-colors hover:text-text"
+                className="shrink-0 whitespace-nowrap rounded-lg border border-border bg-bg px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:text-text"
               >
-                ESC ✕
+                Close ✕
               </button>
             </div>
 
-            {/* Modal Main Body: Image + Prev/Next Controls */}
-            <div className="relative flex min-h-0 flex-1 items-center justify-center bg-bg/90 p-4 sm:p-6">
+            {/* Modal Image Stage (Strictly contained so image never overflows) */}
+            <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-bg p-3 sm:p-6">
               <button
                 type="button"
                 onClick={showPrev}
                 aria-label="Previous artwork"
-                className="absolute left-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/90 font-mono text-sm text-text shadow-lg transition-colors hover:border-accent sm:left-5 sm:h-10 sm:w-10"
+                className="absolute left-2.5 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/75 text-sm text-white backdrop-blur-sm transition-colors hover:border-accent sm:left-5 sm:h-10 sm:w-10"
               >
                 ←
               </button>
@@ -264,27 +256,27 @@ export function ArtGallery() {
               <img
                 src={activeArtwork.src}
                 alt={activeArtwork.title}
-                className="max-h-[54svh] w-auto max-w-full rounded-lg object-contain shadow-xl"
+                className="max-h-[42svh] w-auto max-w-full rounded-lg object-contain sm:max-h-[54svh]"
               />
 
               <button
                 type="button"
                 onClick={showNext}
                 aria-label="Next artwork"
-                className="absolute right-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/90 font-mono text-sm text-text shadow-lg transition-colors hover:border-accent sm:right-5 sm:h-10 sm:w-10"
+                className="absolute right-2.5 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/75 text-sm text-white backdrop-blur-sm transition-colors hover:border-accent sm:right-5 sm:h-10 sm:w-10"
               >
                 →
               </button>
             </div>
 
-            {/* Modal Footer: Description + Thumbnail Strip + External Links */}
-            <div className="border-t border-border bg-surface px-4 py-3.5 sm:px-6">
-              <p className="text-xs leading-relaxed text-muted sm:text-sm">
+            {/* Modal Footer */}
+            <div className="shrink-0 border-t border-border bg-surface px-4 py-3.5 sm:px-6">
+              <p className="line-clamp-2 text-xs leading-relaxed text-muted sm:line-clamp-none sm:text-sm">
                 {activeArtwork.description}
               </p>
 
-              <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                {/* Mini Filmstrip Thumbnails */}
+              <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                {/* Thumbnail Strip */}
                 <div className="flex items-center gap-2 overflow-x-auto pb-1">
                   {ARTWORKS.map((item, idx) => {
                     const isCurrent = idx === activeIndex
@@ -297,7 +289,7 @@ export function ArtGallery() {
                         className={`relative h-11 w-11 shrink-0 overflow-hidden rounded-lg border transition-all ${
                           isCurrent
                             ? 'border-accent ring-2 ring-accent/40'
-                            : 'border-border opacity-50 hover:opacity-100'
+                            : 'border-border opacity-45 hover:opacity-100'
                         }`}
                       >
                         <img
@@ -310,21 +302,21 @@ export function ArtGallery() {
                   })}
                 </div>
 
-                {/* External Portfolio Links inside Lightbox */}
-                <div className="flex items-center gap-2">
+                {/* External Portfolio Links (Never wrap arrows onto a new line) */}
+                <div className="flex shrink-0 items-center gap-2">
                   <a
                     href={ARTSTATION_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border border-border bg-bg px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:border-accent/60 hover:text-text"
+                    className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-3.5 py-2 text-center text-xs font-medium text-muted transition-colors hover:text-text sm:flex-initial"
                   >
-                    More on ArtStation ↗
+                    ArtStation ↗
                   </a>
                   <a
                     href={CARRD_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg bg-accent px-3 py-1.5 font-mono text-xs font-medium text-white transition-opacity hover:opacity-90"
+                    className="flex-1 whitespace-nowrap rounded-lg bg-accent px-3.5 py-2 text-center text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
                   >
                     Commission Rates ↗
                   </a>
@@ -335,7 +327,7 @@ export function ArtGallery() {
         </div>
       )}
 
-      {/* Modal 2: Commission Details & Workflow Modal */}
+      {/* Modal 2: Commission Details & Pricing Modal */}
       {isCommissionModalOpen && (
         <div
           role="dialog"
@@ -348,65 +340,59 @@ export function ArtGallery() {
             className="max-h-[88svh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-2xl sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
             <div className="flex items-start justify-between gap-4 border-b border-border pb-4">
               <div>
-                <p className="font-mono text-xs uppercase tracking-wider text-accent">
-                  MERURI_ART // Commissions Open
+                <p className="text-xs font-medium uppercase tracking-wider text-accent">
+                  meru_art · Commissions Open
                 </p>
                 <h3
                   id="commission-modal-title"
-                  className="mt-1 text-lg font-semibold text-text sm:text-2xl"
+                  className="mt-1 text-lg font-bold text-text sm:text-2xl"
                 >
-                  Commission Guide & Workflow
+                  Commission Guide &amp; Pricing
                 </h3>
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsCommissionModalOpen(false)}
-                className="shrink-0 rounded-lg border border-border bg-bg px-2.5 py-1 font-mono text-xs text-muted hover:text-text"
+                className="shrink-0 whitespace-nowrap rounded-lg border border-border bg-bg px-3 py-1.5 text-xs font-medium text-muted hover:text-text"
               >
-                ESC ✕
+                Close ✕
               </button>
             </div>
 
-                        {/* Commission Offerings */}
             <div className="mt-5">
               <div className="flex items-center justify-between">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-accent">
-                  Available Formats &amp; Base Pricing
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted">
+                  Formats &amp; Base Rates
                 </h4>
-                <span className="font-mono text-[11px] text-muted">
-                  USD • Base Price
-                </span>
+                <span className="font-mono text-xs text-muted">USD</span>
               </div>
 
               <div className="mt-3 grid grid-cols-1 gap-3">
                 {COMMISSION_TIERS.map((tier) => (
                   <div
                     key={tier.name}
-                    className="flex items-center justify-between gap-4 rounded-xl border border-border bg-bg/70 p-4 transition-colors hover:border-accent/40 sm:px-5"
+                    className="flex items-center justify-between gap-4 rounded-xl border border-border bg-bg/70 p-4 sm:px-5"
                   >
-                    {/* Left Side: Tier Details */}
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-semibold text-text sm:text-base">
                         {tier.name}
                       </p>
-                      <p className="mt-0.5 text-xs text-accent">
+                      <p className="mt-0.5 text-xs font-medium text-accent">
                         {tier.idealFor}
                       </p>
-                      <p className="mt-1.5 text-xs leading-relaxed text-muted">
+                      <p className="mt-1 text-xs leading-relaxed text-muted">
                         {tier.includes}
                       </p>
                     </div>
 
-                    {/* Right Side: Huge Highlighted Base Price */}
                     <div className="shrink-0 border-l border-border pl-4 text-right sm:pl-6">
-                      <p className="font-mono text-2xl font-bold tracking-tight text-accent sm:text-4xl">
+                      <p className="font-mono text-2xl font-bold tracking-tight text-text sm:text-4xl">
                         {tier.price}
                       </p>
-                      <p className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                      <p className="text-[10px] uppercase tracking-wider text-muted">
                         Base Price
                       </p>
                     </div>
@@ -415,10 +401,9 @@ export function ArtGallery() {
               </div>
             </div>
 
-            {/* Process Steps */}
             <div className="mt-6">
-              <h4 className="font-mono text-xs uppercase tracking-wider text-accent">
-                How We Work Together
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted">
+                Process
               </h4>
               <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {WORKFLOW_STEPS.map((item) => (
@@ -427,9 +412,9 @@ export function ArtGallery() {
                     className="rounded-xl border border-border bg-bg/40 p-3.5"
                   >
                     <span className="font-mono text-xs text-accent">
-                      Step {item.step}
+                      {item.step}
                     </span>
-                    <p className="mt-1 text-xs font-medium text-text sm:text-sm">
+                    <p className="mt-1 text-xs font-semibold text-text sm:text-sm">
                       {item.title}
                     </p>
                     <p className="mt-1 text-xs leading-relaxed text-muted">
@@ -440,22 +425,21 @@ export function ArtGallery() {
               </div>
             </div>
 
-            {/* Footer CTAs: ArtStation + Carrd */}
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
               <a
                 href={ARTSTATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 rounded-lg border border-border bg-bg px-4 py-2.5 text-center font-mono text-xs text-text transition-colors hover:border-accent/60 hover:text-accent sm:flex-initial"
+                className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2.5 text-center text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial"
               >
-                Full ArtStation Portfolio ↗
+                ArtStation Portfolio ↗
               </a>
 
               <a
                 href={CARRD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 rounded-lg bg-accent px-5 py-2.5 text-center font-mono text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
+                className="flex-1 whitespace-nowrap rounded-lg bg-accent px-5 py-2.5 text-center text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
               >
                 Open Commission Sheet (Carrd) ↗
               </a>

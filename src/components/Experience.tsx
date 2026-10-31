@@ -1,3 +1,5 @@
+import { Reveal } from './Reveal'
+
 interface TimelineItem {
   id: string
   role: string
@@ -16,7 +18,7 @@ const EXPERIENCE_ITEMS: TimelineItem[] = [
     role: 'Illustrator',
     organization: 'TopDeck Studio',
     location: 'Limassol, Cyprus · Remote',
-    period: 'Jan 2026 – Present',
+    period: 'Jan 2026 — Present',
     type: 'Contract',
     current: true,
     highlights: [
@@ -30,7 +32,7 @@ const EXPERIENCE_ITEMS: TimelineItem[] = [
     role: 'Back End Developer Intern',
     organization: 'Incub8 Space',
     location: 'Kawit, Cavite · Hybrid',
-    period: 'Jul 2025 – Aug 2025',
+    period: 'Jul 2025 — Aug 2025',
     type: 'Internship',
     highlights: [
       'Engineered and maintained backend services, relational database schemas, and authentication flows using Supabase and PostgreSQL.',
@@ -39,44 +41,44 @@ const EXPERIENCE_ITEMS: TimelineItem[] = [
     tags: ['Supabase', 'PostgreSQL', 'Backend Development', 'Database Design', 'REST APIs'],
   },
   {
-    id: 'meruri-art-freelance',
+    id: 'meru-art-freelance',
     role: 'Freelance Digital Artist',
-    organization: 'MERURI_ART · Self-Employed',
+    organization: 'meru_art',
     location: 'Philippines · Remote',
-    period: 'Apr 2022 – Present',
-    type: 'Freelance',
+    period: 'Apr 2022 — Present',
+    type: 'Self-Employed',
     current: true,
     highlights: [
-      'Over 4.5+ years delivering commissioned character designs, reference sheets, D&D portraits, and promotional illustrations.',
+      'Over 4.5 years delivering commissioned character designs, reference sheets, D&D portraits, and promotional illustrations.',
       'Manage full client lifecycle including project scoping, pricing tiers, staged sketch/color approvals, and final asset delivery.',
     ],
     tags: ['Commissioned Art', 'Digital Art', 'Client Communication', 'Project Management'],
   },
   {
     id: 'cvsu-bscs',
-    role: 'Bachelor of Science in Computer Science (BSCS)',
+    role: 'BS in Computer Science',
     organization: 'Cavite State University – Cavite City Campus',
     location: 'Cavite City, Philippines',
-    period: 'Aug 2022 – Sep 2026',
+    period: 'Aug 2022 — Sep 2026',
     type: 'Education',
     highlights: [
-      'Completed BSCS degree focusing on software engineering, relational databases, web application architecture, and algorithms.',
+      'Completed Bachelor of Science in Computer Science focusing on software engineering, relational databases, web application architecture, and algorithms.',
     ],
-    tags: ['BS Computer Science', 'Software Engineering', 'Web Development', 'Data Structures'],
+    tags: ['Computer Science', 'Software Engineering', 'Web Development', 'Data Structures'],
   },
   {
     id: 'mcdonalds-crew',
     role: 'Service Crew',
     organization: "McDonald's (087 Cavite City)",
     location: 'Cavite City · On-site',
-    period: 'Feb 2025 – Present',
+    period: 'Feb 2025 — Present',
     type: 'Part-Time',
     current: true,
     highlights: [
       'Deliver fast, accurate customer service and team coordination in a high-pressure environment while balancing university studies and remote creative contracts.',
-      'Previously served as Part-Time Service Crew at Chowking (Kawit, Cavite · Aug 2022 – Nov 2022), maintaining strict quality and operational standards during peak store hours.',
+      'Previously served as Part-Time Service Crew at Chowking (Kawit, Cavite · Aug 2022 – Nov 2022), maintaining strict quality and operational standards during peak hours.',
     ],
-    tags: ['Customer Service', 'Team Collaboration', 'High-Pressure Operations', 'Time Management'],
+    tags: ['Customer Service', 'Team Collaboration', 'Operations', 'Time Management'],
   },
 ]
 
@@ -84,100 +86,96 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-12 sm:py-16"
+      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
       aria-labelledby="experience-heading"
     >
-      {/* Section Header */}
-      <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-accent">
-          03 // Experience &amp; Education
-        </p>
-        <h2
-          id="experience-heading"
-          className="mt-1.5 text-2xl font-semibold tracking-tight text-text sm:mt-2 sm:text-3xl"
-        >
-          Experience &amp; Academic Background
-        </h2>
-        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted sm:text-sm">
-          Combining a BSCS degree from Cavite State University and backend internship experience with an international studio contract and 4.5+ years of freelance art delivery.
-        </p>
-      </div>
+      <Reveal>
+        <div>
+          <p className="text-xs font-medium uppercase tracking-widest text-accent">
+            Experience &amp; Education
+          </p>
+          <h2
+            id="experience-heading"
+            className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
+          >
+            Career &amp; Academic Background
+          </h2>
+          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted sm:text-sm">
+            Combining a Computer Science degree and backend internship experience with an international studio contract and 4.5+ years of freelance art delivery.
+          </p>
+        </div>
+      </Reveal>
 
-      {/* Vertical Timeline */}
-      <div className="mt-8 border-l border-border pl-6 sm:mt-10 sm:pl-8">
-        <div className="space-y-5 sm:space-y-6">
-          {EXPERIENCE_ITEMS.map((item) => (
-            <article
-              key={item.id}
-              className="relative rounded-xl border border-border bg-surface/70 p-5 transition-colors hover:border-border/90 sm:p-6"
-            >
-              {/* Timeline Dot on the Left Line */}
-              <span
-                aria-hidden="true"
-                className={`absolute top-6 -left-[29px] h-2.5 w-2.5 rounded-full border sm:-left-[37px] ${
-                  item.current
-                    ? 'border-emerald-400 bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]'
-                    : 'border-accent bg-bg'
-                }`}
-              />
+      {/* Modern Gradient Timeline Track */}
+      <div className="relative mt-8 pl-6 before:absolute before:top-2 before:bottom-2 before:left-0 before:w-px before:bg-gradient-to-b before:from-accent before:via-border before:to-transparent sm:mt-10 sm:pl-8">
+        <div className="space-y-4 sm:space-y-5">
+          {EXPERIENCE_ITEMS.map((item, index) => (
+            <Reveal key={item.id} delayMs={index * 80}>
+              <article className="group relative rounded-2xl border border-border bg-surface/80 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-accent/40 hover:bg-surface sm:p-6">
+                {/* Timeline Node */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute top-6 -left-[29px] h-2.5 w-2.5 rounded-full border transition-transform duration-300 group-hover:scale-125 sm:-left-[37px] ${
+                    item.current
+                      ? 'border-accent bg-accent shadow-[0_0_10px_rgba(79,140,255,0.6)]'
+                      : 'border-muted bg-bg'
+                  }`}
+                />
 
-              {/* Top Meta Row: Organization + Location + Period Badge */}
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                  <span className="font-mono text-xs font-medium text-accent">
-                    {item.organization}
-                  </span>
-                  <span className="text-muted">•</span>
-                  <span className="font-mono text-xs text-text">
-                    {item.type}
-                  </span>
-                  <span className="hidden text-muted sm:inline">•</span>
-                  <span className="w-full font-mono text-[11px] text-muted sm:w-auto">
-                    {item.location}
+                {/* Header Row: Role + Organization on Left, Date Pill on Right */}
+                <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-base font-bold text-text sm:text-lg">
+                        {item.role}
+                      </h3>
+                      <span className="rounded-md border border-border bg-bg/80 px-2 py-0.5 text-[11px] font-medium text-muted">
+                        {item.type}
+                      </span>
+                    </div>
+
+                    <p className="mt-1 text-xs font-medium text-accent sm:text-sm">
+                      {item.organization}{' '}
+                      <span className="font-normal text-muted">
+                        · {item.location}
+                      </span>
+                    </p>
+                  </div>
+
+                  <span
+                    className={`self-start whitespace-nowrap rounded-full border px-3 py-1 font-mono text-[11px] ${
+                      item.current
+                        ? 'border-accent/30 bg-accent/10 text-accent'
+                        : 'border-border bg-bg/60 text-muted'
+                    }`}
+                  >
+                    {item.period}
                   </span>
                 </div>
 
-                <span
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[11px] ${
-                    item.current
-                      ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                      : 'border-border bg-bg/60 text-muted'
-                  }`}
-                >
-                  {item.current && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                  )}
-                  {item.period}
-                </span>
-              </div>
+                {/* Highlights */}
+                <ul className="mt-3.5 space-y-1.5 text-xs leading-relaxed text-muted sm:text-sm">
+                  {item.highlights.map((point) => (
+                    <li key={point} className="flex items-start gap-2.5">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent/80" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
 
-              {/* Role Title */}
-              <h3 className="mt-2 text-base font-semibold text-text sm:text-lg">
-                {item.role}
-              </h3>
-
-              {/* Bullet Highlights */}
-              <ul className="mt-2.5 space-y-1.5 text-xs leading-relaxed text-muted sm:text-sm">
-                {item.highlights.map((point) => (
-                  <li key={point} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"></span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Skill / Competency Tags */}
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {item.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-md border border-border bg-bg px-2.5 py-0.5 font-mono text-[11px] text-muted"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </article>
+                {/* Clean Skill Pills */}
+                <div className="mt-4 flex flex-wrap gap-1.5 border-t border-border/60 pt-3.5">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-border bg-bg/70 px-2.5 py-1 text-[11px] font-medium text-muted transition-colors group-hover:text-text/90"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -33,7 +33,6 @@ export function Projects() {
     setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1))
   }
 
-  // Mobile touch-swipe support
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchStartX(e.targetTouches[0].clientX)
   }
@@ -51,7 +50,6 @@ export function Projects() {
     setTouchStartX(null)
   }
 
-  // Keyboard shortcuts: Escape closes modal, Left/Right arrows navigate carousel
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -69,25 +67,24 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-12 sm:py-16"
+      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
       aria-labelledby="projects-heading"
     >
       {/* Section Header + Carousel Controls */}
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="font-mono text-xs uppercase tracking-widest text-accent">
-            01 // Projects
+          <p className="text-xs font-medium uppercase tracking-widest text-accent">
+            Projects
           </p>
           <h2
             id="projects-heading"
-            className="mt-1.5 text-2xl font-semibold tracking-tight text-text sm:mt-2 sm:text-3xl"
+            className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
           >
             Featured Projects
           </h2>
         </div>
 
-        {/* Carousel Prev / Next Controls */}
-        <div className="flex shrink-0 items-center gap-2.5 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <span className="font-mono text-xs text-muted">
             {String(currentIndex + 1).padStart(2, '0')} /{' '}
             {String(totalSlides).padStart(2, '0')}
@@ -98,17 +95,17 @@ export function Projects() {
               type="button"
               onClick={prevSlide}
               aria-label="Previous project"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface font-mono text-sm text-muted transition-colors hover:border-accent/60 hover:text-text sm:h-9 sm:w-9"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-sm text-muted transition-colors hover:border-white/25 hover:text-text sm:h-9 sm:w-9"
             >
-              ←
+              Prev
             </button>
             <button
               type="button"
               onClick={nextSlide}
               aria-label="Next project"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface font-mono text-sm text-muted transition-colors hover:border-accent/60 hover:text-text sm:h-9 sm:w-9"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-sm text-muted transition-colors hover:border-white/25 hover:text-text sm:h-9 sm:w-9"
             >
-              →
+              Next
             </button>
           </div>
         </div>
@@ -128,7 +125,7 @@ export function Projects() {
             const isShipped = project.status === 'shipped'
             const cleanDomain = project.liveUrl
               ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
-              : 'preview-pending.local'
+              : 'In development'
 
             return (
               <article
@@ -136,23 +133,20 @@ export function Projects() {
                 className="w-full shrink-0 p-4 sm:p-6 lg:p-8"
               >
                 <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-8">
-                  {/* Left Column: Larger Vercel-Style Live Site Preview Box */}
+                  {/* Left Column: Website Preview Box */}
                   <div className="lg:col-span-7">
                     <div className="overflow-hidden rounded-lg border border-border bg-bg shadow-lg">
-                      {/* Mini Browser / Vercel Frame Header */}
-                      <div className="flex items-center justify-between border-b border-border bg-surface/90 px-3 py-2">
-                        <div className="flex items-center gap-1.5">
-                          <span className="h-2 w-2 rounded-full bg-rose-500/70"></span>
-                          <span className="h-2 w-2 rounded-full bg-amber-400/70"></span>
-                          <span className="h-2 w-2 rounded-full bg-emerald-400/70"></span>
-                        </div>
-                        <span className="truncate font-mono text-[10px] text-muted sm:text-[11px]">
+                      <div className="flex items-center justify-between border-b border-border bg-surface/90 px-3.5 py-2">
+                        <span className="truncate font-mono text-[11px] text-muted">
                           {cleanDomain}
                         </span>
-                        <span className="w-6"></span>
+                        {isShipped && (
+                          <span className="text-[11px] font-medium text-emerald-400">
+                            Live
+                          </span>
+                        )}
                       </div>
 
-                      {/* 16:10 Preview Viewport */}
                       {isShipped && project.liveUrl ? (
                         <a
                           href={project.liveUrl}
@@ -168,16 +162,15 @@ export function Projects() {
                             tabIndex={-1}
                             className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
                           />
-                          {/* Subtle Hover Overlay */}
                           <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
-                            <span className="rounded-lg bg-accent px-3.5 py-1.5 font-mono text-xs font-medium text-white shadow-lg">
-                              Visit Live Site ↗
+                            <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
+                              Visit Live Site
                             </span>
                           </div>
                         </a>
                       ) : (
                         <div className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
-                          <span className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-[11px] text-muted">
+                          <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
                             In Development
                           </span>
                           <p className="max-w-[220px] text-xs text-muted">
@@ -191,26 +184,23 @@ export function Projects() {
                   {/* Right Column: Project Details */}
                   <div className="flex flex-col justify-between lg:col-span-5">
                     <div>
-                      {/* Top Meta Row: Category + Status Badge */}
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="font-mono text-[11px] text-accent sm:text-xs">
+                        <span className="text-xs font-medium text-accent">
                           {project.category}
                         </span>
 
                         {isShipped ? (
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[11px] text-emerald-400">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
                             Live
                           </span>
                         ) : (
-                          <span className="inline-flex items-center rounded-full border border-border bg-bg/60 px-2.5 py-0.5 font-mono text-[11px] text-muted">
+                          <span className="rounded-full border border-border bg-bg/60 px-2.5 py-0.5 text-xs text-muted">
                             In Development
                           </span>
                         )}
                       </div>
 
-                      {/* Title & Summary */}
-                      <h3 className="mt-2.5 text-lg font-semibold tracking-tight text-text sm:mt-3 sm:text-2xl">
+                      <h3 className="mt-2.5 text-lg font-bold tracking-tight text-text sm:mt-3 sm:text-2xl">
                         {project.title}
                       </h3>
                       <p className="mt-2 text-xs leading-relaxed text-muted sm:mt-2.5 sm:text-sm">
@@ -228,7 +218,7 @@ export function Projects() {
                           return (
                             <li
                               key={tech}
-                              className={`rounded-md border px-2 py-0.5 font-mono text-[11px] sm:px-2.5 sm:py-1 sm:text-xs ${badgeStyle}`}
+                              className={`rounded-md border px-2.5 py-1 text-xs font-medium ${badgeStyle}`}
                             >
                               {tech}
                             </li>
@@ -237,7 +227,6 @@ export function Projects() {
                       </ul>
                     </div>
 
-                    {/* Action Links (Responsive on mobile & desktop) */}
                     {isShipped && (
                       <div className="mt-5 flex flex-wrap items-center gap-2.5 border-t border-border pt-4 sm:mt-7 sm:gap-3 sm:pt-5">
                         {project.liveUrl && (
@@ -245,10 +234,9 @@ export function Projects() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent px-3.5 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
+                            className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg bg-accent px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
                           >
                             Live Demo
-                            <span aria-hidden="true">↗</span>
                           </a>
                         )}
 
@@ -257,7 +245,7 @@ export function Projects() {
                             href={project.repoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-bg px-3.5 py-2 font-mono text-xs text-text transition-colors hover:border-accent/60 hover:text-accent sm:flex-initial"
+                            className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial"
                           >
                             GitHub Repo
                           </a>
@@ -267,9 +255,9 @@ export function Projects() {
                           <button
                             type="button"
                             onClick={() => setSelectedProject(project)}
-                            className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-bg px-3.5 py-2 font-mono text-xs text-muted transition-colors hover:border-accent/60 hover:text-text sm:ml-auto sm:w-auto"
+                            className="inline-flex w-full whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text sm:ml-auto sm:w-auto"
                           >
-                            Read Case Study →
+                            Read Case Study
                           </button>
                         )}
                       </div>
@@ -306,21 +294,21 @@ export function Projects() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="case-study-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 backdrop-blur-sm sm:p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 backdrop-blur-sm sm:p-4"
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="max-h-[85svh] w-full max-w-2xl overflow-y-auto rounded-xl border border-border bg-surface p-5 shadow-2xl sm:p-8"
+            className="max-h-[85svh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-2xl sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4 border-b border-border pb-4">
               <div>
-                <p className="font-mono text-xs uppercase tracking-wider text-accent">
+                <p className="text-xs font-medium uppercase tracking-wider text-accent">
                   Project Case Study
                 </p>
                 <h3
                   id="case-study-title"
-                  className="mt-1 text-lg font-semibold text-text sm:text-2xl"
+                  className="mt-1 text-lg font-bold text-text sm:text-2xl"
                 >
                   {selectedProject.title}
                 </h3>
@@ -329,15 +317,15 @@ export function Projects() {
               <button
                 type="button"
                 onClick={() => setSelectedProject(null)}
-                className="shrink-0 rounded-lg border border-border bg-bg px-2.5 py-1 font-mono text-xs text-muted hover:text-text"
+                className="shrink-0 whitespace-nowrap rounded-lg border border-border bg-bg px-3 py-1.5 text-xs font-medium text-muted hover:text-text"
               >
-                ESC ✕
+                Close
               </button>
             </div>
 
             <div className="mt-5 space-y-4 text-xs leading-relaxed sm:mt-6 sm:space-y-5 sm:text-sm">
               <div>
-                <h4 className="font-mono text-xs uppercase tracking-wider text-accent">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-text">
                   The Problem
                 </h4>
                 <p className="mt-1.5 text-muted">
@@ -346,7 +334,7 @@ export function Projects() {
               </div>
 
               <div>
-                <h4 className="font-mono text-xs uppercase tracking-wider text-accent">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-text">
                   My Role
                 </h4>
                 <p className="mt-1.5 text-muted">
@@ -355,7 +343,7 @@ export function Projects() {
               </div>
 
               <div>
-                <h4 className="font-mono text-xs uppercase tracking-wider text-accent">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-text">
                   Key Challenges Solved
                 </h4>
                 <p className="mt-1.5 text-muted">
@@ -364,17 +352,17 @@ export function Projects() {
               </div>
 
               <div>
-                <h4 className="font-mono text-xs uppercase tracking-wider text-accent">
-                  Outcome & Impact
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-text">
+                  Outcome
                 </h4>
                 <p className="mt-1.5 text-muted">
                   {selectedProject.caseStudy.outcome}
                 </p>
               </div>
 
-              <div className="rounded-lg border border-border bg-bg/70 p-3.5 sm:p-4">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-text">
-                  AI-Assisted Engineering Workflow
+              <div className="border-t border-border pt-4">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-text">
+                  Development Workflow
                 </h4>
                 <p className="mt-1 text-xs leading-relaxed text-muted">
                   {selectedProject.caseStudy.aiWorkflowNote}
@@ -388,7 +376,7 @@ export function Projects() {
                   href={selectedProject.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 rounded-lg border border-border bg-bg px-4 py-2 text-center font-mono text-xs text-text hover:border-accent/60 sm:flex-initial"
+                  className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2 text-center text-xs font-medium text-text hover:border-white/25 sm:flex-initial"
                 >
                   View Source on GitHub
                 </a>
@@ -398,9 +386,9 @@ export function Projects() {
                   href={selectedProject.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 rounded-lg bg-accent px-4 py-2 text-center text-xs font-medium text-white hover:opacity-90 sm:flex-initial"
+                  className="flex-1 whitespace-nowrap rounded-lg bg-accent px-4 py-2 text-center text-xs font-medium text-white hover:opacity-90 sm:flex-initial"
                 >
-                  Open Live App ↗
+                  Open Live App
                 </a>
               )}
             </div>

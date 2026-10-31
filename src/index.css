@@ -8,8 +8,14 @@
   --color-muted: #8a8a8f;
   --color-accent: #4f8cff;
 
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
 }
 
 body {
