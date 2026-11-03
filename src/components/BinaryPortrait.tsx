@@ -1,13 +1,5 @@
 import { useEffect, useRef } from 'react'
 
-interface BinaryCell {
-  x: number
-  y: number
-  char: '0' | '1'
-  lum: number
-  alpha: number
-}
-
 interface AmbientBit {
   x: number
   y: number
@@ -19,71 +11,9 @@ interface AmbientBit {
   maxLife: number
 }
 
-function samplePortraitCells(
-  img: HTMLImageElement,
-  logicalWidth: number,
-  logicalHeight: number,
-): { cells: BinaryCell[]; edgePoints: { x: number; y: number }[] } {
-  const sampleCanvas = document.createElement('canvas')
-  sampleCanvas.width = logicalWidth
-  sampleCanvas.height = logicalHeight
-  const sampleCtx = sampleCanvas.getContext('2d')
-  const cells: BinaryCell[] = []
-  const edgePoints: { x: number; y: number }[] = []
-
-  if (!sampleCtx) return { cells, edgePoints }
-
-  sampleCtx.drawImage(img, 0, 0, logicalWidth, logicalHeight)
-  const pixels = sampleCtx.getImageData(0, 0, logicalWidth, logicalHeight).data
-
-  const stepX = 6
-  const stepY = 7
-
-  for (let y = 0; y < logicalHeight; y += stepY) {
-    for (let x = 0; x < logicalWidth; x += stepX) {
-      const idx = (y * logicalWidth + x) * 4
-      const r = pixels[idx]
-      const g = pixels[idx + 1]
-      const b = pixels[idx + 2]
-      const a = pixels[idx + 3]
-
-      if (a > 40) {
-        const lum = Math.min(
-          1,
-          Math.max(0.15, ((0.299 * r + 0.587 * g + 0.114 * b) / 255) * 1.25),
-        )
-        cells.push({
-          x,
-          y,
-          char: Math.random() > 0.5 ? '1' : '0',
-          lum,
-          alpha: a / 255,
-        })
-
-        // Detect silhouette edges to spawn subtle floating ambient bits
-        if (a < 210 && y > logicalHeight * 0.18 && y < logicalHeight * 0.88) {
-          edgePoints.push({ x, y })
-        }
-      }
-    }
-  }
-
-  sampleCanvas.width = 0
-  sampleCanvas.height = 0
-  return { cells, edgePoints }
-}
-
 export function BinaryPortrait() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const mouseRef = useRef({
-    targetX: -1000,
-    targetY: -1000,
-    x: -1000,
-    y: -1000,
-    radius: 0,
-    targetRadius: 0,
-  })
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -129,8 +59,7 @@ export function BinaryPortrait() {
       canvas.width = logicalWidth * dpr
       canvas.height = logicalHeight * dpr
 
-      // Pre-scale the portrait once to exact display resolution so we can release
-      // the full 1215x1773 HTMLImageElement (~8.6 MB RGBA bitmap) from memory.
+      // Pre-scale the portrait once to exact display resolution for maximum sharpness & efficiency
       const portraitBuffer = document.createElement('canvas')
       portraitBuffer.width = logicalWidth * dpr
       portraitBuffer.height = logicalHeight * dpr
@@ -139,13 +68,29 @@ export function BinaryPortrait() {
         bufferCtx.drawImage(img, 0, 0, portraitBuffer.width, portraitBuffer.height)
       }
 
-      const { cells, edgePoints } = samplePortraitCells(
-        img,
-        logicalWidth,
-        logicalHeight,
-      )
+      // Sample silhouette outline points once to spawn ambient floating bits
+      const sampleCanvas = document.createElement('canvas')
+      sampleCanvas.width = logicalWidth
+      sampleCanvas.height = logicalHeight
+      const sampleCtx = sampleCanvas.getContext('2d')
+      const edgePoints: { x: number; y: number }[] = []
 
-      // Release original oversized image reference for GC
+      if (sampleCtx) {
+        sampleCtx.drawImage(img, 0, 0, logicalWidth, logicalHeight)
+        const pixels = sampleCtx.getImageData(0, 0, logicalWidth, logicalHeight).data
+        for (let y = Math.round(logicalHeight * 0.15); y < logicalHeight * 0.9; y += 12) {
+          for (let x = 0; x < logicalWidth; x += 10) {
+            const a = pixels[(y * logicalWidth + x) * 4 + 3]
+            if (a > 30 && a < 220) {
+              edgePoints.push({ x, y })
+            }
+          }
+        }
+        sampleCanvas.width = 0
+        sampleCanvas.height = 0
+      }
+
+      // Release image reference
       img.onload = null
       img = null
 
@@ -156,8 +101,8 @@ export function BinaryPortrait() {
             : { x: logicalWidth * 0.5, y: logicalHeight * 0.5 }
         const maxLife = 90 + Math.random() * 90
         return {
-          x: pt.x + (Math.random() - 0.5) * 28,
-          y: pt.y + (Math.random() - 0.5) * 14,
+          x: pt.x + (Math.random() - 0.5) * 32,
+          y: pt.y + (Math.random() - 0.5) * 16,
           vy: -(0.22 + Math.random() * 0.38),
           char: Math.random() > 0.5 ? '1' : '0',
           alpha: 0,
@@ -183,11 +128,6 @@ export function BinaryPortrait() {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
         ctx.clearRect(0, 0, logicalWidth, logicalHeight)
 
-        const m = mouseRef.current
-        m.x += (m.targetX - m.x) * 0.22
-        m.y += (m.targetY - m.y) * 0.22
-        m.radius += (m.targetRadius - m.radius) * 0.16
-
         // 1. Subtle floating binary particles drifting along the silhouette
         ctx.font = '500 8px "JetBrains Mono", monospace'
         ctx.textBaseline = 'middle'
@@ -207,64 +147,8 @@ export function BinaryPortrait() {
           ctx.fillText(bit.char, bit.x, bit.y)
         }
 
-        // 2. Crisp portrait in the foreground (from pre-scaled buffer)
+        // 2. Crisp, static portrait with zero hover x-ray overhead
         ctx.drawImage(portraitBuffer, 0, 0, logicalWidth, logicalHeight)
-
-        // 3. Interactive Binary X-Ray Lens when hovering over the portrait
-        if (m.radius > 1.5) {
-          ctx.save()
-          ctx.beginPath()
-          ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2)
-          ctx.clip()
-
-          // Darken inside the X-Ray lens so the binary matrix pops cleanly
-          ctx.fillStyle = '#0a0a0b'
-          ctx.fillRect(
-            m.x - m.radius,
-            m.y - m.radius,
-            m.radius * 2,
-            m.radius * 2,
-          )
-
-          ctx.globalAlpha = 0.2
-          ctx.drawImage(portraitBuffer, 0, 0, logicalWidth, logicalHeight)
-          ctx.globalAlpha = 1
-
-          ctx.font = '600 6.5px "JetBrains Mono", monospace'
-          ctx.textBaseline = 'top'
-
-          const rSq = m.radius * m.radius
-          for (let i = 0; i < cells.length; i++) {
-            const cell = cells[i]
-            const dx = cell.x - m.x
-            const dy = cell.y - m.y
-            const distSq = dx * dx + dy * dy
-
-            if (distSq <= rSq) {
-              if (Math.random() < 0.04) {
-                cell.char = cell.char === '1' ? '0' : '1'
-              }
-              const edgeFade = 1 - Math.sqrt(distSq) / m.radius
-              const alpha = Math.min(
-                1,
-                (cell.lum * 0.9 + 0.2) * cell.alpha * (0.4 + edgeFade * 0.6),
-              )
-
-              if (cell.lum > 0.58) {
-                ctx.fillStyle = `rgba(225, 240, 255, ${alpha})`
-              } else {
-                ctx.fillStyle = `rgba(79, 140, 255, ${alpha})`
-              }
-              ctx.fillText(cell.char, cell.x, cell.y)
-            }
-          }
-
-          // Subtle glowing ring around the X-Ray lens
-          ctx.strokeStyle = 'rgba(79, 140, 255, 0.45)'
-          ctx.lineWidth = 1.25
-          ctx.stroke()
-          ctx.restore()
-        }
 
         rafId = window.requestAnimationFrame(render)
       }
@@ -287,29 +171,6 @@ export function BinaryPortrait() {
     }
   }, [])
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const rect = canvas.getBoundingClientRect()
-    const logicalWidth = 420
-    const logicalHeight = logicalWidth * (canvas.height / canvas.width)
-
-    const nx = ((e.clientX - rect.left) / rect.width) * logicalWidth
-    const ny = ((e.clientY - rect.top) / rect.height) * logicalHeight
-
-    if (mouseRef.current.targetRadius === 0) {
-      mouseRef.current.x = nx
-      mouseRef.current.y = ny
-    }
-    mouseRef.current.targetX = nx
-    mouseRef.current.targetY = ny
-    mouseRef.current.targetRadius = 72
-  }
-
-  const handlePointerLeave = () => {
-    mouseRef.current.targetRadius = 0
-  }
-
   return (
     <div ref={containerRef} className="relative flex justify-center lg:justify-end">
       {/* Subtle Ambient Studio Glow Behind Portrait */}
@@ -320,9 +181,7 @@ export function BinaryPortrait() {
 
       <canvas
         ref={canvasRef}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-        aria-label="Mhelric Banaag portrait with interactive binary X-ray lens"
+        aria-label="Mhelric Banaag portrait"
         className="relative z-10 block h-auto w-full max-w-[230px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.75)] sm:max-w-[290px] lg:max-w-[380px] xl:max-w-[420px]"
       />
     </div>

@@ -12,6 +12,8 @@ const TECH_TAG_STYLES: Record<string, string> = {
   React: 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300',
   'Tailwind CSS': 'border-teal-400/30 bg-teal-400/10 text-teal-300',
   Supabase: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
+  PostgreSQL: 'border-blue-400/30 bg-blue-400/10 text-blue-300',
+  'Framer Motion': 'border-purple-400/30 bg-purple-400/10 text-purple-300',
   Vite: 'border-indigo-400/30 bg-indigo-400/10 text-indigo-300',
   'Custom Illustration': 'border-pink-400/30 bg-pink-400/10 text-pink-300',
 }
