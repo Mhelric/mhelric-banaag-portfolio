@@ -55,7 +55,7 @@ export function Hero() {
         </div>
 
         {/* Right Column: Portrait resting flush on the metadata divider */}
-        <div className="flex justify-center lg:col-span-5 lg:justify-end">
+        <div className="flex justify-center lg:col-span-5">
           <BinaryPortrait />
         </div>
       </div>

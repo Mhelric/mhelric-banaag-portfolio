@@ -251,7 +251,7 @@ export function BinaryPortrait() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative flex justify-center lg:justify-end">
+    <div ref={containerRef} className="relative flex justify-center">
       {/* Subtle Ambient Studio Glow Behind Portrait */}
       <div
         aria-hidden="true"
@@ -261,7 +261,7 @@ export function BinaryPortrait() {
       <canvas
         ref={canvasRef}
         aria-label="Mhelric Banaag portrait"
-        className="relative z-10 block aspect-[1215/1773] h-auto w-auto max-w-[230px] max-h-[34svh] object-contain drop-shadow-[0_14px_28px_rgba(15,23,42,0.18)] dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.75)] sm:max-w-[290px] sm:max-h-[40svh] lg:max-w-[380px] lg:max-h-[calc(100svh-12rem)] xl:max-w-[420px] xl:max-h-[calc(100svh-11.5rem)]"
+        className="relative z-10 block aspect-[1215/1773] h-auto w-auto max-w-[230px] max-h-[34svh] object-contain drop-shadow-[0_14px_28px_rgba(15,23,42,0.18)] dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.75)] sm:max-w-[290px] sm:max-h-[40svh] lg:max-w-[400px] lg:max-h-[calc(100svh-12rem)] xl:max-w-[440px] xl:max-h-[min(calc(100svh-11.5rem),640px)]"
       />
     </div>
   )
