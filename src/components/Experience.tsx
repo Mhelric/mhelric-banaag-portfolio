@@ -283,7 +283,7 @@ export function Experience() {
                           href={cert.pdfUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="rounded-lg border border-border bg-bg px-3.5 py-1.5 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
+                          className="rounded-lg border border-border bg-bg px-3.5 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text"
                         >
                           Open PDF ↗
                         </a>

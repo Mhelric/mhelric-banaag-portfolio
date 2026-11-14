@@ -219,7 +219,7 @@ export function Contact() {
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-white/25"
+                className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25"
               >
                 {copied ? 'Copied to Clipboard' : 'Copy Email'}
               </button>
@@ -228,7 +228,7 @@ export function Contact() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-white/25"
+                className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25"
               >
                 Download Resume
               </a>
@@ -293,7 +293,7 @@ export function Contact() {
 
         {/* Right Column: Compact Top-to-Bottom Message Card */}
         <div className="flex lg:col-span-6 xl:col-span-5">
-          <div className="relative flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-accent/35 bg-[#14161d] p-4 shadow-[0_20px_50px_-15px_rgba(79,140,255,0.22),inset_0_1px_0_0_rgba(255,255,255,0.12)] sm:p-5">
+          <div className="relative flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-accent/35 bg-surface p-4 shadow-[0_20px_50px_-15px_rgba(37,99,235,0.12)] dark:bg-[#14161d] dark:shadow-[0_20px_50px_-15px_rgba(79,140,255,0.22),inset_0_1px_0_0_rgba(255,255,255,0.12)] sm:p-5">
             {/* Top Electric-Blue Accent Highlight Bar */}
             <div
               aria-hidden="true"
@@ -306,34 +306,34 @@ export function Contact() {
               className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-accent/15 blur-3xl"
             />
 
-            <div className="relative flex items-center justify-between gap-2 border-b border-white/10 pb-2.5 sm:pb-3">
+            <div className="relative flex items-center justify-between gap-2 border-b border-border pb-2.5 dark:border-white/10 sm:pb-3">
               <div>
-                <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">
+                <h3 className="text-base font-bold tracking-tight text-text dark:text-white sm:text-lg">
                   Send a Message
                 </h3>
-                <p className="mt-0.5 text-[11px] text-zinc-300">
+                <p className="mt-0.5 text-[11px] text-muted dark:text-zinc-300">
                   Direct to my inbox — I&apos;ll reply soon.
                 </p>
               </div>
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
                 Direct Inbox
               </span>
             </div>
 
             {sendStatus === 'success' ? (
               <div className="relative my-auto py-10 text-center">
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-text dark:text-white">
                   Message Sent Successfully
                 </p>
-                <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-zinc-300">
+                <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted dark:text-zinc-300">
                   Thanks for reaching out! Your message has been sent to{' '}
-                  <span className="font-medium text-white">{EMAIL_ADDRESS}</span>.
+                  <span className="font-medium text-text dark:text-white">{EMAIL_ADDRESS}</span>.
                 </p>
                 <button
                   type="button"
                   onClick={() => setSendStatus('idle')}
-                  className="mt-5 rounded-lg border border-white/15 bg-[#0a0b0e] px-4 py-2 text-xs font-medium text-white transition-colors hover:border-accent"
+                  className="mt-5 rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-text transition-colors hover:border-accent dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white"
                 >
                   Send Another Message
                 </button>
@@ -345,7 +345,7 @@ export function Contact() {
               >
                 {/* Topic Selector */}
                 <div>
-                  <span className="block text-[11px] font-medium text-zinc-200">
+                  <span className="block text-[11px] font-medium text-text dark:text-zinc-200">
                     Topic
                   </span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
@@ -359,7 +359,7 @@ export function Contact() {
                           className={`rounded-lg border px-2.5 py-1 text-[11px] font-medium transition-all sm:text-xs ${
                             isSelected
                               ? 'border-accent bg-accent text-white shadow-[0_0_14px_rgba(79,140,255,0.4)]'
-                              : 'border-white/12 bg-[#0a0b0e] text-zinc-300 hover:border-white/25 hover:text-white'
+                              : 'border-border bg-bg text-muted hover:border-black/20 hover:text-text dark:border-white/12 dark:bg-[#0a0b0e] dark:text-zinc-300 dark:hover:border-white/25 dark:hover:text-white'
                           }`}
                         >
                           {type}
@@ -374,7 +374,7 @@ export function Contact() {
                   <div>
                     <label
                       htmlFor="sender-name"
-                      className="block text-[11px] font-medium text-zinc-200"
+                      className="block text-[11px] font-medium text-text dark:text-zinc-200"
                     >
                       Your Name
                     </label>
@@ -385,14 +385,14 @@ export function Contact() {
                       value={senderName}
                       onChange={(e) => setSenderName(e.target.value)}
                       placeholder="Jane Doe"
-                      className="mt-1 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+                      className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="sender-email"
-                      className="block text-[11px] font-medium text-zinc-200"
+                      className="block text-[11px] font-medium text-text dark:text-zinc-200"
                     >
                       Your Email
                     </label>
@@ -403,7 +403,7 @@ export function Contact() {
                       value={senderEmail}
                       onChange={(e) => setSenderEmail(e.target.value)}
                       placeholder="jane@example.com"
-                      className="mt-1 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+                      className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
                     />
                   </div>
                 </div>
@@ -412,7 +412,7 @@ export function Contact() {
                 <div className="flex flex-1 flex-col">
                   <label
                     htmlFor="email-message"
-                    className="block text-[11px] font-medium text-zinc-200"
+                    className="block text-[11px] font-medium text-text dark:text-zinc-200"
                   >
                     Message
                   </label>
@@ -423,18 +423,18 @@ export function Contact() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Hi Mhelric, I'd love to talk about..."
-                    className="mt-1 min-h-[4.75rem] w-full flex-1 resize-none rounded-lg border border-white/15 bg-[#0a0b0e] p-2.5 text-xs leading-relaxed text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+                    className="mt-1 min-h-[4.75rem] w-full flex-1 resize-none rounded-lg border border-border bg-bg p-2.5 text-xs leading-relaxed text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
                   />
                 </div>
 
                 {sendStatus === 'error' && (
-                  <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
+                  <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-700 dark:text-rose-300">
                     Could not send automatically. Please email {EMAIL_ADDRESS} directly.
                   </p>
                 )}
 
-                <div className="flex items-center justify-between gap-2 border-t border-white/10 pt-2.5">
-                  <span className="text-[11px] text-zinc-400">
+                <div className="flex items-center justify-between gap-2 border-t border-border pt-2.5 dark:border-white/10">
+                  <span className="text-[11px] text-muted dark:text-zinc-400">
                     Cavite, PH (GMT+8)
                   </span>
 

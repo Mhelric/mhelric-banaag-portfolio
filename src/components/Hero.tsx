@@ -47,7 +47,7 @@ export function Hero() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center rounded-lg border border-border bg-surface px-5 py-2.5 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial sm:text-sm"
+              className="inline-flex flex-1 items-center justify-center rounded-lg border border-border bg-surface px-5 py-2.5 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25 sm:flex-initial sm:text-sm"
             >
               Resume ↗
             </a>

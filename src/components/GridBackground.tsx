@@ -30,8 +30,17 @@ export function GridBackground() {
 
     let animationFrameId = 0
     let isRunning = false
+    let isLight = document.documentElement.classList.contains('light')
     let width = (canvas.width = window.innerWidth)
     let height = (canvas.height = window.innerHeight)
+
+    const themeObserver = new MutationObserver(() => {
+      isLight = document.documentElement.classList.contains('light')
+    })
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
 
     const handleResize = () => {
       if (!canvas) return
@@ -95,11 +104,13 @@ export function GridBackground() {
           continue
         }
 
-        const alpha = Math.sin(cell.progress) * cell.maxOpacity
+        const alpha = Math.sin(cell.progress) * (isLight ? cell.maxOpacity * 0.9 : cell.maxOpacity)
         const x = cell.col * GRID_SIZE
         const y = cell.row * GRID_SIZE
 
-        ctx.fillStyle = `rgba(79, 140, 255, ${alpha})`
+        ctx.fillStyle = isLight
+          ? `rgba(29, 78, 216, ${alpha})`
+          : `rgba(79, 140, 255, ${alpha})`
         ctx.fillRect(x + 1, y + 1, GRID_SIZE - 1, GRID_SIZE - 1)
       }
 
@@ -122,9 +133,15 @@ export function GridBackground() {
           ? ctx.createLinearGradient(tail, fixedCoord, head, fixedCoord)
           : ctx.createLinearGradient(fixedCoord, tail, fixedCoord, head)
 
-        grad.addColorStop(0, 'rgba(79, 140, 255, 0)')
-        grad.addColorStop(0.7, `rgba(79, 140, 255, ${beam.opacity * 0.65})`)
-        grad.addColorStop(1, `rgba(185, 215, 255, ${beam.opacity})`)
+        if (isLight) {
+          grad.addColorStop(0, 'rgba(29, 78, 216, 0)')
+          grad.addColorStop(0.7, `rgba(29, 78, 216, ${beam.opacity * 0.55})`)
+          grad.addColorStop(1, `rgba(30, 64, 175, ${beam.opacity * 0.85})`)
+        } else {
+          grad.addColorStop(0, 'rgba(79, 140, 255, 0)')
+          grad.addColorStop(0.7, `rgba(79, 140, 255, ${beam.opacity * 0.65})`)
+          grad.addColorStop(1, `rgba(185, 215, 255, ${beam.opacity})`)
+        }
 
         ctx.fillStyle = grad
         if (beam.isHorizontal) {
@@ -161,6 +178,7 @@ export function GridBackground() {
 
     return () => {
       if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
+      themeObserver.disconnect()
       window.removeEventListener('resize', handleResize)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }

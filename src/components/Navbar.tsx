@@ -131,6 +131,24 @@ const NAV_ITEMS: NavItem[] = [
 export function Navbar() {
   const [activeId, setActiveId] = useState<string>('hero')
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('light') ? 'light' : 'dark'
+    }
+    return 'dark'
+  })
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(nextTheme)
+    document.documentElement.classList.remove('dark', 'light')
+    document.documentElement.classList.add(nextTheme)
+    try {
+      localStorage.setItem('theme', nextTheme)
+    } catch {
+      // Ignore storage failures in private browsing
+    }
+  }
 
   useEffect(() => {
     let rafId = 0
@@ -175,10 +193,10 @@ export function Navbar() {
   }, [])
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4">
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex items-center justify-center gap-2 px-3 sm:top-4 sm:gap-2.5">
         <nav
           aria-label="Main navigation"
-          className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/12 bg-[#111216]/80 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)] backdrop-blur-xl sm:gap-1.5 sm:px-2.5"
+          className="pointer-events-auto flex items-center gap-1 rounded-full border border-border bg-surface/85 p-1.5 shadow-[0_14px_34px_rgba(15,23,42,0.1)] backdrop-blur-xl sm:gap-1.5 sm:px-2.5 dark:border-white/12 dark:bg-[#111216]/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
         >
           {/* Brand Monogram */}
           <a
@@ -191,7 +209,7 @@ export function Navbar() {
 
           <span
             aria-hidden="true"
-            className="hidden h-4 w-px bg-white/10 sm:inline-block"
+            className="hidden h-4 w-px bg-border sm:inline-block dark:bg-white/10"
           />
 
           {/* Interactive Icon-to-Label Section Pills */}
@@ -215,7 +233,7 @@ export function Navbar() {
                     className={`group relative flex items-center rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 ease-out ${
                       isActive
                         ? 'bg-accent text-white shadow-[0_0_16px_rgba(79,140,255,0.45)]'
-                        : 'text-muted hover:bg-white/8 hover:text-white'
+                        : 'text-muted hover:bg-black/5 hover:text-text dark:hover:bg-white/8 dark:hover:text-white'
                     }`}
                   >
                     {item.icon}
@@ -234,6 +252,51 @@ export function Navbar() {
             })}
           </ul>
         </nav>
+
+        {/* Standalone Theme Toggle Button outside the navbar */}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="pointer-events-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-surface/85 text-text shadow-[0_14px_34px_rgba(15,23,42,0.12)] backdrop-blur-xl transition-all duration-200 outline-none hover:scale-105 hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-95 dark:border-white/12 dark:bg-[#111216]/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
+        >
+          {theme === 'dark' ? (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="m4.93 4.93 1.41 1.41" />
+              <path d="m17.66 17.66 1.41 1.41" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="m6.34 17.66-1.41 1.41" />
+              <path d="m19.07 4.93-1.41 1.41" />
+            </svg>
+          ) : (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
+          )}
+        </button>
       </header>
   )
 }

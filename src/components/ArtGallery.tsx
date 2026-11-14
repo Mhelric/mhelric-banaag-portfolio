@@ -134,7 +134,7 @@ export function ArtGallery() {
               key={art.id}
               type="button"
               onClick={() => setActiveIndex(index)}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface text-left transition-all hover:-translate-y-0.5 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface text-left transition-all hover:-translate-y-0.5 hover:border-black/20 dark:hover:border-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <div className="relative aspect-[4/5] max-h-[22svh] w-full overflow-hidden bg-bg sm:max-h-[26svh] lg:max-h-[38svh]">
                 <img
@@ -186,7 +186,7 @@ export function ArtGallery() {
           <button
             type="button"
             onClick={() => setIsCommissionModalOpen(true)}
-            className="flex-1 whitespace-nowrap rounded-lg border border-border bg-surface px-4 py-2 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial"
+            className="flex-1 whitespace-nowrap rounded-lg border border-border bg-surface px-4 py-2 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
           >
             Pricing &amp; Info
           </button>
@@ -434,7 +434,7 @@ export function ArtGallery() {
                 href={ARTSTATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2.5 text-center text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial"
+                className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2.5 text-center text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
               >
                 ArtStation Portfolio ↗
               </a>

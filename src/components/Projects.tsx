@@ -2,20 +2,20 @@ import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { PROJECTS, type Project } from '../data/projects'
 
 const TECH_TAG_STYLES: Record<string, string> = {
-  JavaScript: 'border-amber-400/30 bg-amber-400/10 text-amber-300',
-  HTML5: 'border-orange-500/30 bg-orange-500/10 text-orange-300',
-  CSS3: 'border-sky-400/30 bg-sky-400/10 text-sky-300',
-  'PokéAPI': 'border-rose-500/30 bg-rose-500/10 text-rose-300',
-  'SerpAPI (Google Lens)': 'border-violet-400/30 bg-violet-400/10 text-violet-300',
-  Vercel: 'border-zinc-400/30 bg-zinc-400/10 text-zinc-200',
-  TypeScript: 'border-blue-500/30 bg-blue-500/10 text-blue-300',
-  React: 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300',
-  'Tailwind CSS': 'border-teal-400/30 bg-teal-400/10 text-teal-300',
-  Supabase: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
-  PostgreSQL: 'border-blue-400/30 bg-blue-400/10 text-blue-300',
-  'Framer Motion': 'border-purple-400/30 bg-purple-400/10 text-purple-300',
-  Vite: 'border-indigo-400/30 bg-indigo-400/10 text-indigo-300',
-  'Custom Illustration': 'border-pink-400/30 bg-pink-400/10 text-pink-300',
+  JavaScript: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/30 dark:text-amber-300',
+  HTML5: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:border-orange-500/30 dark:text-orange-300',
+  CSS3: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300',
+  'PokéAPI': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:border-rose-500/30 dark:text-rose-300',
+  'SerpAPI (Google Lens)': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:border-violet-400/30 dark:text-violet-300',
+  Vercel: 'border-zinc-500/35 bg-zinc-500/10 text-zinc-700 dark:border-zinc-400/30 dark:bg-zinc-400/10 dark:text-zinc-200',
+  TypeScript: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:border-blue-500/30 dark:text-blue-300',
+  React: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:text-cyan-300',
+  'Tailwind CSS': 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:text-teal-300',
+  Supabase: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-300',
+  PostgreSQL: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:border-blue-400/30 dark:text-blue-300',
+  'Framer Motion': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:border-purple-400/30 dark:text-purple-300',
+  Vite: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300',
+  'Custom Illustration': 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300',
 }
 
 const DEFAULT_TAG_STYLE = 'border-border bg-bg text-muted'
@@ -134,7 +134,7 @@ export function Projects() {
                           {cleanDomain}
                         </span>
                         {isShipped && (
-                          <span className="text-[11px] font-medium text-emerald-400">
+                          <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
                             Live
                           </span>
                         )}
@@ -189,7 +189,7 @@ export function Projects() {
                         </span>
 
                         {isShipped ? (
-                          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+                          <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-400">
                             Live
                           </span>
                         ) : (
@@ -244,7 +244,7 @@ export function Projects() {
                             href={project.repoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-text transition-colors hover:border-white/25 sm:flex-initial"
+                            className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
                           >
                             GitHub Repo
                           </a>
@@ -254,7 +254,7 @@ export function Projects() {
                           <button
                             type="button"
                             onClick={() => setSelectedProject(project)}
-                            className="inline-flex w-full whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text sm:ml-auto sm:w-auto"
+                            className="inline-flex w-full whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text sm:ml-auto sm:w-auto"
                           >
                             Read Case Study
                           </button>
@@ -275,7 +275,7 @@ export function Projects() {
           type="button"
           onClick={prevSlide}
           aria-label="Previous project"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
+          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text"
         >
           Prev
         </button>
@@ -301,7 +301,7 @@ export function Projects() {
           type="button"
           onClick={nextSlide}
           aria-label="Next project"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-white/25 hover:text-text"
+          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text"
         >
           Next
         </button>
@@ -395,7 +395,7 @@ export function Projects() {
                   href={selectedProject.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2 text-center text-xs font-medium text-text hover:border-white/25 sm:flex-initial"
+                  className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2 text-center text-xs font-medium text-text hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
                 >
                   View Source on GitHub
                 </a>

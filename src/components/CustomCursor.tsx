@@ -28,9 +28,19 @@ export function CustomCursor() {
 
     document.documentElement.classList.add('has-custom-cursor')
 
-    const strokeColor = '#f2f2f2'
+    let isLight = document.documentElement.classList.contains('light')
+    let strokeColor = isLight ? '#111827' : '#f2f2f2'
     let width = window.innerWidth
     let height = window.innerHeight
+
+    const themeObserver = new MutationObserver(() => {
+      isLight = document.documentElement.classList.contains('light')
+      strokeColor = isLight ? '#111827' : '#f2f2f2'
+    })
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
 
     const handleResize = () => {
       width = window.innerWidth
@@ -105,7 +115,7 @@ export function CustomCursor() {
         const tailPt = trail[0]
         const headPt = trail[len - 1]
         const grad = ctx.createLinearGradient(tailPt.x, tailPt.y, headPt.x, headPt.y)
-        grad.addColorStop(0, 'rgba(255, 255, 255, 0)')
+        grad.addColorStop(0, isLight ? 'rgba(17, 24, 39, 0)' : 'rgba(255, 255, 255, 0)')
         grad.addColorStop(1, strokeColor)
 
         ctx.beginPath()
@@ -174,6 +184,7 @@ export function CustomCursor() {
 
     return () => {
       if (rafId) window.cancelAnimationFrame(rafId)
+      themeObserver.disconnect()
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('pointerover', handlePointerOver)

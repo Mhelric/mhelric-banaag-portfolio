@@ -16,12 +16,12 @@ const SKILL_GROUPS: SkillGroup[] = [
     description:
       'Building clean, semantic markup, responsive layouts, and interactive browser logic using core web standards.',
     skills: [
-      { name: 'HTML5', style: 'border-orange-500/30 bg-orange-500/10 text-orange-300' },
-      { name: 'CSS3 (Grid & Flexbox)', style: 'border-sky-400/30 bg-sky-400/10 text-sky-300' },
-      { name: 'Vanilla JavaScript', style: 'border-amber-400/30 bg-amber-400/10 text-amber-300' },
-      { name: 'DOM Manipulation', style: 'border-amber-400/30 bg-amber-400/10 text-amber-300' },
-      { name: 'REST APIs', style: 'border-rose-500/30 bg-rose-500/10 text-rose-300' },
-      { name: 'Responsive UI', style: 'border-teal-400/30 bg-teal-400/10 text-teal-300' },
+      { name: 'HTML5', style: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:border-orange-500/30 dark:text-orange-300' },
+      { name: 'CSS3 (Grid & Flexbox)', style: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300' },
+      { name: 'Vanilla JavaScript', style: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/30 dark:text-amber-300' },
+      { name: 'DOM Manipulation', style: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/30 dark:text-amber-300' },
+      { name: 'REST APIs', style: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:border-rose-500/30 dark:text-rose-300' },
+      { name: 'Responsive UI', style: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:text-teal-300' },
     ],
   },
   {
@@ -31,11 +31,11 @@ const SKILL_GROUPS: SkillGroup[] = [
     description:
       'Leveraging modern AI coding tools to scaffold features, adapt to modern frameworks, debug faster, and ship complete web apps.',
     skills: [
-      { name: 'AI Coding Assistants', style: 'border-violet-400/30 bg-violet-400/10 text-violet-300' },
-      { name: 'Prompt Engineering', style: 'border-indigo-400/30 bg-indigo-400/10 text-indigo-300' },
-      { name: 'Rapid Prototyping', style: 'border-blue-500/30 bg-blue-500/10 text-blue-300' },
-      { name: 'AI-Guided Debugging', style: 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300' },
-      { name: 'UI Polish & Iteration', style: 'border-teal-400/30 bg-teal-400/10 text-teal-300' },
+      { name: 'AI Coding Assistants', style: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:border-violet-400/30 dark:text-violet-300' },
+      { name: 'Prompt Engineering', style: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300' },
+      { name: 'Rapid Prototyping', style: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:border-blue-500/30 dark:text-blue-300' },
+      { name: 'AI-Guided Debugging', style: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:text-cyan-300' },
+      { name: 'UI Polish & Iteration', style: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:text-teal-300' },
     ],
   },
   {
@@ -45,11 +45,11 @@ const SKILL_GROUPS: SkillGroup[] = [
     description:
       'Hands-on experience deploying projects, managing repositories, working with relational databases during my internship, and building with AI support.',
     skills: [
-      { name: 'Git & GitHub', style: 'border-zinc-400/30 bg-zinc-400/10 text-zinc-200' },
-      { name: 'Vercel Deployment', style: 'border-zinc-400/30 bg-zinc-400/10 text-zinc-200' },
-      { name: 'Supabase & PostgreSQL', style: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300' },
-      { name: 'React & Tailwind (AI-Assisted)', style: 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300' },
-      { name: 'Vite', style: 'border-indigo-400/30 bg-indigo-400/10 text-indigo-300' },
+      { name: 'Git & GitHub', style: 'border-zinc-500/35 bg-zinc-500/10 text-zinc-700 dark:border-zinc-400/30 dark:bg-zinc-400/10 dark:text-zinc-200' },
+      { name: 'Vercel Deployment', style: 'border-zinc-500/35 bg-zinc-500/10 text-zinc-700 dark:border-zinc-400/30 dark:bg-zinc-400/10 dark:text-zinc-200' },
+      { name: 'Supabase & PostgreSQL', style: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-300' },
+      { name: 'React & Tailwind (AI-Assisted)', style: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:text-cyan-300' },
+      { name: 'Vite', style: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300' },
     ],
   },
   {
@@ -59,11 +59,11 @@ const SKILL_GROUPS: SkillGroup[] = [
     description:
       'Bringing five years of studio and freelance art experience into web interfaces through visual hierarchy, color theory, and custom assets.',
     skills: [
-      { name: 'Digital Illustration', style: 'border-pink-400/30 bg-pink-400/10 text-pink-300' },
-      { name: 'Character & Concept Art', style: 'border-pink-400/30 bg-pink-400/10 text-pink-300' },
-      { name: 'UI Visual Hierarchy', style: 'border-blue-500/30 bg-blue-500/10 text-blue-300' },
-      { name: 'Color & Composition', style: 'border-amber-400/30 bg-amber-400/10 text-amber-300' },
-      { name: 'WebP Optimization', style: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300' },
+      { name: 'Digital Illustration', style: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300' },
+      { name: 'Character & Concept Art', style: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300' },
+      { name: 'UI Visual Hierarchy', style: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:border-blue-500/30 dark:text-blue-300' },
+      { name: 'Color & Composition', style: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/30 dark:text-amber-300' },
+      { name: 'WebP Optimization', style: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-300' },
     ],
   },
 ]
@@ -96,7 +96,7 @@ export function Skills() {
       <div className="mt-3 grid grid-cols-1 gap-2.5 sm:mt-4 sm:gap-3.5 md:grid-cols-2">
         {SKILL_GROUPS.map((group, idx) => (
           <Reveal key={group.index} delayMs={idx * 90}>
-            <div className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface/85 p-3 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-surface sm:p-3.5 xl:p-5">
+            <div className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface/85 p-3 shadow-sm dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-surface sm:p-3.5 xl:p-5">
               <div>
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
