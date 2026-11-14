@@ -1,4 +1,12 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type MouseEvent, type ReactNode } from 'react'
+import { flushSync } from 'react-dom'
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (updateCallback: () => void) => {
+    ready: Promise<void>
+    finished: Promise<void>
+  }
+}
 
 interface NavItem {
   id: string
@@ -138,16 +146,71 @@ export function Navbar() {
     return 'dark'
   })
 
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark'
-    setTheme(nextTheme)
+  const applyThemeClass = (nextTheme: 'dark' | 'light') => {
     document.documentElement.classList.remove('dark', 'light')
     document.documentElement.classList.add(nextTheme)
+  }
+
+  const toggleTheme = (e: MouseEvent<HTMLButtonElement>) => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark'
+
     try {
       localStorage.setItem('theme', nextTheme)
     } catch {
       // Ignore storage failures in private browsing
     }
+
+    const doc = document as ViewTransitionDocument
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+
+    if (!doc.startViewTransition || prefersReducedMotion) {
+      setTheme(nextTheme)
+      applyThemeClass(nextTheme)
+      return
+    }
+
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = rect.left + rect.width / 2
+    const y = rect.top + rect.height / 2
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    )
+
+    document.documentElement.classList.add('theme-switching')
+
+    const transition = doc.startViewTransition(() => {
+      flushSync(() => {
+        setTheme(nextTheme)
+      })
+      applyThemeClass(nextTheme)
+    })
+
+    void (async () => {
+      try {
+        await transition.ready
+        const clipAnim = document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 600,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            pseudoElement: '::view-transition-new(root)',
+          }
+        )
+        await clipAnim.finished
+      } catch {
+        // Ignore aborted animations if toggled rapidly
+      } finally {
+        document.documentElement.classList.remove('theme-switching')
+      }
+    })()
   }
 
   useEffect(() => {

@@ -238,6 +238,26 @@ body::before {
   cursor: none !important;
 }
 
+/* Disable CSS transitions momentarily during View Transition snapshot capture */
+.theme-switching,
+.theme-switching * {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
 /* Custom Minimalist Scrollbar (Page & Modals) */
 ::-webkit-scrollbar {
   width: 6px;

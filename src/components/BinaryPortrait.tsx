@@ -45,11 +45,69 @@ export function BinaryPortrait() {
     }
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
-    let img: HTMLImageElement | null = new Image()
-    img.src = '/mhelric-profile.webp'
+    let isRunning = false
+    let isLight = document.documentElement.classList.contains('light')
 
-    img.onload = () => {
-      if (isCancelled || !canvas || !img) return
+    const buffers: Record<'dark' | 'light', HTMLCanvasElement | null> = {
+      dark: null,
+      light: null,
+    }
+    const sources: Record<'dark' | 'light', string> = {
+      dark: '/mhelric-profile.webp',
+      light: '/mhelric-profile-light.webp',
+    }
+
+    const activeImages: HTMLImageElement[] = []
+    let redrawCurrentFrame: (() => void) | null = null
+
+    const themeObserver = new MutationObserver(() => {
+      const nextLight = document.documentElement.classList.contains('light')
+      if (nextLight !== isLight) {
+        isLight = nextLight
+        if (redrawCurrentFrame) {
+          redrawCurrentFrame()
+        }
+      }
+    })
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+
+    const loadPortraitBuffer = (
+      mode: 'dark' | 'light',
+      onReady: (img: HTMLImageElement, buf: HTMLCanvasElement) => void,
+    ) => {
+      const img = new Image()
+      activeImages.push(img)
+      img.src = sources[mode]
+
+      img.onload = () => {
+        if (isCancelled) return
+        const logicalWidth = 420
+        const aspectRatio = img.height / img.width
+        const logicalHeight = Math.round(logicalWidth * aspectRatio)
+        const dpr = Math.min(window.devicePixelRatio || 1, 2)
+
+        const buf = document.createElement('canvas')
+        buf.width = logicalWidth * dpr
+        buf.height = logicalHeight * dpr
+        const bufCtx = buf.getContext('2d')
+        if (bufCtx) {
+          bufCtx.drawImage(img, 0, 0, buf.width, buf.height)
+        }
+
+        buffers[mode] = buf
+        onReady(img, buf)
+        img.onload = null
+      }
+    }
+
+    const initialMode: 'dark' | 'light' = isLight ? 'light' : 'dark'
+    const secondaryMode: 'dark' | 'light' = isLight ? 'dark' : 'light'
+
+    loadPortraitBuffer(initialMode, (img) => {
+      if (isCancelled || !canvas) return
 
       const logicalWidth = 420
       const aspectRatio = img.height / img.width
@@ -58,15 +116,6 @@ export function BinaryPortrait() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = logicalWidth * dpr
       canvas.height = logicalHeight * dpr
-
-      // Pre-scale the portrait once to exact display resolution for maximum sharpness & efficiency
-      const portraitBuffer = document.createElement('canvas')
-      portraitBuffer.width = logicalWidth * dpr
-      portraitBuffer.height = logicalHeight * dpr
-      const bufferCtx = portraitBuffer.getContext('2d')
-      if (bufferCtx) {
-        bufferCtx.drawImage(img, 0, 0, portraitBuffer.width, portraitBuffer.height)
-      }
 
       // Sample silhouette outline points once to spawn ambient floating bits
       const sampleCanvas = document.createElement('canvas')
@@ -90,9 +139,12 @@ export function BinaryPortrait() {
         sampleCanvas.height = 0
       }
 
-      // Release image reference
-      img.onload = null
-      img = null
+      // Preload alternate theme portrait so theme toggles swap instantaneously
+      loadPortraitBuffer(secondaryMode, () => {
+        if (!isCancelled && redrawCurrentFrame) {
+          redrawCurrentFrame()
+        }
+      })
 
       const spawnAmbientBit = (randomLife = false): AmbientBit => {
         const pt =
@@ -116,15 +168,7 @@ export function BinaryPortrait() {
         spawnAmbientBit(true),
       )
 
-      let isRunning = false
-
-      const render = () => {
-        if (isCancelled || !isInViewport || document.hidden) {
-          isRunning = false
-          rafId = 0
-          return
-        }
-
+      const drawFrame = (advanceBits: boolean) => {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
         ctx.clearRect(0, 0, logicalWidth, logicalHeight)
 
@@ -133,23 +177,46 @@ export function BinaryPortrait() {
         ctx.textBaseline = 'middle'
         for (let i = 0; i < ambientBits.length; i++) {
           const bit = ambientBits[i]
-          bit.life += 1
-          bit.y += bit.vy
+          if (advanceBits) {
+            bit.life += 1
+            bit.y += bit.vy
 
-          if (bit.life >= bit.maxLife) {
-            ambientBits[i] = spawnAmbientBit(false)
-            continue
+            if (bit.life >= bit.maxLife) {
+              ambientBits[i] = spawnAmbientBit(false)
+              continue
+            }
           }
 
           const progress = bit.life / bit.maxLife
           const fade = Math.sin(progress * Math.PI) * bit.maxAlpha
-          ctx.fillStyle = `rgba(79, 140, 255, ${fade})`
+          ctx.fillStyle = isLight
+            ? `rgba(29, 78, 216, ${fade})`
+            : `rgba(79, 140, 255, ${fade})`
           ctx.fillText(bit.char, bit.x, bit.y)
         }
 
-        // 2. Crisp, static portrait with zero hover x-ray overhead
-        ctx.drawImage(portraitBuffer, 0, 0, logicalWidth, logicalHeight)
+        // 2. Crisp portrait matching the active theme
+        const activeBuffer =
+          (isLight ? buffers.light : buffers.dark) ??
+          buffers.dark ??
+          buffers.light
+        if (activeBuffer) {
+          ctx.drawImage(activeBuffer, 0, 0, logicalWidth, logicalHeight)
+        }
+      }
 
+      redrawCurrentFrame = () => {
+        drawFrame(false)
+      }
+
+      const render = () => {
+        if (isCancelled || !isInViewport || document.hidden) {
+          isRunning = false
+          rafId = 0
+          return
+        }
+
+        drawFrame(true)
         rafId = window.requestAnimationFrame(render)
       }
 
@@ -161,13 +228,25 @@ export function BinaryPortrait() {
       }
 
       startLoop()
-    }
+    })
 
     return () => {
       isCancelled = true
       if (rafId) window.cancelAnimationFrame(rafId)
+      themeObserver.disconnect()
       observer.disconnect()
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+      for (const img of activeImages) {
+        img.onload = null
+      }
+      if (buffers.dark) {
+        buffers.dark.width = 0
+        buffers.dark.height = 0
+      }
+      if (buffers.light) {
+        buffers.light.width = 0
+        buffers.light.height = 0
+      }
     }
   }, [])
 
