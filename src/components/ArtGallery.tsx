@@ -82,22 +82,22 @@ export function ArtGallery() {
   return (
     <section
       id="art"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
+      className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-4 sm:pt-[4.5rem] sm:pb-6"
       aria-labelledby="art-heading"
     >
       {/* Section Header */}
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div className="flex flex-col justify-between gap-2.5 sm:flex-row sm:items-end sm:gap-4">
         <div>
           <p className="text-xs font-medium uppercase tracking-widest text-accent">
             Illustration &amp; Character Art
           </p>
           <h2
             id="art-heading"
-            className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
+            className="mt-1 text-xl font-bold tracking-tight text-text sm:text-2xl lg:text-3xl"
           >
             Selected Artwork
           </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+          <p className="mt-1 max-w-2xl text-xs leading-relaxed text-muted sm:mt-1.5 sm:text-sm">
             Five years of freelance commissions (<span className="font-medium text-text">meru_art</span>) and currently contracted with{' '}
             <span className="font-medium text-text">TopDeck Studio</span>.
           </p>
@@ -125,7 +125,7 @@ export function ArtGallery() {
       </div>
 
       {/* Compact 4-Column Preview Row */}
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4 lg:grid-cols-4">
+      <div className="mt-3.5 grid grid-cols-2 gap-3 sm:mt-5 sm:gap-4 lg:grid-cols-4">
         {previewArtworks.map((art, index) => {
           const isLastPreviewWithMore = index === 3 && extraCount > 0
 
@@ -136,7 +136,7 @@ export function ArtGallery() {
               onClick={() => setActiveIndex(index)}
               className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface text-left transition-all hover:-translate-y-0.5 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-bg">
+              <div className="relative aspect-[4/5] max-h-[22svh] w-full overflow-hidden bg-bg sm:max-h-[26svh] lg:max-h-[38svh]">
                 <img
                   src={art.thumbSrc}
                   alt={art.title}
@@ -172,7 +172,7 @@ export function ArtGallery() {
       </div>
 
       {/* Clean Commission Strip */}
-      <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-border pt-5 sm:flex-row sm:items-center">
+      <div className="mt-4 flex flex-col items-start justify-between gap-3 border-t border-border pt-3.5 sm:mt-5 sm:flex-row sm:items-center sm:gap-4 sm:pt-4">
         <div>
           <p className="text-sm font-medium text-text">
             Looking to commission custom character art or illustrations?

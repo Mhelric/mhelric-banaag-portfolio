@@ -87,7 +87,7 @@ export function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
+      className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-4 sm:pt-[4.5rem] sm:pb-6"
       aria-labelledby="projects-heading"
     >
       {/* Section Header */}
@@ -97,7 +97,7 @@ export function Projects() {
         </p>
         <h2
           id="projects-heading"
-          className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
+          className="mt-1 text-xl font-bold tracking-tight text-text sm:text-2xl lg:text-3xl"
         >
           Featured Projects
         </h2>
@@ -107,7 +107,7 @@ export function Projects() {
       <div
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="mt-6 overflow-hidden rounded-xl border border-border bg-surface sm:mt-8"
+        className="mt-3 overflow-hidden rounded-xl border border-border bg-surface sm:mt-4"
       >
         <div
           className="flex transition-transform duration-500 ease-out"
@@ -123,12 +123,12 @@ export function Projects() {
             return (
               <article
                 key={project.id}
-                className="w-full shrink-0 p-4 sm:p-6 lg:p-8"
+                className="w-full shrink-0 p-3.5 sm:p-5 lg:p-[clamp(1rem,2.4svh,1.75rem)]"
               >
-                <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-8">
+                <div className="grid grid-cols-1 items-center gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-7">
                   {/* Left Column: Website Preview Box */}
-                  <div className="lg:col-span-7">
-                    <div className="overflow-hidden rounded-lg border border-border bg-bg shadow-lg">
+                  <div className="lg:col-span-6 xl:col-span-7">
+                    <div className="w-full overflow-hidden rounded-lg border border-border bg-bg shadow-lg">
                       <div className="flex items-center justify-between border-b border-border bg-surface/90 px-3.5 py-2">
                         <span className="truncate font-mono text-[11px] text-muted">
                           {cleanDomain}
@@ -146,7 +146,7 @@ export function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Open live preview of ${project.title}`}
-                          className="group relative block aspect-[16/10] w-full overflow-hidden bg-bg"
+                          className="group relative block aspect-[16/10] max-h-[44svh] w-full overflow-hidden bg-bg"
                         >
                           {shouldMountIframe ? (
                             <iframe
@@ -168,7 +168,7 @@ export function Projects() {
                           </div>
                         </a>
                       ) : (
-                        <div className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
+                        <div className="flex aspect-[16/10] max-h-[44svh] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
                           <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
                             In Development
                           </span>
@@ -181,7 +181,7 @@ export function Projects() {
                   </div>
 
                   {/* Right Column: Project Details */}
-                  <div className="flex flex-col justify-between lg:col-span-5">
+                  <div className="flex flex-col justify-between lg:col-span-6 xl:col-span-5">
                     <div>
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="text-xs font-medium text-accent">
@@ -209,7 +209,7 @@ export function Projects() {
                       {/* Colored Tech Stack Pills */}
                       <ul
                         aria-label="Technologies used"
-                        className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2"
+                        className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2"
                       >
                         {project.techStack.map((tech) => {
                           const badgeStyle =
@@ -217,7 +217,7 @@ export function Projects() {
                           return (
                             <li
                               key={tech}
-                              className={`rounded-md border px-2.5 py-1 text-xs font-medium ${badgeStyle}`}
+                              className={`rounded-md border px-2.5 py-0.5 text-xs font-medium sm:py-1 ${badgeStyle}`}
                             >
                               {tech}
                             </li>
@@ -227,7 +227,7 @@ export function Projects() {
                     </div>
 
                     {isShipped && (
-                      <div className="mt-5 flex flex-wrap items-center gap-2.5 border-t border-border pt-4 sm:mt-7 sm:gap-3 sm:pt-5">
+                      <div className="mt-4 flex flex-wrap items-center gap-2.5 border-t border-border pt-3.5 sm:mt-5 sm:gap-3 sm:pt-4">
                         {project.liveUrl && (
                           <a
                             href={project.liveUrl}
@@ -270,7 +270,7 @@ export function Projects() {
       </div>
 
       {/* Bottom Centered Controls: Prev + Slide Dots + Next */}
-      <div className="mt-5 flex items-center justify-center gap-4 sm:mt-6">
+      <div className="mt-3.5 flex items-center justify-center gap-4 sm:mt-5">
         <button
           type="button"
           onClick={prevSlide}

@@ -181,285 +181,291 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-between border-t border-border pt-14 pb-8 sm:pt-20"
+      className="flex min-h-[100svh] scroll-mt-0 flex-col justify-between border-t border-border pt-16 pb-3 sm:pt-[4.5rem] sm:pb-4"
       aria-labelledby="contact-heading"
     >
-      <div className="my-auto">
-        <p className="text-xs font-medium uppercase tracking-widest text-accent">
-          Contact
-        </p>
-        <h2
-          id="contact-heading"
-          className="mt-2 text-3xl font-bold tracking-tight text-text sm:text-4xl"
-        >
-          Let&apos;s build something polished together.
-        </h2>
-        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-          I&apos;m currently open to{' '}
-          <strong className="font-semibold text-text">
-            Front-End, Full-Stack, and UI Developer
-          </strong>{' '}
-          opportunities, as well as freelance web or illustration projects.
-        </p>
+      <div className="my-auto grid grid-cols-1 items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
+        {/* Left Column: Intro + Direct Email + Elsewhere + Socials */}
+        <div className="flex flex-col justify-between space-y-3.5 lg:col-span-6 xl:col-span-7">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-accent">
+              Contact
+            </p>
+            <h2
+              id="contact-heading"
+              className="mt-1.5 text-2xl font-bold leading-[1.1] tracking-tight text-text sm:text-3xl lg:text-[clamp(1.85rem,4.2svh,2.65rem)]"
+            >
+              Let&apos;s build something polished together.
+            </h2>
+            <p className="mt-2 max-w-xl text-xs leading-relaxed text-muted sm:text-sm">
+              Open to{' '}
+              <strong className="font-semibold text-text">
+                Front-End, Full-Stack &amp; UI Developer
+              </strong>{' '}
+              roles—plus select web and illustration commissions.
+            </p>
+          </div>
 
-        {/* 2-Column Layout: Left = Email + Elsewhere + Socials | Right = Elevated Form */}
-        <div className="mt-8 grid grid-cols-1 gap-8 border-t border-border pt-8 lg:grid-cols-12 lg:gap-10">
-          {/* Left Column: Direct Email + Elsewhere + Socials */}
-          <div className="flex flex-col justify-between space-y-7 lg:col-span-5">
-            {/* Direct Email */}
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted">
-                Direct Email
-              </p>
-              <p className="mt-1.5 break-all text-base font-semibold text-text sm:text-xl">
-                {EMAIL_ADDRESS}
-              </p>
+          {/* Direct Email */}
+          <div className="border-t border-border pt-3">
+            <p className="text-[11px] font-medium uppercase tracking-wider text-muted">
+              Direct Email
+            </p>
+            <p className="mt-0.5 break-all text-sm font-semibold text-text sm:text-base xl:text-lg">
+              {EMAIL_ADDRESS}
+            </p>
 
-              <div className="mt-3.5 flex flex-wrap items-center gap-2.5">
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text transition-colors hover:border-white/25"
-                >
-                  {copied ? 'Copied to Clipboard' : 'Copy Email'}
-                </button>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-white/25"
+              >
+                {copied ? 'Copied to Clipboard' : 'Copy Email'}
+              </button>
 
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text transition-colors hover:border-white/25"
-                >
-                  Download Resume
-                </a>
-              </div>
-            </div>
-
-            {/* Elsewhere */}
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted">
-                Elsewhere
-              </p>
-              <ul className="mt-2.5 divide-y divide-border border-t border-b border-border">
-                {ELSEWHERE_LINKS.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-between py-2.5 text-sm transition-colors"
-                    >
-                      <span className="flex items-center gap-2.5 font-medium text-text group-hover:text-accent">
-                        <span className="text-muted transition-colors group-hover:text-accent">
-                          {item.icon}
-                        </span>
-                        {item.label}
-                      </span>
-                      <span className="text-xs text-muted group-hover:text-text">
-                        {item.handle}
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Socials */}
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted">
-                Socials
-              </p>
-              <div className="mt-2.5 flex flex-wrap items-center gap-2">
-                {SOCIAL_NETWORKS.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/80 px-3 py-1.5 text-xs font-medium text-muted transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-text"
-                  >
-                    <span className="text-accent">{social.icon}</span>
-                    <span>{social.label}</span>
-                  </a>
-                ))}
-              </div>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-white/25"
+              >
+                Download Resume
+              </a>
             </div>
           </div>
 
-          {/* Right Column: Elevated, High-Contrast Message Card */}
-          <div className="lg:col-span-7">
-            <div className="relative overflow-hidden rounded-2xl border border-accent/35 bg-[#14161d] p-5 shadow-[0_20px_50px_-15px_rgba(79,140,255,0.22),inset_0_1px_0_0_rgba(255,255,255,0.12)] sm:p-7">
-              {/* Top Electric-Blue Accent Highlight Bar */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
-              />
-
-              {/* Subtle Top-Right Radial Glow */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-accent/15 blur-3xl"
-              />
-
-              <div className="relative flex items-center justify-between border-b border-white/10 pb-4">
-                <div>
-                  <h3 className="text-lg font-bold tracking-tight text-white sm:text-xl">
-                    Send a Message
-                  </h3>
-                  <p className="mt-0.5 text-xs text-zinc-300">
-                    Goes straight to my inbox — I&apos;ll reply to your email.
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Direct Inbox
-                </span>
-              </div>
-
-              {sendStatus === 'success' ? (
-                <div className="relative py-12 text-center">
-                  <p className="text-lg font-bold text-white">
-                    Message Sent Successfully
-                  </p>
-                  <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-zinc-300">
-                    Thanks for reaching out! Your message has been sent to{' '}
-                    <span className="font-medium text-white">{EMAIL_ADDRESS}</span>.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setSendStatus('idle')}
-                    className="mt-5 rounded-lg border border-white/15 bg-[#0a0b0e] px-4 py-2 text-xs font-medium text-white transition-colors hover:border-accent"
+          {/* Elsewhere */}
+          <div>
+            <p className="text-[11px] font-medium uppercase tracking-wider text-muted">
+              Elsewhere
+            </p>
+            <ul className="mt-1.5 divide-y divide-border border-t border-b border-border">
+              {ELSEWHERE_LINKS.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between py-1.5 text-xs transition-colors sm:py-2 sm:text-sm"
                   >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSendEmail} className="relative mt-4 space-y-4">
-                  {/* Topic Selector */}
-                  <div>
-                    <span className="block text-xs font-medium text-zinc-200">
-                      Topic
+                    <span className="flex items-center gap-2.5 font-medium text-text group-hover:text-accent">
+                      <span className="text-muted transition-colors group-hover:text-accent">
+                        {item.icon}
+                      </span>
+                      {item.label}
                     </span>
-                    <div className="mt-1.5 flex flex-wrap gap-1.5">
-                      {INQUIRY_TYPES.map((type) => {
-                        const isSelected = inquiryType === type
-                        return (
-                          <button
-                            key={type}
-                            type="button"
-                            onClick={() => setInquiryType(type)}
-                            className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
-                              isSelected
-                                ? 'border-accent bg-accent text-white shadow-[0_0_14px_rgba(79,140,255,0.4)]'
-                                : 'border-white/12 bg-[#0a0b0e] text-zinc-300 hover:border-white/25 hover:text-white'
-                            }`}
-                          >
-                            {type}
-                          </button>
-                        )
-                      })}
-                    </div>
+                    <span className="text-xs text-muted group-hover:text-text">
+                      {item.handle}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Socials: Icon-only pills that expand on hover */}
+          <div>
+            <p className="text-[11px] font-medium uppercase tracking-wider text-muted">
+              Socials
+            </p>
+            <div className="mt-1.5 flex flex-wrap items-center gap-2">
+              {SOCIAL_NETWORKS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="group inline-flex items-center rounded-lg border border-border bg-surface/80 p-2 text-xs font-medium text-muted transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:px-3 hover:text-text focus-visible:px-3 focus-visible:text-text"
+                >
+                  <span className="flex h-4 w-4 shrink-0 items-center justify-center text-accent">
+                    {social.icon}
+                  </span>
+                  <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 ease-out group-hover:ml-1.5 group-hover:max-w-[80px] group-hover:opacity-100 group-focus-visible:ml-1.5 group-focus-visible:max-w-[80px] group-focus-visible:opacity-100">
+                    {social.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Compact Top-to-Bottom Message Card */}
+        <div className="flex lg:col-span-6 xl:col-span-5">
+          <div className="relative flex w-full flex-col justify-between overflow-hidden rounded-2xl border border-accent/35 bg-[#14161d] p-4 shadow-[0_20px_50px_-15px_rgba(79,140,255,0.22),inset_0_1px_0_0_rgba(255,255,255,0.12)] sm:p-5">
+            {/* Top Electric-Blue Accent Highlight Bar */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
+            />
+
+            {/* Subtle Top-Right Radial Glow */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-accent/15 blur-3xl"
+            />
+
+            <div className="relative flex items-center justify-between gap-2 border-b border-white/10 pb-2.5 sm:pb-3">
+              <div>
+                <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">
+                  Send a Message
+                </h3>
+                <p className="mt-0.5 text-[11px] text-zinc-300">
+                  Direct to my inbox — I&apos;ll reply soon.
+                </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Direct Inbox
+              </span>
+            </div>
+
+            {sendStatus === 'success' ? (
+              <div className="relative my-auto py-10 text-center">
+                <p className="text-lg font-bold text-white">
+                  Message Sent Successfully
+                </p>
+                <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-zinc-300">
+                  Thanks for reaching out! Your message has been sent to{' '}
+                  <span className="font-medium text-white">{EMAIL_ADDRESS}</span>.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSendStatus('idle')}
+                  className="mt-5 rounded-lg border border-white/15 bg-[#0a0b0e] px-4 py-2 text-xs font-medium text-white transition-colors hover:border-accent"
+                >
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSendEmail}
+                className="relative mt-2.5 flex flex-1 flex-col justify-between gap-2.5 sm:mt-3"
+              >
+                {/* Topic Selector */}
+                <div>
+                  <span className="block text-[11px] font-medium text-zinc-200">
+                    Topic
+                  </span>
+                  <div className="mt-1 flex flex-wrap gap-1.5">
+                    {INQUIRY_TYPES.map((type) => {
+                      const isSelected = inquiryType === type
+                      return (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => setInquiryType(type)}
+                          className={`rounded-lg border px-2.5 py-1 text-[11px] font-medium transition-all sm:text-xs ${
+                            isSelected
+                              ? 'border-accent bg-accent text-white shadow-[0_0_14px_rgba(79,140,255,0.4)]'
+                              : 'border-white/12 bg-[#0a0b0e] text-zinc-300 hover:border-white/25 hover:text-white'
+                          }`}
+                        >
+                          {type}
+                        </button>
+                      )
+                    })}
                   </div>
+                </div>
 
-                  {/* Name & Email Row */}
-                  <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-                    <div>
-                      <label
-                        htmlFor="sender-name"
-                        className="block text-xs font-medium text-zinc-200"
-                      >
-                        Your Name
-                      </label>
-                      <input
-                        id="sender-name"
-                        type="text"
-                        required
-                        value={senderName}
-                        onChange={(e) => setSenderName(e.target.value)}
-                        placeholder="Jane Doe"
-                        className="mt-1.5 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3.5 py-2.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none sm:text-sm"
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="sender-email"
-                        className="block text-xs font-medium text-zinc-200"
-                      >
-                        Your Email
-                      </label>
-                      <input
-                        id="sender-email"
-                        type="email"
-                        required
-                        value={senderEmail}
-                        onChange={(e) => setSenderEmail(e.target.value)}
-                        placeholder="jane@example.com"
-                        className="mt-1.5 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3.5 py-2.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Message */}
+                {/* Name & Email Row */}
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                   <div>
                     <label
-                      htmlFor="email-message"
-                      className="block text-xs font-medium text-zinc-200"
+                      htmlFor="sender-name"
+                      className="block text-[11px] font-medium text-zinc-200"
                     >
-                      Message
+                      Your Name
                     </label>
-                    <textarea
-                      id="email-message"
-                      rows={4}
+                    <input
+                      id="sender-name"
+                      type="text"
                       required
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Hi Mhelric, I'd love to talk about..."
-                      className="mt-1.5 w-full resize-none rounded-lg border border-white/15 bg-[#0a0b0e] p-3.5 text-xs leading-relaxed text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none sm:text-sm"
+                      value={senderName}
+                      onChange={(e) => setSenderName(e.target.value)}
+                      placeholder="Jane Doe"
+                      className="mt-1 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
                     />
                   </div>
 
-                  {sendStatus === 'error' && (
-                    <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
-                      Could not send automatically. Please email {EMAIL_ADDRESS} directly.
-                    </p>
-                  )}
-
-                  <div className="flex items-center justify-between gap-3 border-t border-white/10 pt-3.5">
-                    <span className="text-[11px] text-zinc-400">
-                      Cavite, PH (GMT+8) · Remote &amp; Hybrid
-                    </span>
-
-                    <button
-                      type="submit"
-                      disabled={sendStatus === 'sending'}
-                      className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-xs font-semibold text-white shadow-[0_0_20px_rgba(79,140,255,0.4)] transition-all hover:brightness-110 disabled:opacity-50 sm:text-sm"
+                  <div>
+                    <label
+                      htmlFor="sender-email"
+                      className="block text-[11px] font-medium text-zinc-200"
                     >
-                      <span>{sendStatus === 'sending' ? 'Sending...' : 'Send Message'}</span>
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-3.5 w-3.5"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="m12 5 7 7-7 7" />
-                      </svg>
-                    </button>
+                      Your Email
+                    </label>
+                    <input
+                      id="sender-email"
+                      type="email"
+                      required
+                      value={senderEmail}
+                      onChange={(e) => setSenderEmail(e.target.value)}
+                      placeholder="jane@example.com"
+                      className="mt-1 w-full rounded-lg border border-white/15 bg-[#0a0b0e] px-3 py-1.5 text-xs text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+                    />
                   </div>
-                </form>
-              )}
-            </div>
+                </div>
+
+                {/* Message */}
+                <div className="flex flex-1 flex-col">
+                  <label
+                    htmlFor="email-message"
+                    className="block text-[11px] font-medium text-zinc-200"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="email-message"
+                    rows={3}
+                    required
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Hi Mhelric, I'd love to talk about..."
+                    className="mt-1 min-h-[4.75rem] w-full flex-1 resize-none rounded-lg border border-white/15 bg-[#0a0b0e] p-2.5 text-xs leading-relaxed text-white placeholder:text-zinc-500 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+                  />
+                </div>
+
+                {sendStatus === 'error' && (
+                  <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
+                    Could not send automatically. Please email {EMAIL_ADDRESS} directly.
+                  </p>
+                )}
+
+                <div className="flex items-center justify-between gap-2 border-t border-white/10 pt-2.5">
+                  <span className="text-[11px] text-zinc-400">
+                    Cavite, PH (GMT+8)
+                  </span>
+
+                  <button
+                    type="submit"
+                    disabled={sendStatus === 'sending'}
+                    className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-white shadow-[0_0_20px_rgba(79,140,255,0.4)] transition-all hover:brightness-110 disabled:opacity-50"
+                  >
+                    <span>{sendStatus === 'sending' ? 'Sending...' : 'Send Message'}</span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-3.5 w-3.5"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
 
       {/* Minimalist Footer */}
-      <footer className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted sm:flex-row">
+      <footer className="mt-3 flex flex-col items-center justify-between gap-2 border-t border-border pt-3 text-xs text-muted sm:mt-4 sm:flex-row">
         <p>
           © {new Date().getFullYear()} Mhelric Banaag. Built with React,
           TypeScript &amp; Tailwind CSS.

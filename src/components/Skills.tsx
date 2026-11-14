@@ -72,7 +72,7 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
+      className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-4 sm:pt-[4.5rem] sm:pb-6"
       aria-labelledby="skills-heading"
     >
       <Reveal>
@@ -82,47 +82,47 @@ export function Skills() {
           </p>
           <h2
             id="skills-heading"
-            className="mt-1.5 text-2xl font-bold tracking-tight text-text sm:text-3xl"
+            className="mt-1 text-xl font-bold tracking-tight text-text sm:text-2xl lg:text-3xl"
           >
             Technical &amp; Creative Stack
           </h2>
-          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted sm:text-sm">
+          <p className="mt-1 max-w-2xl text-xs leading-relaxed text-muted sm:text-sm">
             Grounded in core web fundamentals, AI-assisted development workflows, and five years of commercial illustration.
           </p>
         </div>
       </Reveal>
 
       {/* Modern 2x2 Bento Grid */}
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2">
+      <div className="mt-3 grid grid-cols-1 gap-2.5 sm:mt-4 sm:gap-3.5 md:grid-cols-2">
         {SKILL_GROUPS.map((group, idx) => (
           <Reveal key={group.index} delayMs={idx * 90}>
-            <div className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface/85 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-surface sm:p-6">
+            <div className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-surface/85 p-3 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-surface sm:p-3.5 xl:p-5">
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2.5">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-md border border-accent/30 bg-accent/10 font-mono text-xs text-accent">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-md border border-accent/30 bg-accent/10 font-mono text-[11px] text-accent sm:h-6 sm:w-6 sm:text-xs">
                       {group.index}
                     </span>
-                    <h3 className="text-base font-bold text-text sm:text-lg">
+                    <h3 className="text-sm font-bold text-text sm:text-[15px] xl:text-lg">
                       {group.title}
                     </h3>
                   </div>
 
-                  <span className="rounded-full border border-border bg-bg/70 px-2.5 py-0.5 text-[11px] font-medium text-muted">
+                  <span className="rounded-full border border-border bg-bg/70 px-2 py-0.5 text-[10px] font-medium text-muted sm:px-2.5 sm:text-[11px]">
                     {group.subtitle}
                   </span>
                 </div>
 
-                <p className="mt-3 text-xs leading-relaxed text-muted sm:text-sm">
+                <p className="mt-1.5 text-[11px] leading-snug text-muted sm:text-xs xl:text-sm xl:leading-relaxed">
                   {group.description}
                 </p>
               </div>
 
-              <ul className="mt-5 flex flex-wrap gap-2 border-t border-border/70 pt-4">
+              <ul className="mt-2.5 flex flex-wrap gap-1.5 border-t border-border/70 pt-2 sm:mt-3 sm:pt-2.5 xl:mt-4 xl:gap-2 xl:pt-3">
                 {group.skills.map((skill) => (
                   <li
                     key={skill.name}
-                    className={`rounded-lg border px-2.5 py-1 text-xs font-medium transition-transform duration-200 hover:scale-[1.03] ${skill.style}`}
+                    className={`rounded-lg border px-2 py-0.5 text-[11px] font-medium transition-transform duration-200 hover:scale-[1.03] sm:px-2.5 xl:py-1 xl:text-xs ${skill.style}`}
                   >
                     {skill.name}
                   </li>
@@ -135,16 +135,16 @@ export function Skills() {
 
       {/* Clean Workflow Callout */}
       <Reveal delayMs={360}>
-        <div className="mt-5 rounded-2xl border border-border bg-surface/50 p-4 sm:mt-6 sm:p-5">
-          <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+        <div className="mt-2.5 rounded-2xl border border-border bg-surface/50 p-3 sm:mt-3.5 sm:p-3.5 xl:p-4">
+          <div className="flex flex-col justify-between gap-0.5 sm:flex-row sm:items-center">
             <p className="text-xs font-semibold text-text sm:text-sm">
               How I Build &amp; Learn
             </p>
-            <span className="text-xs font-medium text-accent">
+            <span className="text-[11px] font-medium text-accent sm:text-xs">
               Core Fundamentals · AI Tools · Visual Polish
             </span>
           </div>
-          <p className="mt-1.5 text-xs leading-relaxed text-muted sm:text-sm">
+          <p className="mt-1 text-[11px] leading-snug text-muted sm:text-xs xl:text-sm xl:leading-relaxed">
             I combine my foundation in HTML, CSS, JavaScript, and Computer Science with modern AI coding tools to build and ship projects in stacks like React, TypeScript, and Supabase—guiding the UI direction, testing every feature, and continuously learning along the way.
           </p>
         </div>

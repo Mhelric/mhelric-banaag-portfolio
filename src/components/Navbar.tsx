@@ -140,12 +140,20 @@ export function Navbar() {
       const triggerLine = window.innerHeight * 0.38
       let currentSection = 'hero'
 
-      for (const item of NAV_ITEMS) {
-        const el = document.getElementById(item.id)
-        if (!el) continue
-        const rect = el.getBoundingClientRect()
-        if (rect.top <= triggerLine) {
-          currentSection = item.id
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4
+
+      if (atBottom) {
+        currentSection = 'contact'
+      } else {
+        for (const item of NAV_ITEMS) {
+          const el = document.getElementById(item.id)
+          if (!el) continue
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= triggerLine) {
+            currentSection = item.id
+          }
         }
       }
 
@@ -167,11 +175,7 @@ export function Navbar() {
   }, [])
 
   return (
-    <>
-      {/* Top spacer so floating dock never overlaps the Hero section */}
-      <div className="h-16" aria-hidden="true" />
-
-      <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-3 sm:top-5">
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4">
         <nav
           aria-label="Main navigation"
           className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/12 bg-[#111216]/80 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)] backdrop-blur-xl sm:gap-1.5 sm:px-2.5"
@@ -182,7 +186,7 @@ export function Navbar() {
             onClick={() => setActiveId('hero')}
             className="hidden items-center rounded-full px-2.5 py-1.5 font-mono text-xs font-semibold tracking-wider text-text transition-colors hover:text-accent sm:inline-flex"
           >
-            MHELRIC<span className="text-accent">.DEV</span>
+            MHELRIC
           </a>
 
           <span
@@ -231,6 +235,5 @@ export function Navbar() {
           </ul>
         </nav>
       </header>
-    </>
   )
 }

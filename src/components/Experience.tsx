@@ -102,7 +102,7 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="flex min-h-[calc(100svh-4rem)] scroll-mt-16 flex-col justify-center border-t border-border py-14 sm:py-20"
+      className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-12 sm:pt-[4.5rem] sm:pb-16"
       aria-labelledby="experience-heading"
     >
       <Reveal>

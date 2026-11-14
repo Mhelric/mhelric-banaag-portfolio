@@ -182,7 +182,7 @@ export function BinaryPortrait() {
       <canvas
         ref={canvasRef}
         aria-label="Mhelric Banaag portrait"
-        className="relative z-10 block h-auto w-full max-w-[230px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.75)] sm:max-w-[290px] lg:max-w-[380px] xl:max-w-[420px]"
+        className="relative z-10 block aspect-[1215/1773] h-auto w-auto max-w-[230px] max-h-[34svh] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.75)] sm:max-w-[290px] sm:max-h-[40svh] lg:max-w-[380px] lg:max-h-[calc(100svh-12rem)] xl:max-w-[420px] xl:max-h-[calc(100svh-11.5rem)]"
       />
     </div>
   )
