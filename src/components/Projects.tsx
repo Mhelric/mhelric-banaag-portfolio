@@ -23,160 +23,26 @@ const TECH_TAG_STYLES: Record<string, string> = {
 
 const DEFAULT_TAG_STYLE = 'border-border bg-bg text-muted'
 
-function ProjectBrowserCover({ project }: { project: Project }) {
-  if (project.id === 'pass-vault') {
+const PROJECT_PREVIEWS: Record<string, string> = {
+  'pass-vault': '/projects/pass-vault.webp',
+  'meru-art-studio': '/projects/meru-art-studio.webp',
+  'pokedex-lens': '/projects/pokedex-lens.webp',
+}
+
+function ProjectPreviewFrame({ project }: { project: Project }) {
+  const previewSrc = PROJECT_PREVIEWS[project.id]
+  if (previewSrc) {
     return (
-      <div className="flex h-full w-full flex-col justify-between bg-[#090d16] p-5 text-white sm:p-7">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 font-mono text-xs font-bold text-emerald-400">
-              PV
-            </span>
-            <span className="text-xs font-semibold tracking-tight text-white sm:text-sm">
-              Pass-Vault
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] text-emerald-300">
-              Zero-Knowledge
-            </span>
-            <span className="hidden rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 font-mono text-[10px] text-zinc-300 sm:inline-block">
-              Android APK
-            </span>
-          </div>
-        </div>
-
-        <div className="my-auto grid grid-cols-12 gap-3 py-3">
-          <div className="col-span-4 hidden flex-col justify-between rounded-xl border border-white/10 bg-white/[0.03] p-3 sm:flex">
-            <div className="space-y-1.5 text-[10px] text-zinc-400">
-              <div className="rounded-md bg-emerald-500/15 px-2 py-1 font-medium text-emerald-300">
-                All Vault Items
-              </div>
-              <div className="px-2 py-1">PINs &amp; Banking</div>
-              <div className="px-2 py-1">2FA Recovery</div>
-              <div className="px-2 py-1">Secure Notes</div>
-            </div>
-            <div className="border-t border-white/10 pt-2 font-mono text-[9px] text-zinc-500">
-              IndexedDB Offline Sync
-            </div>
-          </div>
-
-          <div className="col-span-12 flex flex-col justify-between rounded-xl border border-white/10 bg-white/[0.04] p-4 sm:col-span-8">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
-                Argon2id + AES-256-GCM Client Vault
-              </p>
-              <h4 className="mt-1.5 text-base font-bold leading-snug text-white sm:text-xl">
-                Encrypted credentials in memory—zero plaintext ever hits the server.
-              </h4>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] text-zinc-300">
-              <div className="rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5">
-                Fingerprint &amp; Face Unlock
-              </div>
-              <div className="rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5">
-                5-Strike Auto Wipe Guard
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-white/10 pt-2.5 font-mono text-[10px] text-zinc-400">
-          <span>PWA · Capacitor Android · Chrome Extension</span>
-          <span className="text-emerald-400">Open App ↗</span>
-        </div>
-      </div>
-    )
-  }
-
-  if (project.id === 'meru-art-studio') {
-    return (
-      <div className="flex h-full w-full flex-col justify-between bg-[#fbf8f4] p-5 text-[#1e1b2e] sm:p-7">
-        <div className="flex items-center justify-between border-b border-[#1e1b2e]/10 pb-3">
-          <span className="text-xs font-extrabold tracking-tight text-[#e85d4a] sm:text-sm">
-            MERU ART STUDIO
-          </span>
-          <div className="flex items-center gap-2 text-[10px]">
-            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-semibold text-emerald-700">
-              Open Slots
-            </span>
-            <span className="rounded-full bg-[#1e1b2e] px-2.5 py-0.5 font-medium text-white">
-              Commission ↗
-            </span>
-          </div>
-        </div>
-
-        <div className="my-auto py-3">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-[#e85d4a]">
-            Full-Stack Illustration Storefront
-          </p>
-          <h4 className="mt-1.5 max-w-md text-lg font-bold leading-tight sm:text-2xl">
-            I bring your characters to life through clean thumbnails &amp; logos.
-          </h4>
-          <p className="mt-2 max-w-md text-xs text-[#1e1b2e]/70">
-            Live USD/PHP pricing calculator, anonymized availability queue calendar, and authenticated client WIP vaults.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2 text-[10px]">
-            <span className="rounded-lg bg-[#e85d4a] px-3 py-1.5 font-semibold text-white">
-              3-Step Order Drawer
-            </span>
-            <span className="rounded-lg border border-[#1e1b2e]/15 bg-white px-3 py-1.5 font-medium">
-              Discord &amp; Google OAuth
-            </span>
-            <span className="rounded-lg border border-[#1e1b2e]/15 bg-white px-3 py-1.5 font-medium">
-              PostgreSQL RLS
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-[#1e1b2e]/10 pt-2.5 font-mono text-[10px] text-[#1e1b2e]/65">
-          <span>React · TypeScript · Supabase · Framer Motion</span>
-          <span className="font-semibold text-[#e85d4a]">Open Studio ↗</span>
-        </div>
-      </div>
-    )
-  }
-
-  if (project.id === 'pokedex-lens') {
-    return (
-      <div className="flex h-full w-full flex-col justify-between bg-[#101626] p-5 text-white sm:p-7">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
-          <span className="font-mono text-xs font-bold text-rose-400 sm:text-sm">
-            POKÉDEX × LENS
-          </span>
-          <span className="rounded-full border border-sky-400/30 bg-sky-400/15 px-2.5 py-0.5 text-[10px] font-medium text-sky-300">
-            SerpAPI + PokéAPI
-          </span>
-        </div>
-
-        <div className="my-auto py-3">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-amber-300">
-            Visual Recognition Interface
-          </p>
-          <h4 className="mt-1.5 max-w-md text-lg font-bold leading-tight sm:text-2xl">
-            Identify any Pokémon straight from an image or camera snap.
-          </h4>
-          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[10px]">
-            <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
-              <p className="font-semibold text-sky-300">1. Upload</p>
-              <p className="mt-0.5 text-zinc-400">Google Lens Match</p>
-            </div>
-            <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
-              <p className="font-semibold text-amber-300">2. Normalize</p>
-              <p className="mt-0.5 text-zinc-400">Species Resolver</p>
-            </div>
-            <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
-              <p className="font-semibold text-emerald-300">3. Inspect</p>
-              <p className="mt-0.5 text-zinc-400">Stats &amp; Types</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-white/10 pt-2.5 font-mono text-[10px] text-zinc-400">
-          <span>JavaScript · PokéAPI · Google Lens API</span>
-          <span className="text-emerald-400">Open App ↗</span>
-        </div>
-      </div>
+      <img
+        src={previewSrc}
+        alt={`${project.title} live website preview`}
+        width={960}
+        height={600}
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+        className="h-full w-full object-cover object-top"
+      />
     )
   }
 
@@ -423,7 +289,7 @@ export function Projects() {
                       aria-label={`Open live preview of ${project.title}`}
                       className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
                     >
-                      <ProjectBrowserCover project={project} />
+                      <ProjectPreviewFrame project={project} />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/55 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                         <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
                           Visit Live Site ↗
@@ -432,7 +298,7 @@ export function Projects() {
                     </a>
                   ) : (
                     <div className="aspect-[16/10] max-h-[50svh] w-full overflow-hidden">
-                      <ProjectBrowserCover project={project} />
+                      <ProjectPreviewFrame project={project} />
                     </div>
                   )}
                 </div>

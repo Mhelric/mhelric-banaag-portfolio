@@ -28,6 +28,7 @@ export function CustomCursor() {
 
     document.documentElement.classList.add('has-custom-cursor')
 
+    const SCALE = 0.5
     let isLight = document.documentElement.classList.contains('light')
     let strokeColor = isLight ? '#111827' : '#f2f2f2'
     let width = window.innerWidth
@@ -45,10 +46,9 @@ export function CustomCursor() {
     const handleResize = () => {
       width = window.innerWidth
       height = window.innerHeight
-      // 1x CSS pixel resolution is visually identical for the soft-blurred comet trail
-      // and reduces full-viewport canvas backing store memory by 75% on 2x HiDPI displays.
-      canvasEl.width = width
-      canvasEl.height = height
+      // 0.5x canvas scale cuts cursor canvas backing store VRAM by 75%
+      canvasEl.width = Math.max(1, Math.ceil(width * SCALE))
+      canvasEl.height = Math.max(1, Math.ceil(height * SCALE))
       canvasEl.style.width = `${width}px`
       canvasEl.style.height = `${height}px`
     }
@@ -64,7 +64,7 @@ export function CustomCursor() {
     let initialized = false
     let rafId = 0
     let isRunning = false
-    let canvasDirty = false
+    let dirtyRect: { x: number; y: number; w: number; h: number } | null = null
 
     const render = (now: number) => {
       const dxTarget = target.x - current.x
@@ -76,24 +76,29 @@ export function CustomCursor() {
       const lastPoint = trail[trail.length - 1]
       if (
         initialized &&
-        (!lastPoint || Math.hypot(current.x - lastPoint.x, current.y - lastPoint.y) >= 1.5)
+        (!lastPoint || Math.hypot(current.x - lastPoint.x, current.y - lastPoint.y) >= 2)
       ) {
         trail.push({ x: current.x, y: current.y, t: now })
       }
 
-      while (trail.length > 0 && now - trail[0].t > 150) {
+      while (trail.length > 0 && now - trail[0].t > 120) {
         trail.shift()
       }
 
-      if (canvasDirty || trail.length >= 3) {
-        ctx.clearRect(0, 0, width, height)
-        canvasDirty = false
+      ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0)
+      if (dirtyRect) {
+        ctx.clearRect(dirtyRect.x, dirtyRect.y, dirtyRect.w, dirtyRect.h)
+        dirtyRect = null
       }
 
       if (trail.length >= 3) {
         const len = trail.length
         leftEdge.length = 0
         rightEdge.length = 0
+        let minX = Infinity
+        let minY = Infinity
+        let maxX = -Infinity
+        let maxY = -Infinity
 
         for (let i = 0; i < len; i++) {
           const pt = trail[i]
@@ -105,11 +110,21 @@ export function CustomCursor() {
           dx /= dist
           dy /= dist
 
-          const ageFactor = Math.min(1, Math.max(0, 1 - (now - pt.t) / 150))
+          const ageFactor = Math.min(1, Math.max(0, 1 - (now - pt.t) / 120))
           const halfWidth = (1.5 + 7.5 * ageFactor) / 2
 
-          leftEdge.push({ x: pt.x - dy * halfWidth, y: pt.y + dx * halfWidth })
-          rightEdge.push({ x: pt.x + dy * halfWidth, y: pt.y - dx * halfWidth })
+          const lx = pt.x - dy * halfWidth
+          const ly = pt.y + dx * halfWidth
+          const rx = pt.x + dy * halfWidth
+          const ry = pt.y - dx * halfWidth
+
+          minX = Math.min(minX, lx, rx)
+          minY = Math.min(minY, ly, ry)
+          maxX = Math.max(maxX, lx, rx)
+          maxY = Math.max(maxY, ly, ry)
+
+          leftEdge.push({ x: lx, y: ly })
+          rightEdge.push({ x: rx, y: ry })
         }
 
         const tailPt = trail[0]
@@ -130,7 +145,12 @@ export function CustomCursor() {
 
         ctx.fillStyle = grad
         ctx.fill()
-        canvasDirty = true
+        dirtyRect = {
+          x: Math.floor(minX) - 6,
+          y: Math.floor(minY) - 6,
+          w: Math.ceil(maxX - minX) + 12,
+          h: Math.ceil(maxY - minY) + 12,
+        }
       }
 
       // Pause the RAF loop once the cursor has settled and the trail has faded out

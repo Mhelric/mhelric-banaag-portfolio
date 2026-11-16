@@ -28,7 +28,7 @@ export function GridBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const SCALE = 0.5
+    const SCALE = 0.35
     let animationFrameId = 0
     let isRunning = false
     let isLight = document.documentElement.classList.contains('light')
@@ -89,8 +89,8 @@ export function GridBackground() {
       }
     }
 
-    const beams: Beam[] = Array.from({ length: 5 }, () => createBeam(true))
-    const cells: GlowingCell[] = Array.from({ length: 4 }, () => createCell(true))
+    const beams: Beam[] = Array.from({ length: 3 }, () => createBeam(true))
+    const cells: GlowingCell[] = Array.from({ length: 3 }, () => createCell(true))
 
     let lastFrame = 0
     const render = (now: number) => {
@@ -99,11 +99,11 @@ export function GridBackground() {
         animationFrameId = 0
         return
       }
-      if (now - lastFrame < 33) {
+      if (now - lastFrame < 50) {
         animationFrameId = window.requestAnimationFrame(render)
         return
       }
-      const stepScale = lastFrame ? Math.min(2.5, (now - lastFrame) / 16.67) : 1
+      const stepScale = lastFrame ? Math.min(3, (now - lastFrame) / 16.67) : 1
       lastFrame = now
 
       ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0)
@@ -129,7 +129,7 @@ export function GridBackground() {
         ctx.fillRect(x + 1, y + 1, GRID_SIZE - 1, GRID_SIZE - 1)
       }
 
-      // 2. Draw moving light beams along the 48px grid lines
+      // 2. Draw moving light beams along the 48px grid lines (two-segment fill, zero gradient allocations)
       for (let i = 0; i < beams.length; i++) {
         const beam = beams[i]
         beam.position += beam.speed * stepScale
@@ -143,26 +143,24 @@ export function GridBackground() {
         const fixedCoord = beam.lineIndex * GRID_SIZE
         const head = beam.position
         const tail = beam.position - beam.length
+        const tipLen = Math.min(28, beam.length * 0.25)
 
-        const grad = beam.isHorizontal
-          ? ctx.createLinearGradient(tail, fixedCoord, head, fixedCoord)
-          : ctx.createLinearGradient(fixedCoord, tail, fixedCoord, head)
-
-        if (isLight) {
-          grad.addColorStop(0, 'rgba(29, 78, 216, 0)')
-          grad.addColorStop(0.7, `rgba(29, 78, 216, ${beam.opacity * 0.55})`)
-          grad.addColorStop(1, `rgba(30, 64, 175, ${beam.opacity * 0.85})`)
+        ctx.fillStyle = isLight
+          ? `rgba(29, 78, 216, ${beam.opacity * 0.35})`
+          : `rgba(79, 140, 255, ${beam.opacity * 0.4})`
+        if (beam.isHorizontal) {
+          ctx.fillRect(tail, fixedCoord, beam.length - tipLen, 1.5)
         } else {
-          grad.addColorStop(0, 'rgba(79, 140, 255, 0)')
-          grad.addColorStop(0.7, `rgba(79, 140, 255, ${beam.opacity * 0.65})`)
-          grad.addColorStop(1, `rgba(185, 215, 255, ${beam.opacity})`)
+          ctx.fillRect(fixedCoord, tail, 1.5, beam.length - tipLen)
         }
 
-        ctx.fillStyle = grad
+        ctx.fillStyle = isLight
+          ? `rgba(30, 64, 175, ${beam.opacity * 0.78})`
+          : `rgba(185, 215, 255, ${beam.opacity * 0.9})`
         if (beam.isHorizontal) {
-          ctx.fillRect(tail, fixedCoord, beam.length, 1.5)
+          ctx.fillRect(head - tipLen, fixedCoord, tipLen, 1.5)
         } else {
-          ctx.fillRect(fixedCoord, tail, 1.5, beam.length)
+          ctx.fillRect(fixedCoord, head - tipLen, 1.5, tipLen)
         }
       }
 

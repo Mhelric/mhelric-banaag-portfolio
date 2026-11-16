@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useState, type TouchEvent } from 'react'
+import { useCallback, useId, useState, type TouchEvent } from 'react'
 import type { Certification } from '../data/certifications'
 
 interface CertificationCoverflowProps {
@@ -11,9 +11,6 @@ export function CertificationCoverflow({
   onSelectCert,
 }: CertificationCoverflowProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const headingId = useId()
 
@@ -27,20 +24,6 @@ export function CertificationCoverflow({
   const nextSlide = useCallback(() => {
     setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1))
   }, [total])
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setPrefersReducedMotion(mq.matches)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
-  }, [])
-
-  useEffect(() => {
-    if (!isPlaying || prefersReducedMotion || isPaused || total < 2) return
-    const timer = window.setTimeout(nextSlide, 4500)
-    return () => window.clearTimeout(timer)
-  }, [isPlaying, prefersReducedMotion, isPaused, total, activeIndex, nextSlide])
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchStartX(e.targetTouches[0].clientX)
@@ -61,14 +44,6 @@ export function CertificationCoverflow({
       aria-labelledby={headingId}
       aria-roledescription="carousel"
       tabIndex={0}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocusCapture={() => setIsPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
-          setIsPaused(false)
-        }
-      }}
       onKeyDown={(e) => {
         if (e.altKey || e.ctrlKey || e.metaKey) return
         if (e.key === 'ArrowRight') {
@@ -212,7 +187,7 @@ export function CertificationCoverflow({
         <div
           role="group"
           aria-label="Certificate carousel controls"
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg/90 py-1 pr-1.5 pl-3 shadow-sm"
+          className="inline-flex items-center gap-1 rounded-full border border-border bg-bg/90 py-1 pr-1.5 pl-3 shadow-sm"
         >
           <span className="border-r border-border pr-2.5 font-mono text-[11px] tabular-nums text-muted">
             <span className="font-semibold text-text">
@@ -231,26 +206,6 @@ export function CertificationCoverflow({
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3.5 w-3.5">
               <path d="m15 18-6-6 6-6" />
             </svg>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsPlaying((prev) => !prev)}
-            aria-label={isPlaying ? 'Pause carousel' : 'Auto-play carousel'}
-            aria-pressed={isPlaying}
-            disabled={prefersReducedMotion || total < 2}
-            className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/5 text-text transition-colors hover:bg-black/10 disabled:opacity-35 dark:bg-white/10 dark:hover:bg-white/15"
-          >
-            {isPlaying ? (
-              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3">
-                <rect x="6" y="4" width="4" height="16" rx="1" />
-                <rect x="14" y="4" width="4" height="16" rx="1" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3">
-                <polygon points="6 4 20 12 6 20 6 4" />
-              </svg>
-            )}
           </button>
 
           <button
