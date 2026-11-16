@@ -41,10 +41,9 @@ const WORKFLOW_STEPS = [
 export function ArtGallery() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [isCommissionModalOpen, setIsCommissionModalOpen] = useState(false)
+  const [isMarqueePaused, setIsMarqueePaused] = useState(false)
 
   const totalArtworks = ARTWORKS.length
-  const previewArtworks = ARTWORKS.slice(0, 4)
-  const extraCount = Math.max(0, totalArtworks - 4)
   const activeArtwork = activeIndex !== null ? ARTWORKS[activeIndex] : null
 
   const showPrev = () => {
@@ -124,51 +123,85 @@ export function ArtGallery() {
         </div>
       </div>
 
-      {/* Compact 4-Column Preview Row */}
-      <div className="mt-3.5 grid grid-cols-2 gap-3 sm:mt-5 sm:gap-4 lg:grid-cols-4">
-        {previewArtworks.map((art, index) => {
-          const isLastPreviewWithMore = index === 3 && extraCount > 0
+      {/* Infinite Marquee Cards with Hover Effect */}
+      <div
+        onMouseEnter={() => setIsMarqueePaused(true)}
+        onMouseLeave={() => setIsMarqueePaused(false)}
+        onFocusCapture={() => setIsMarqueePaused(true)}
+        onBlurCapture={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+            setIsMarqueePaused(false)
+          }
+        }}
+        className="relative mt-4 w-full overflow-hidden rounded-2xl border border-border/60 bg-surface/25 py-3.5 sm:mt-5 sm:py-5"
+      >
+        {/* Left & Right Theme-Aware Gradient Edge Fades */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-0 z-10 h-full w-12 bg-gradient-to-r from-bg to-transparent sm:w-24"
+        />
 
-          return (
-            <button
-              key={art.id}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface text-left transition-all hover:-translate-y-0.5 hover:border-black/20 dark:hover:border-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              <div className="relative aspect-[4/5] max-h-[22svh] w-full overflow-hidden bg-bg sm:max-h-[26svh] lg:max-h-[38svh]">
-                <img
-                  src={art.thumbSrc}
-                  alt={art.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                />
+        <div
+          className="marquee-track flex w-fit"
+          style={{
+            animationPlayState:
+              isMarqueePaused || activeIndex !== null || isCommissionModalOpen
+                ? 'paused'
+                : 'running',
+            animationDuration: `${totalArtworks * 3600}ms`,
+          }}
+        >
+          <div className="flex">
+            {[...ARTWORKS, ...ARTWORKS].map((art, idx) => {
+              const realIndex = idx % totalArtworks
+              return (
+                <button
+                  key={`${art.id}-${idx}`}
+                  type="button"
+                  onClick={() => setActiveIndex(realIndex)}
+                  className="group relative mx-2.5 h-[16rem] w-48 shrink-0 overflow-hidden rounded-xl border border-border bg-surface text-left transition-all duration-300 hover:scale-95 hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:mx-3.5 sm:h-[20rem] sm:w-56 md:w-60"
+                >
+                  <img
+                    src={art.thumbSrc}
+                    alt={art.title}
+                    loading="lazy"
+                    decoding="async"
+                    draggable={false}
+                    className="h-full w-full object-cover object-top"
+                  />
 
-                {isLastPreviewWithMore && (
-                  <div className="absolute top-2.5 right-2.5 rounded-md border border-white/15 bg-black/80 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-md">
-                    +{extraCount} more
+                  {/* Bottom Title Pill (subtle, hides smoothly into full hover overlay) */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-3 pt-6 pb-2.5 transition-opacity duration-200 group-hover:opacity-0">
+                    <p className="truncate text-[10px] font-medium text-white/75">
+                      {art.category}
+                    </p>
+                    <p className="truncate text-xs font-semibold text-white">
+                      {art.title}
+                    </p>
                   </div>
-                )}
 
-                <div className="absolute inset-0 flex items-center justify-center bg-black/45 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  <span className="rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-black shadow-lg">
-                    View Piece
-                  </span>
-                </div>
-              </div>
+                  {/* Centered Frosted Hover Effect */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 px-4 text-center opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+                    <span className="rounded-full border border-white/20 bg-white/15 px-2.5 py-0.5 text-[10px] font-medium text-white/90">
+                      {art.category}
+                    </span>
+                    <h3 className="mt-2 text-sm font-semibold text-white sm:text-base">
+                      {art.title}
+                    </h3>
+                    <span className="mt-3 rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-black shadow-lg">
+                      View Piece
+                    </span>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        </div>
 
-              <div className="p-3 sm:p-3.5">
-                <p className="truncate text-[11px] text-muted">
-                  {art.category}
-                </p>
-                <h3 className="mt-0.5 truncate text-xs font-semibold text-text sm:text-sm">
-                  {art.title}
-                </h3>
-              </div>
-            </button>
-          )
-        })}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 right-0 z-10 h-full w-12 bg-gradient-to-l from-bg to-transparent sm:w-24"
+        />
       </div>
 
       {/* Clean Commission Strip */}

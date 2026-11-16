@@ -28,6 +28,8 @@ export function Projects() {
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
 
   const totalSlides = PROJECTS.length
+  const activeProject = PROJECTS[currentIndex]
+  const isShipped = activeProject.status === 'shipped'
 
   useEffect(() => {
     const el = sectionRef.current
@@ -103,208 +105,210 @@ export function Projects() {
         </h2>
       </div>
 
-      {/* Smooth Carousel Viewport */}
-      <div
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        className="mt-3 overflow-hidden rounded-xl border border-border bg-surface sm:mt-4"
-      >
+      {/* Asymmetric Split Layout: Left Details & Controls, Right Live Website Preview */}
+      <div className="mt-4 grid grid-cols-1 items-center gap-6 lg:mt-5 lg:grid-cols-12 lg:gap-8">
+        {/* Left Column: Active Project Details & Navigation */}
+        <div className="order-2 flex flex-col justify-center lg:order-1 lg:col-span-5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="font-mono text-xs text-muted">
+              {String(currentIndex + 1).padStart(2, '0')} /{' '}
+              {String(totalSlides).padStart(2, '0')}
+            </span>
+
+            {isShipped ? (
+              <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-400">
+                Live
+              </span>
+            ) : (
+              <span className="rounded-full border border-border bg-surface px-2.5 py-0.5 text-xs text-muted">
+                In Development
+              </span>
+            )}
+          </div>
+
+          <p className="mt-2.5 text-xs font-medium text-accent">
+            {activeProject.category}
+          </p>
+
+          <h3 className="mt-1.5 text-lg font-bold tracking-tight text-text sm:text-2xl">
+            {activeProject.title}
+          </h3>
+
+          <p className="mt-2 text-xs leading-relaxed text-muted sm:mt-2.5 sm:text-sm">
+            {activeProject.summary}
+          </p>
+
+          {/* Colored Tech Stack Pills */}
+          <ul
+            aria-label="Technologies used"
+            className="mt-3.5 flex flex-wrap gap-1.5 sm:gap-2"
+          >
+            {activeProject.techStack.map((tech) => {
+              const badgeStyle = TECH_TAG_STYLES[tech] ?? DEFAULT_TAG_STYLE
+              return (
+                <li
+                  key={tech}
+                  className={`rounded-md border px-2.5 py-0.5 text-xs font-medium sm:py-1 ${badgeStyle}`}
+                >
+                  {tech}
+                </li>
+              )
+            })}
+          </ul>
+
+          {isShipped && (
+            <div className="mt-4 flex flex-wrap items-center gap-2.5 border-t border-border pt-4">
+              {activeProject.liveUrl && (
+                <a
+                  href={activeProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg bg-accent px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
+                >
+                  Live Demo ↗
+                </a>
+              )}
+
+              {activeProject.repoUrl && (
+                <a
+                  href={activeProject.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg border border-border bg-surface px-4 py-2 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
+                >
+                  GitHub Repo
+                </a>
+              )}
+
+              {activeProject.caseStudy && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(activeProject)}
+                  className="inline-flex w-full whitespace-nowrap items-center justify-center rounded-lg border border-border bg-surface px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-black/20 hover:text-text dark:hover:border-white/25 sm:w-auto"
+                >
+                  Case Study
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Carousel Controls */}
+          <div className="mt-4 flex items-center gap-3.5">
+            <button
+              type="button"
+              onClick={prevSlide}
+              aria-label="Previous project"
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 hover:text-text dark:hover:border-white/25"
+            >
+              Prev
+            </button>
+
+            <div className="flex items-center gap-2">
+              {PROJECTS.map((project, index) => {
+                const isActive = index === currentIndex
+                return (
+                  <button
+                    key={project.id}
+                    type="button"
+                    onClick={() => setCurrentIndex(index)}
+                    aria-label={`Go to slide ${index + 1}: ${project.title}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? 'w-7 bg-accent' : 'w-2 bg-border hover:bg-muted'
+                    }`}
+                  />
+                )
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={nextSlide}
+              aria-label="Next project"
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 hover:text-text dark:hover:border-white/25"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        {/* Right Column: Live Website Preview Slider */}
         <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="order-1 overflow-hidden rounded-2xl border border-border bg-surface shadow-lg lg:order-2 lg:col-span-7"
         >
-          {PROJECTS.map((project, slideIndex) => {
-            const isShipped = project.status === 'shipped'
-            const shouldMountIframe = isSectionNear && slideIndex === currentIndex
-            const cleanDomain = project.liveUrl
-              ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
-              : 'In development'
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {PROJECTS.map((project, slideIndex) => {
+              const projectShipped = project.status === 'shipped'
+              const shouldMountIframe =
+                isSectionNear && slideIndex === currentIndex
+              const cleanDomain = project.liveUrl
+                ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
+                : 'In development'
 
-            return (
-              <article
-                key={project.id}
-                className="w-full shrink-0 p-3.5 sm:p-5 lg:p-[clamp(1rem,2.4svh,1.75rem)]"
-              >
-                <div className="grid grid-cols-1 items-center gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-7">
-                  {/* Left Column: Website Preview Box */}
-                  <div className="lg:col-span-6 xl:col-span-7">
-                    <div className="w-full overflow-hidden rounded-lg border border-border bg-bg shadow-lg">
-                      <div className="flex items-center justify-between border-b border-border bg-surface/90 px-3.5 py-2">
-                        <span className="truncate font-mono text-[11px] text-muted">
-                          {cleanDomain}
-                        </span>
-                        {isShipped && (
-                          <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-                            Live
-                          </span>
-                        )}
-                      </div>
-
-                      {isShipped && project.liveUrl ? (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Open live preview of ${project.title}`}
-                          className="group relative block aspect-[16/10] max-h-[44svh] w-full overflow-hidden bg-bg"
-                        >
-                          {shouldMountIframe ? (
-                            <iframe
-                              src={project.liveUrl}
-                              title={`${project.title} live preview`}
-                              loading="lazy"
-                              tabIndex={-1}
-                              className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
-                            />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center bg-bg text-xs text-muted">
-                              Loading live preview…
-                            </div>
-                          )}
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
-                            <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
-                              Visit Live Site
-                            </span>
-                          </div>
-                        </a>
-                      ) : (
-                        <div className="flex aspect-[16/10] max-h-[44svh] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
-                          <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
-                            In Development
-                          </span>
-                          <p className="max-w-[220px] text-xs text-muted">
-                            Live deployment preview will appear here once shipped.
-                          </p>
-                        </div>
-                      )}
+              return (
+                <div key={project.id} className="w-full shrink-0">
+                  <div className="flex items-center justify-between border-b border-border bg-surface/95 px-4 py-2.5">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+                      <span className="ml-1 truncate font-mono text-[11px] text-muted">
+                        {cleanDomain}
+                      </span>
                     </div>
-                  </div>
-
-                  {/* Right Column: Project Details */}
-                  <div className="flex flex-col justify-between lg:col-span-6 xl:col-span-5">
-                    <div>
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-xs font-medium text-accent">
-                          {project.category}
-                        </span>
-
-                        {isShipped ? (
-                          <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-400">
-                            Live
-                          </span>
-                        ) : (
-                          <span className="rounded-full border border-border bg-bg/60 px-2.5 py-0.5 text-xs text-muted">
-                            In Development
-                          </span>
-                        )}
-                      </div>
-
-                      <h3 className="mt-2.5 text-lg font-bold tracking-tight text-text sm:mt-3 sm:text-2xl">
-                        {project.title}
-                      </h3>
-                      <p className="mt-2 text-xs leading-relaxed text-muted sm:mt-2.5 sm:text-sm">
-                        {project.summary}
-                      </p>
-
-                      {/* Colored Tech Stack Pills */}
-                      <ul
-                        aria-label="Technologies used"
-                        className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2"
-                      >
-                        {project.techStack.map((tech) => {
-                          const badgeStyle =
-                            TECH_TAG_STYLES[tech] ?? DEFAULT_TAG_STYLE
-                          return (
-                            <li
-                              key={tech}
-                              className={`rounded-md border px-2.5 py-0.5 text-xs font-medium sm:py-1 ${badgeStyle}`}
-                            >
-                              {tech}
-                            </li>
-                          )
-                        })}
-                      </ul>
-                    </div>
-
-                    {isShipped && (
-                      <div className="mt-4 flex flex-wrap items-center gap-2.5 border-t border-border pt-3.5 sm:mt-5 sm:gap-3 sm:pt-4">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg bg-accent px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
-                          >
-                            Live Demo
-                          </a>
-                        )}
-
-                        {project.repoUrl && (
-                          <a
-                            href={project.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex flex-1 whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-text transition-colors hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
-                          >
-                            GitHub Repo
-                          </a>
-                        )}
-
-                        {project.caseStudy && (
-                          <button
-                            type="button"
-                            onClick={() => setSelectedProject(project)}
-                            className="inline-flex w-full whitespace-nowrap items-center justify-center rounded-lg border border-border bg-bg px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text sm:ml-auto sm:w-auto"
-                          >
-                            Read Case Study
-                          </button>
-                        )}
-                      </div>
+                    {projectShipped && (
+                      <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                        Live
+                      </span>
                     )}
                   </div>
+
+                  {projectShipped && project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open live preview of ${project.title}`}
+                      className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
+                    >
+                      {shouldMountIframe ? (
+                        <iframe
+                          src={project.liveUrl}
+                          title={`${project.title} live preview`}
+                          loading="lazy"
+                          tabIndex={-1}
+                          className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-bg text-xs text-muted">
+                          Loading live preview…
+                        </div>
+                      )}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
+                        <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
+                          Visit Live Site
+                        </span>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="flex aspect-[16/10] max-h-[50svh] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
+                      <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
+                        In Development
+                      </span>
+                      <p className="max-w-[240px] text-xs text-muted">
+                        Live deployment preview will appear here once shipped.
+                      </p>
+                    </div>
+                  )}
                 </div>
-              </article>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
-      </div>
-
-      {/* Bottom Centered Controls: Prev + Slide Dots + Next */}
-      <div className="mt-3.5 flex items-center justify-center gap-4 sm:mt-5">
-        <button
-          type="button"
-          onClick={prevSlide}
-          aria-label="Previous project"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text"
-        >
-          Prev
-        </button>
-
-        <div className="flex items-center gap-2">
-          {PROJECTS.map((project, index) => {
-            const isActive = index === currentIndex
-            return (
-              <button
-                key={project.id}
-                type="button"
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Go to slide ${index + 1}: ${project.title}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  isActive ? 'w-7 bg-accent' : 'w-2 bg-border hover:bg-muted'
-                }`}
-              />
-            )
-          })}
-        </div>
-
-        <button
-          type="button"
-          onClick={nextSlide}
-          aria-label="Next project"
-          className="inline-flex items-center justify-center rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 dark:hover:border-white/25 hover:text-text"
-        >
-          Next
-        </button>
       </div>
 
       {/* Case Study Modal */}

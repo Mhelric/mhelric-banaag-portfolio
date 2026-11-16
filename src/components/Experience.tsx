@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CERTIFICATIONS, type Certification } from '../data/certifications'
+import { CertificationCoverflow } from './CertificationCoverflow'
 import { GitHubActivity } from './GitHubActivity'
 import { Reveal } from './Reveal'
 
@@ -213,92 +214,13 @@ export function Experience() {
             </span>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {CERTIFICATIONS.map((cert) => (
-              <article
-                key={cert.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-surface/85 p-4 shadow-sm transition-all duration-300 hover:border-accent/40 sm:p-5 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]"
-              >
-                <div className="grid h-full grid-cols-1 items-center gap-4 sm:grid-cols-12">
-                  {/* Certificate Thumbnail Preview */}
-                  <button
-                    type="button"
-                    onClick={() => setSelectedCert(cert)}
-                    className="group/img relative flex items-center justify-center overflow-hidden rounded-xl border border-border bg-bg/70 p-1.5 sm:col-span-5"
-                  >
-                    <img
-                      src={cert.thumbUrl}
-                      alt={cert.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-[1.414/1] w-full rounded-lg object-contain transition-transform duration-300 group-hover/img:scale-105"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[1px] transition-opacity duration-200 group-hover/img:opacity-100">
-                      <span className="rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-black shadow">
-                        View Certificate
-                      </span>
-                    </div>
-                  </button>
-
-                  {/* Certificate Details */}
-                  <div className="flex h-full flex-col justify-between sm:col-span-7">
-                    <div>
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-xs font-medium text-accent">
-                          {cert.issuer}
-                        </span>
-                        <span className="rounded-full border border-border bg-bg/70 px-2.5 py-0.5 font-mono text-[11px] text-muted">
-                          {cert.date}
-                        </span>
-                      </div>
-
-                      <h4 className="mt-1.5 text-sm font-bold text-text sm:text-base">
-                        {cert.title}
-                      </h4>
-
-                      <p className="mt-1.5 text-xs leading-relaxed text-muted">
-                        {cert.description}
-                      </p>
-
-                      <div className="mt-2.5 flex flex-wrap gap-1.5">
-                        {cert.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-md border border-border bg-bg/70 px-2 py-0.5 text-[11px] font-medium text-muted"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-3.5 flex flex-wrap items-center gap-2 border-t border-border/70 pt-3">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedCert(cert)}
-                        className="rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
-                      >
-                        Preview Certificate
-                      </button>
-                      {cert.pdfUrl && (
-                        <a
-                          href={cert.pdfUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-lg border border-border bg-bg px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-black/20 hover:text-text dark:hover:border-white/25"
-                        >
-                          Open PDF ↗
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <CertificationCoverflow
+            items={CERTIFICATIONS}
+            onSelectCert={setSelectedCert}
+          />
 
           {/* Upcoming Certifications Banner */}
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-dashed border-border bg-surface/40 px-5 py-4">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-dashed border-border bg-surface/40 px-5 py-3.5">
             <div className="flex flex-wrap items-center gap-3">
               <span className="rounded-full border border-border bg-bg px-3 py-1 text-xs font-medium text-muted">
                 In Progress

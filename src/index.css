@@ -258,6 +258,27 @@ body::before {
   z-index: 9999;
 }
 
+/* Artwork Marquee Slider */
+@keyframes marqueeScroll {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marqueeScroll linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-play-state: paused !important;
+  }
+}
+
 /* Custom Minimalist Scrollbar (Page & Modals) */
 ::-webkit-scrollbar {
   width: 6px;
