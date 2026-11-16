@@ -2,7 +2,6 @@ import { ArtGallery } from './components/ArtGallery'
 import { Contact } from './components/Contact'
 import { CustomCursor } from './components/CustomCursor'
 import { Experience } from './components/Experience'
-import { GridBackground } from './components/GridBackground'
 import { Hero } from './components/Hero'
 import { IntroSplash } from './components/IntroSplash'
 import { Navbar } from './components/Navbar'
@@ -15,7 +14,6 @@ function App() {
     <div className="relative min-h-screen">
       <CustomCursor />
       <IntroSplash />
-      <GridBackground />
       <div className="relative z-10">
         <Navbar />
         <main className="mx-auto max-w-[1160px] px-4 sm:px-6 lg:px-8">
