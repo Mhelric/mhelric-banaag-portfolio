@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ARTWORKS } from '../data/artworks'
 
 const CARRD_URL = 'https://meru-art.carrd.co/'
@@ -39,9 +39,22 @@ const WORKFLOW_STEPS = [
 ]
 
 export function ArtGallery() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [isInView, setIsInView] = useState(true)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [isCommissionModalOpen, setIsCommissionModalOpen] = useState(false)
   const [isMarqueePaused, setIsMarqueePaused] = useState(false)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: '120px 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const totalArtworks = ARTWORKS.length
   const activeArtwork = activeIndex !== null ? ARTWORKS[activeIndex] : null
@@ -80,6 +93,7 @@ export function ArtGallery() {
 
   return (
     <section
+      ref={sectionRef}
       id="art"
       className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-4 sm:pt-[4.5rem] sm:pb-6"
       aria-labelledby="art-heading"
@@ -145,7 +159,10 @@ export function ArtGallery() {
           className="marquee-track flex w-fit"
           style={{
             animationPlayState:
-              isMarqueePaused || activeIndex !== null || isCommissionModalOpen
+              !isInView ||
+              isMarqueePaused ||
+              activeIndex !== null ||
+              isCommissionModalOpen
                 ? 'paused'
                 : 'running',
             animationDuration: `${totalArtworks * 3600}ms`,
@@ -180,8 +197,8 @@ export function ArtGallery() {
                     </p>
                   </div>
 
-                  {/* Centered Frosted Hover Effect */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 px-4 text-center opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+                  {/* Centered Hover Effect (zero heavy per-card backdrop-blur) */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/68 px-4 text-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                     <span className="rounded-full border border-white/20 bg-white/15 px-2.5 py-0.5 text-[10px] font-medium text-white/90">
                       {art.category}
                     </span>
@@ -241,7 +258,7 @@ export function ArtGallery() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="lightbox-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-3 backdrop-blur-md sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-3 sm:p-6"
           onClick={() => setActiveIndex(null)}
         >
           <div
@@ -370,7 +387,7 @@ export function ArtGallery() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="commission-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 backdrop-blur-md sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 sm:p-6"
           onClick={() => setIsCommissionModalOpen(false)}
         >
           <div

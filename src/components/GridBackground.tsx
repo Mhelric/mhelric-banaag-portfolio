@@ -28,11 +28,24 @@ export function GridBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const SCALE = 0.5
     let animationFrameId = 0
     let isRunning = false
     let isLight = document.documentElement.classList.contains('light')
-    let width = (canvas.width = window.innerWidth)
-    let height = (canvas.height = window.innerHeight)
+    let width = window.innerWidth
+    let height = window.innerHeight
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const syncCanvasSize = () => {
+      if (!canvas) return
+      width = window.innerWidth
+      height = window.innerHeight
+      // 0.5x canvas scale cuts fill-rate & VRAM by 75% for soft ambient beams/cells
+      canvas.width = Math.max(1, Math.ceil(width * SCALE))
+      canvas.height = Math.max(1, Math.ceil(height * SCALE))
+    }
+
+    syncCanvasSize()
 
     const themeObserver = new MutationObserver(() => {
       isLight = document.documentElement.classList.contains('light')
@@ -42,13 +55,7 @@ export function GridBackground() {
       attributeFilter: ['class'],
     })
 
-    const handleResize = () => {
-      if (!canvas) return
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
-    }
-
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', syncCanvasSize)
 
     const createBeam = (randomStart = false): Beam => {
       const isHorizontal = Math.random() > 0.45
@@ -82,8 +89,8 @@ export function GridBackground() {
       }
     }
 
-    const beams: Beam[] = Array.from({ length: 9 }, () => createBeam(true))
-    const cells: GlowingCell[] = Array.from({ length: 6 }, () => createCell(true))
+    const beams: Beam[] = Array.from({ length: 5 }, () => createBeam(true))
+    const cells: GlowingCell[] = Array.from({ length: 4 }, () => createCell(true))
 
     let lastFrame = 0
     const render = (now: number) => {
@@ -96,14 +103,16 @@ export function GridBackground() {
         animationFrameId = window.requestAnimationFrame(render)
         return
       }
+      const stepScale = lastFrame ? Math.min(2.5, (now - lastFrame) / 16.67) : 1
       lastFrame = now
 
+      ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0)
       ctx.clearRect(0, 0, width, height)
 
       // 1. Draw softly pulsing 48x48 grid cells
       for (let i = 0; i < cells.length; i++) {
         const cell = cells[i]
-        cell.progress += cell.speed
+        cell.progress += cell.speed * stepScale
 
         if (cell.progress >= Math.PI) {
           cells[i] = createCell(false)
@@ -123,7 +132,7 @@ export function GridBackground() {
       // 2. Draw moving light beams along the 48px grid lines
       for (let i = 0; i < beams.length; i++) {
         const beam = beams[i]
-        beam.position += beam.speed
+        beam.position += beam.speed * stepScale
 
         const limit = (beam.isHorizontal ? width : height) + beam.length
         if (beam.position > limit) {
@@ -157,12 +166,18 @@ export function GridBackground() {
         }
       }
 
-      animationFrameId = window.requestAnimationFrame(render)
+      if (!reducedMotion) {
+        animationFrameId = window.requestAnimationFrame(render)
+      } else {
+        isRunning = false
+        animationFrameId = 0
+      }
     }
 
     const startLoop = () => {
       if (!isRunning && !document.hidden) {
         isRunning = true
+        lastFrame = 0
         animationFrameId = window.requestAnimationFrame(render)
       }
     }
@@ -185,7 +200,7 @@ export function GridBackground() {
     return () => {
       if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
       themeObserver.disconnect()
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', syncCanvasSize)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])

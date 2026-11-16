@@ -259,7 +259,7 @@ export function Navbar() {
     <header className="pointer-events-none fixed inset-x-0 top-3 z-50 flex items-center justify-center gap-2 px-3 sm:top-4 sm:gap-2.5">
         <nav
           aria-label="Main navigation"
-          className="pointer-events-auto flex items-center gap-1 rounded-full border border-border bg-surface/85 p-1.5 shadow-[0_14px_34px_rgba(15,23,42,0.1)] backdrop-blur-xl sm:gap-1.5 sm:px-2.5 dark:border-white/12 dark:bg-[#111216]/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
+          className="pointer-events-auto flex items-center gap-1 rounded-full border border-border bg-surface/85 p-1.5 shadow-[0_14px_34px_rgba(15,23,42,0.1)] backdrop-blur-md sm:gap-1.5 sm:px-2.5 dark:border-white/12 dark:bg-[#111216]/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
         >
           {/* Brand Monogram */}
           <a
@@ -322,7 +322,7 @@ export function Navbar() {
           onClick={toggleTheme}
           aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="pointer-events-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-surface/85 text-text shadow-[0_14px_34px_rgba(15,23,42,0.12)] backdrop-blur-xl transition-all duration-200 outline-none hover:scale-105 hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-95 dark:border-white/12 dark:bg-[#111216]/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
+          className="pointer-events-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-surface/85 text-text shadow-[0_14px_34px_rgba(15,23,42,0.12)] backdrop-blur-md transition-all duration-200 outline-none hover:scale-105 hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-95 dark:border-white/12 dark:bg-[#111216]/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
         >
           {theme === 'dark' ? (
             <svg

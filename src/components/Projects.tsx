@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type TouchEvent } from 'react'
+import { useEffect, useState, type TouchEvent } from 'react'
 import { PROJECTS, type Project } from '../data/projects'
 
 const TECH_TAG_STYLES: Record<string, string> = {
@@ -17,112 +17,183 @@ const TECH_TAG_STYLES: Record<string, string> = {
   Vite: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300',
   'Argon2id / AES-GCM': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:border-violet-400/30 dark:text-violet-300',
   Capacitor: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300',
-  Android: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/30 dark:text-emerald-300',
+  Android: 'border-lime-600/40 bg-lime-500/10 text-lime-700 dark:border-lime-400/30 dark:text-lime-300',
   'Custom Illustration': 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300',
 }
 
 const DEFAULT_TAG_STYLE = 'border-border bg-bg text-muted'
 
-function PassVaultPreview() {
+function ProjectBrowserCover({ project }: { project: Project }) {
+  if (project.id === 'pass-vault') {
+    return (
+      <div className="flex h-full w-full flex-col justify-between bg-[#090d16] p-5 text-white sm:p-7">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 font-mono text-xs font-bold text-emerald-400">
+              PV
+            </span>
+            <span className="text-xs font-semibold tracking-tight text-white sm:text-sm">
+              Pass-Vault
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] text-emerald-300">
+              Zero-Knowledge
+            </span>
+            <span className="hidden rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 font-mono text-[10px] text-zinc-300 sm:inline-block">
+              Android APK
+            </span>
+          </div>
+        </div>
+
+        <div className="my-auto grid grid-cols-12 gap-3 py-3">
+          <div className="col-span-4 hidden flex-col justify-between rounded-xl border border-white/10 bg-white/[0.03] p-3 sm:flex">
+            <div className="space-y-1.5 text-[10px] text-zinc-400">
+              <div className="rounded-md bg-emerald-500/15 px-2 py-1 font-medium text-emerald-300">
+                All Vault Items
+              </div>
+              <div className="px-2 py-1">PINs &amp; Banking</div>
+              <div className="px-2 py-1">2FA Recovery</div>
+              <div className="px-2 py-1">Secure Notes</div>
+            </div>
+            <div className="border-t border-white/10 pt-2 font-mono text-[9px] text-zinc-500">
+              IndexedDB Offline Sync
+            </div>
+          </div>
+
+          <div className="col-span-12 flex flex-col justify-between rounded-xl border border-white/10 bg-white/[0.04] p-4 sm:col-span-8">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+                Argon2id + AES-256-GCM Client Vault
+              </p>
+              <h4 className="mt-1.5 text-base font-bold leading-snug text-white sm:text-xl">
+                Encrypted credentials in memory—zero plaintext ever hits the server.
+              </h4>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] text-zinc-300">
+              <div className="rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5">
+                Fingerprint &amp; Face Unlock
+              </div>
+              <div className="rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5">
+                5-Strike Auto Wipe Guard
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/10 pt-2.5 font-mono text-[10px] text-zinc-400">
+          <span>PWA · Capacitor Android · Chrome Extension</span>
+          <span className="text-emerald-400">Open App ↗</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (project.id === 'meru-art-studio') {
+    return (
+      <div className="flex h-full w-full flex-col justify-between bg-[#fbf8f4] p-5 text-[#1e1b2e] sm:p-7">
+        <div className="flex items-center justify-between border-b border-[#1e1b2e]/10 pb-3">
+          <span className="text-xs font-extrabold tracking-tight text-[#e85d4a] sm:text-sm">
+            MERU ART STUDIO
+          </span>
+          <div className="flex items-center gap-2 text-[10px]">
+            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-semibold text-emerald-700">
+              Open Slots
+            </span>
+            <span className="rounded-full bg-[#1e1b2e] px-2.5 py-0.5 font-medium text-white">
+              Commission ↗
+            </span>
+          </div>
+        </div>
+
+        <div className="my-auto py-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-[#e85d4a]">
+            Full-Stack Illustration Storefront
+          </p>
+          <h4 className="mt-1.5 max-w-md text-lg font-bold leading-tight sm:text-2xl">
+            I bring your characters to life through clean thumbnails &amp; logos.
+          </h4>
+          <p className="mt-2 max-w-md text-xs text-[#1e1b2e]/70">
+            Live USD/PHP pricing calculator, anonymized availability queue calendar, and authenticated client WIP vaults.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2 text-[10px]">
+            <span className="rounded-lg bg-[#e85d4a] px-3 py-1.5 font-semibold text-white">
+              3-Step Order Drawer
+            </span>
+            <span className="rounded-lg border border-[#1e1b2e]/15 bg-white px-3 py-1.5 font-medium">
+              Discord &amp; Google OAuth
+            </span>
+            <span className="rounded-lg border border-[#1e1b2e]/15 bg-white px-3 py-1.5 font-medium">
+              PostgreSQL RLS
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-[#1e1b2e]/10 pt-2.5 font-mono text-[10px] text-[#1e1b2e]/65">
+          <span>React · TypeScript · Supabase · Framer Motion</span>
+          <span className="font-semibold text-[#e85d4a]">Open Studio ↗</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (project.id === 'pokedex-lens') {
+    return (
+      <div className="flex h-full w-full flex-col justify-between bg-[#101626] p-5 text-white sm:p-7">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <span className="font-mono text-xs font-bold text-rose-400 sm:text-sm">
+            POKÉDEX × LENS
+          </span>
+          <span className="rounded-full border border-sky-400/30 bg-sky-400/15 px-2.5 py-0.5 text-[10px] font-medium text-sky-300">
+            SerpAPI + PokéAPI
+          </span>
+        </div>
+
+        <div className="my-auto py-3">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-amber-300">
+            Visual Recognition Interface
+          </p>
+          <h4 className="mt-1.5 max-w-md text-lg font-bold leading-tight sm:text-2xl">
+            Identify any Pokémon straight from an image or camera snap.
+          </h4>
+          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[10px]">
+            <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
+              <p className="font-semibold text-sky-300">1. Upload</p>
+              <p className="mt-0.5 text-zinc-400">Google Lens Match</p>
+            </div>
+            <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
+              <p className="font-semibold text-amber-300">2. Normalize</p>
+              <p className="mt-0.5 text-zinc-400">Species Resolver</p>
+            </div>
+            <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
+              <p className="font-semibold text-emerald-300">3. Inspect</p>
+              <p className="mt-0.5 text-zinc-400">Stats &amp; Types</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/10 pt-2.5 font-mono text-[10px] text-zinc-400">
+          <span>JavaScript · PokéAPI · Google Lens API</span>
+          <span className="text-emerald-400">Open App ↗</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex h-full w-full select-none overflow-hidden bg-[#09090B] text-[#F8FAFC] text-[10px] sm:text-[11px]">
-      {/* Left Sidebar */}
-      <div className="hidden sm:flex w-36 shrink-0 flex-col justify-between border-r border-[#27273A] bg-[#121217] p-2.5">
-        <div className="space-y-3">
-          <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-1.5">
-              <span className="flex h-5 w-5 items-center justify-center rounded-md border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 text-[10px] text-[#C084FC]">
-                🛡
-              </span>
-              <span className="font-bold tracking-tight text-white">Pass-Vault</span>
-            </div>
-          </div>
-          <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2 py-1 text-[9px] text-[#94A3B8]">
-            Quick Search ⌘K
-          </div>
-          <div className="space-y-1 text-[10px]">
-            <div className="rounded-lg border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 px-2 py-1 font-medium text-white">
-              All Items
-            </div>
-            <div className="px-2 py-1 text-[#94A3B8]">Favorites</div>
-            <div className="px-2 py-1 text-[#94A3B8]">Logins</div>
-            <div className="px-2 py-1 text-[#94A3B8]">PINs</div>
-            <div className="px-2 py-1 text-[#94A3B8]">Cards</div>
-            <div className="px-2 py-1 text-[#94A3B8]">Notes</div>
-          </div>
-        </div>
-        <div className="rounded-lg bg-[#8B5CF6] py-1.5 text-center text-[10px] font-semibold text-white shadow-[0_0_16px_rgba(139,92,246,0.35)]">
-          + New Vault Item
-        </div>
-      </div>
-
-      {/* Middle Item List */}
-      <div className="w-40 sm:w-48 shrink-0 border-r border-[#27273A] p-2.5 space-y-2">
-        <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 text-[9px] text-[#94A3B8]">
-          Filter items or #tags…
-        </div>
-        <div className="space-y-1.5">
-          <div className="rounded-xl border border-[#8B5CF6]/50 bg-[#8B5CF6]/15 p-2">
-            <div className="font-semibold text-white truncate">Google Workspace ★</div>
-            <div className="text-[9px] text-[#94A3B8] truncate">alex.dev@workspace.io</div>
-          </div>
-          <div className="rounded-xl border border-[#27273A] bg-[#121217] p-2">
-            <div className="font-semibold text-white truncate">GitHub Enterprise</div>
-            <div className="text-[9px] text-[#94A3B8] truncate">alex-dev</div>
-          </div>
-          <div className="rounded-xl border border-[#27273A] bg-[#121217] p-2">
-            <div className="font-semibold text-white truncate">BDO Debit PIN</div>
-            <div className="text-[9px] text-[#94A3B8] truncate">Checking •••• 4821</div>
-          </div>
-          <div className="rounded-xl border border-[#27273A] bg-[#121217] p-2">
-            <div className="font-semibold text-white truncate">2FA Recovery Codes</div>
-            <div className="text-[9px] text-[#94A3B8] truncate">8 backup codes</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Detail Inspector */}
-      <div className="flex-1 p-3 sm:p-4 space-y-2.5 overflow-hidden">
-        <div className="flex items-center gap-1.5">
-          <span className="rounded-full border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 px-2 py-0.5 text-[9px] font-medium text-[#C084FC]">
-            Login
-          </span>
-          <span className="rounded-full border border-[#27273A] bg-[#1A1A24] px-2 py-0.5 text-[9px] text-[#94A3B8]">
-            #work
-          </span>
-        </div>
-        <div className="text-sm sm:text-base font-bold text-white">Google Workspace</div>
-        <div className="space-y-1.5">
-          <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 flex items-center justify-between">
-            <div>
-              <div className="text-[8px] uppercase tracking-wider text-[#94A3B8]">Email</div>
-              <div className="text-[10px] text-white">alex.dev@workspace.io</div>
-            </div>
-            <span className="rounded border border-[#27273A] bg-[#121217] px-1.5 py-0.5 text-[8px] text-[#CBD5E1]">
-              Copy
-            </span>
-          </div>
-          <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 flex items-center justify-between">
-            <div>
-              <div className="text-[8px] uppercase tracking-wider text-[#94A3B8]">Password</div>
-              <div className="text-[10px] text-[#C084FC] tracking-widest">••••••••••••••••</div>
-            </div>
-            <span className="rounded border border-[#27273A] bg-[#121217] px-1.5 py-0.5 text-[8px] text-[#CBD5E1]">
-              Copy
-            </span>
-          </div>
-        </div>
-        <div className="pt-1 text-[8px] text-[#94A3B8]">
-          Zero-Knowledge • Encrypted with Argon2id + AES-256-GCM
-        </div>
-      </div>
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2.5 bg-bg/80 p-6 text-center">
+      <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
+        In Development
+      </span>
+      <h4 className="text-base font-bold text-text sm:text-lg">{project.title}</h4>
+      <p className="max-w-[260px] text-xs text-muted">
+        Live deployment preview will appear here once shipped.
+      </p>
     </div>
   )
 }
 
 export function Projects() {
-  const sectionRef = useRef<HTMLElement | null>(null)
-  const [loadedIframes, setLoadedIframes] = useState<Record<string, boolean>>({})
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
@@ -145,14 +216,9 @@ export function Projects() {
 
   const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
     if (touchStartX === null) return
-    const touchEndX = e.changedTouches[0].clientX
-    const diff = touchStartX - touchEndX
-
-    if (diff > 50) {
-      nextSlide()
-    } else if (diff < -50) {
-      prevSlide()
-    }
+    const diff = touchStartX - e.changedTouches[0].clientX
+    if (diff > 50) nextSlide()
+    else if (diff < -50) prevSlide()
     setTouchStartX(null)
   }
 
@@ -172,7 +238,6 @@ export function Projects() {
 
   return (
     <section
-      ref={sectionRef}
       id="projects"
       className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-4 sm:pt-[4.5rem] sm:pb-6"
       aria-labelledby="projects-heading"
@@ -190,7 +255,7 @@ export function Projects() {
         </h2>
       </div>
 
-      {/* Asymmetric Split Layout: Left Details & Controls, Right Live Website Preview */}
+      {/* Asymmetric Split Layout: Left Details & Controls, Right Project Preview Slider */}
       <div className="mt-4 grid grid-cols-1 items-center gap-6 lg:mt-5 lg:grid-cols-12 lg:gap-8">
         {/* Left Column: Active Project Details & Navigation */}
         <div className="order-2 flex flex-col justify-center lg:order-1 lg:col-span-5">
@@ -316,23 +381,18 @@ export function Projects() {
           </div>
         </div>
 
-        {/* Right Column: Live Website Preview Slider */}
+        {/* Right Column: Zero-RAM Smooth Horizontal Preview Slider */}
         <div
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           className="order-1 overflow-hidden rounded-2xl border border-border bg-surface shadow-lg lg:order-2 lg:col-span-7"
         >
           <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            className="flex transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ transform: `translate3d(-${currentIndex * 100}%, 0, 0)` }}
           >
-            {PROJECTS.map((project, slideIndex) => {
+            {PROJECTS.map((project) => {
               const projectShipped = project.status === 'shipped'
-              const isCustomVaultPreview = project.id === 'pass-vault'
-              const shouldMountIframe =
-                !isCustomVaultPreview &&
-                slideIndex === currentIndex &&
-                Boolean(loadedIframes[project.id])
               const cleanDomain = project.liveUrl
                 ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
                 : 'In development'
@@ -356,77 +416,23 @@ export function Projects() {
                   </div>
 
                   {projectShipped && project.liveUrl ? (
-                    isCustomVaultPreview ? (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open live preview of ${project.title}`}
-                        className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-[#09090B]"
-                      >
-                        <PassVaultPreview />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
-                          <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
-                            Visit Live Site
-                          </span>
-                        </div>
-                      </a>
-                    ) : shouldMountIframe ? (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open live preview of ${project.title}`}
-                        className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
-                      >
-                        <iframe
-                          src={project.liveUrl}
-                          title={`${project.title} live preview`}
-                          loading="lazy"
-                          tabIndex={-1}
-                          className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
-                          <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
-                            Visit Live Site
-                          </span>
-                        </div>
-                      </a>
-                    ) : (
-                      <div className="flex aspect-[16/10] max-h-[50svh] w-full flex-col items-center justify-center gap-3 bg-bg/90 p-6 text-center">
-                        <p className="text-xs font-medium text-text">{project.title}</p>
-                        <p className="max-w-[260px] text-[11px] text-muted">
-                          Interactive embed paused to keep memory &amp; CPU light.
-                        </p>
-                        <div className="flex flex-wrap items-center justify-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setLoadedIframes((prev) => ({ ...prev, [project.id]: true }))
-                            }
-                            className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-accent"
-                          >
-                            Load Live Preview
-                          </button>
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
-                          >
-                            Visit Site ↗
-                          </a>
-                        </div>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open live preview of ${project.title}`}
+                      className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
+                    >
+                      <ProjectBrowserCover project={project} />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/55 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                        <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
+                          Visit Live Site ↗
+                        </span>
                       </div>
-                    )
+                    </a>
                   ) : (
-                    <div className="flex aspect-[16/10] max-h-[50svh] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
-                      <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
-                        In Development
-                      </span>
-                      <p className="max-w-[240px] text-xs text-muted">
-                        Live deployment preview will appear here once shipped.
-                      </p>
+                    <div className="aspect-[16/10] max-h-[50svh] w-full overflow-hidden">
+                      <ProjectBrowserCover project={project} />
                     </div>
                   )}
                 </div>
@@ -442,7 +448,7 @@ export function Projects() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="case-study-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 backdrop-blur-sm sm:p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 sm:p-4"
           onClick={() => setSelectedProject(null)}
         >
           <div

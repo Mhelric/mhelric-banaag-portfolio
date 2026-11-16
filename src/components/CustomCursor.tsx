@@ -129,10 +129,7 @@ export function CustomCursor() {
         ctx.closePath()
 
         ctx.fillStyle = grad
-        ctx.shadowColor = strokeColor
-        ctx.shadowBlur = 10
         ctx.fill()
-        ctx.shadowBlur = 0
         canvasDirty = true
       }
 

@@ -244,7 +244,7 @@ export function Experience() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="cert-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 backdrop-blur-md sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-3 sm:p-6"
           onClick={() => setSelectedCert(null)}
         >
           <div
