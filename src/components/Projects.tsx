@@ -15,6 +15,9 @@ const TECH_TAG_STYLES: Record<string, string> = {
   PostgreSQL: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:border-blue-400/30 dark:text-blue-300',
   'Framer Motion': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:border-purple-400/30 dark:text-purple-300',
   Vite: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300',
+  'Argon2id / AES-GCM': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:border-violet-400/30 dark:text-violet-300',
+  Capacitor: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300',
+  Android: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/30 dark:text-emerald-300',
   'Custom Illustration': 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300',
 }
 

@@ -21,6 +21,39 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    id: 'pass-vault',
+    title: 'Pass-Vault — Zero-Knowledge Password & PIN Manager',
+    category: 'Security • Full-Stack PWA & Native Android APK',
+    summary:
+      'A zero-knowledge personal vault for passwords, PINs, cards, and recovery notes featuring client-side Argon2id + AES-256-GCM encryption, offline-first IndexedDB delta sync via Supabase, and a signed Android APK with native Fingerprint & Face Unlock.',
+    techStack: [
+      'TypeScript',
+      'React',
+      'Tailwind CSS',
+      'Argon2id / AES-GCM',
+      'Capacitor',
+      'Android',
+      'Supabase',
+      'Vite',
+      'Vercel',
+    ],
+    status: 'shipped',
+    featured: true,
+    liveUrl: 'https://pass-vault-mhel.vercel.app/',
+    caseStudy: {
+      problem:
+        'Everyday accounts, banking PINs, SIM/PUK codes, and 2FA recovery notes often end up scattered across plain text files or cloud notes apps where servers can read plaintext data or fail completely offline.',
+      role:
+        'Architected the monorepo (@vault/crypto, @vault/core, @vault/ui, @vault/pwa, @vault/extension), designed the client-side key hierarchy, built the responsive web workspace and native Android Capacitor bridge, and automated signed APK releases via GitHub Actions.',
+      challenges:
+        'Keeping all cryptographic operations strictly in-memory on the client (Argon2id/PBKDF2 KDF, HKDF subkey splitting, VEK wrapping, and AES-256-GCM with AAD binding) while supporting 5-strike PIN wipe protection, offline-first Dexie delta sync, and native Android BiometricPrompt + AndroidKeyStore hardware encryption.',
+      outcome:
+        'Shipped a cross-platform password and PIN manager across desktop/mobile web (with collapsible/resizable 3-pane layout), a signed native Android APK with in-app update checks and biometric unlock, and a Manifest V3 browser extension.',
+      aiWorkflowNote:
+        'Used AI-assisted engineering for rapid monorepo scaffolding, native Java BiometricPrompt bridging, and iterative mobile UX refinement while owning the zero-knowledge threat model, crypto invariants, and release pipeline.',
+    },
+  },
+  {
     id: 'meru-art-studio',
     title: 'Meru Art — Commission Studio & Client Workspace',
     category: 'Full-Stack • Client Workspace & Creative UI',
