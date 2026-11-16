@@ -23,9 +23,106 @@ const TECH_TAG_STYLES: Record<string, string> = {
 
 const DEFAULT_TAG_STYLE = 'border-border bg-bg text-muted'
 
+function PassVaultPreview() {
+  return (
+    <div className="flex h-full w-full select-none overflow-hidden bg-[#09090B] text-[#F8FAFC] text-[10px] sm:text-[11px]">
+      {/* Left Sidebar */}
+      <div className="hidden sm:flex w-36 shrink-0 flex-col justify-between border-r border-[#27273A] bg-[#121217] p-2.5">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between px-1">
+            <div className="flex items-center gap-1.5">
+              <span className="flex h-5 w-5 items-center justify-center rounded-md border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 text-[10px] text-[#C084FC]">
+                🛡
+              </span>
+              <span className="font-bold tracking-tight text-white">Pass-Vault</span>
+            </div>
+          </div>
+          <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2 py-1 text-[9px] text-[#94A3B8]">
+            Quick Search ⌘K
+          </div>
+          <div className="space-y-1 text-[10px]">
+            <div className="rounded-lg border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 px-2 py-1 font-medium text-white">
+              All Items
+            </div>
+            <div className="px-2 py-1 text-[#94A3B8]">Favorites</div>
+            <div className="px-2 py-1 text-[#94A3B8]">Logins</div>
+            <div className="px-2 py-1 text-[#94A3B8]">PINs</div>
+            <div className="px-2 py-1 text-[#94A3B8]">Cards</div>
+            <div className="px-2 py-1 text-[#94A3B8]">Notes</div>
+          </div>
+        </div>
+        <div className="rounded-lg bg-[#8B5CF6] py-1.5 text-center text-[10px] font-semibold text-white shadow-[0_0_16px_rgba(139,92,246,0.35)]">
+          + New Vault Item
+        </div>
+      </div>
+
+      {/* Middle Item List */}
+      <div className="w-40 sm:w-48 shrink-0 border-r border-[#27273A] p-2.5 space-y-2">
+        <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 text-[9px] text-[#94A3B8]">
+          Filter items or #tags…
+        </div>
+        <div className="space-y-1.5">
+          <div className="rounded-xl border border-[#8B5CF6]/50 bg-[#8B5CF6]/15 p-2">
+            <div className="font-semibold text-white truncate">Google Workspace ★</div>
+            <div className="text-[9px] text-[#94A3B8] truncate">alex.dev@workspace.io</div>
+          </div>
+          <div className="rounded-xl border border-[#27273A] bg-[#121217] p-2">
+            <div className="font-semibold text-white truncate">GitHub Enterprise</div>
+            <div className="text-[9px] text-[#94A3B8] truncate">alex-dev</div>
+          </div>
+          <div className="rounded-xl border border-[#27273A] bg-[#121217] p-2">
+            <div className="font-semibold text-white truncate">BDO Debit PIN</div>
+            <div className="text-[9px] text-[#94A3B8] truncate">Checking •••• 4821</div>
+          </div>
+          <div className="rounded-xl border border-[#27273A] bg-[#121217] p-2">
+            <div className="font-semibold text-white truncate">2FA Recovery Codes</div>
+            <div className="text-[9px] text-[#94A3B8] truncate">8 backup codes</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Detail Inspector */}
+      <div className="flex-1 p-3 sm:p-4 space-y-2.5 overflow-hidden">
+        <div className="flex items-center gap-1.5">
+          <span className="rounded-full border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 px-2 py-0.5 text-[9px] font-medium text-[#C084FC]">
+            Login
+          </span>
+          <span className="rounded-full border border-[#27273A] bg-[#1A1A24] px-2 py-0.5 text-[9px] text-[#94A3B8]">
+            #work
+          </span>
+        </div>
+        <div className="text-sm sm:text-base font-bold text-white">Google Workspace</div>
+        <div className="space-y-1.5">
+          <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 flex items-center justify-between">
+            <div>
+              <div className="text-[8px] uppercase tracking-wider text-[#94A3B8]">Email</div>
+              <div className="text-[10px] text-white">alex.dev@workspace.io</div>
+            </div>
+            <span className="rounded border border-[#27273A] bg-[#121217] px-1.5 py-0.5 text-[8px] text-[#CBD5E1]">
+              Copy
+            </span>
+          </div>
+          <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 flex items-center justify-between">
+            <div>
+              <div className="text-[8px] uppercase tracking-wider text-[#94A3B8]">Password</div>
+              <div className="text-[10px] text-[#C084FC] tracking-widest">••••••••••••••••</div>
+            </div>
+            <span className="rounded border border-[#27273A] bg-[#121217] px-1.5 py-0.5 text-[8px] text-[#CBD5E1]">
+              Copy
+            </span>
+          </div>
+        </div>
+        <div className="pt-1 text-[8px] text-[#94A3B8]">
+          Zero-Knowledge • Encrypted with Argon2id + AES-256-GCM
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Projects() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const [isSectionNear, setIsSectionNear] = useState(false)
+  const [loadedIframes, setLoadedIframes] = useState<Record<string, boolean>>({})
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
@@ -33,21 +130,6 @@ export function Projects() {
   const totalSlides = PROJECTS.length
   const activeProject = PROJECTS[currentIndex]
   const isShipped = activeProject.status === 'shipped'
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSectionNear(entry.isIntersecting)
-      },
-      { rootMargin: '250px 0px' },
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1))
@@ -246,8 +328,11 @@ export function Projects() {
           >
             {PROJECTS.map((project, slideIndex) => {
               const projectShipped = project.status === 'shipped'
+              const isCustomVaultPreview = project.id === 'pass-vault'
               const shouldMountIframe =
-                isSectionNear && slideIndex === currentIndex
+                !isCustomVaultPreview &&
+                slideIndex === currentIndex &&
+                Boolean(loadedIframes[project.id])
               const cleanDomain = project.liveUrl
                 ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
                 : 'In development'
@@ -271,14 +356,29 @@ export function Projects() {
                   </div>
 
                   {projectShipped && project.liveUrl ? (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open live preview of ${project.title}`}
-                      className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
-                    >
-                      {shouldMountIframe ? (
+                    isCustomVaultPreview ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open live preview of ${project.title}`}
+                        className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-[#09090B]"
+                      >
+                        <PassVaultPreview />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
+                          <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
+                            Visit Live Site
+                          </span>
+                        </div>
+                      </a>
+                    ) : shouldMountIframe ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open live preview of ${project.title}`}
+                        className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
+                      >
                         <iframe
                           src={project.liveUrl}
                           title={`${project.title} live preview`}
@@ -286,17 +386,39 @@ export function Projects() {
                           tabIndex={-1}
                           className="pointer-events-none h-[250%] w-[250%] origin-top-left scale-40 border-0 sm:h-[200%] sm:w-[200%] sm:scale-50"
                         />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-bg text-xs text-muted">
-                          Loading live preview…
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
+                          <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
+                            Visit Live Site
+                          </span>
                         </div>
-                      )}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
-                        <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
-                          Visit Live Site
-                        </span>
+                      </a>
+                    ) : (
+                      <div className="flex aspect-[16/10] max-h-[50svh] w-full flex-col items-center justify-center gap-3 bg-bg/90 p-6 text-center">
+                        <p className="text-xs font-medium text-text">{project.title}</p>
+                        <p className="max-w-[260px] text-[11px] text-muted">
+                          Interactive embed paused to keep memory &amp; CPU light.
+                        </p>
+                        <div className="flex flex-wrap items-center justify-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setLoadedIframes((prev) => ({ ...prev, [project.id]: true }))
+                            }
+                            className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-accent"
+                          >
+                            Load Live Preview
+                          </button>
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
+                          >
+                            Visit Site ↗
+                          </a>
+                        </div>
                       </div>
-                    </a>
+                    )
                   ) : (
                     <div className="flex aspect-[16/10] max-h-[50svh] w-full flex-col items-center justify-center gap-2 bg-bg/80 p-6 text-center">
                       <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">

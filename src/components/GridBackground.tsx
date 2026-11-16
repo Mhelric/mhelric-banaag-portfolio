@@ -85,12 +85,18 @@ export function GridBackground() {
     const beams: Beam[] = Array.from({ length: 9 }, () => createBeam(true))
     const cells: GlowingCell[] = Array.from({ length: 6 }, () => createCell(true))
 
-    const render = () => {
+    let lastFrame = 0
+    const render = (now: number) => {
       if (document.hidden) {
         isRunning = false
         animationFrameId = 0
         return
       }
+      if (now - lastFrame < 33) {
+        animationFrameId = window.requestAnimationFrame(render)
+        return
+      }
+      lastFrame = now
 
       ctx.clearRect(0, 0, width, height)
 
