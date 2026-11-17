@@ -111,12 +111,21 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    id: 'upcoming-fullstack-app',
-    title: 'Cloud Productivity & Developer Platform (Upcoming)',
-    category: 'Full-Stack • Realtime & Cloud Architecture',
+    id: 'school-mis-mockup',
+    title: 'Sample School MIS — Academic & Student Portal',
+    category: 'Full-Stack • Education MIS & Role-Based Dashboard',
     summary:
-      'Next full-stack project exploring realtime collaboration, performant state sync, and edge deployment.',
-    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Supabase', 'Vite'],
+      'A clean Management Information System (MIS) mockup for a sample school featuring student enrollment, class schedules, attendance logs, grade encoding, and role-based Registrar, Faculty, and Student dashboards.',
+    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Vite'],
+    status: 'in-progress',
+  },
+  {
+    id: 'anime-manga-sync',
+    title: 'Dual-Sync Anime & Manga Tracker (MAL + AniList)',
+    category: 'API Integration • Cross-Platform Media Tracker',
+    summary:
+      'A unified anime and manga tracker that connects to both MyAnimeList and AniList via OAuth, keeping watchlists, episode/chapter progress, scores, and seasonal airing schedules synced in one place.',
+    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'AniList GraphQL', 'MAL API v2', 'Vite'],
     status: 'in-progress',
   },
 ]

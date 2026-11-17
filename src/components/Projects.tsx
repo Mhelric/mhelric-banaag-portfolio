@@ -18,6 +18,8 @@ const TECH_TAG_STYLES: Record<string, string> = {
   'Argon2id / AES-GCM': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:border-violet-400/30 dark:text-violet-300',
   Capacitor: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300',
   Android: 'border-lime-600/40 bg-lime-500/10 text-lime-700 dark:border-lime-400/30 dark:text-lime-300',
+  'AniList GraphQL': 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300',
+  'MAL API v2': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300',
   'Custom Illustration': 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300',
 }
 
@@ -43,6 +45,119 @@ function ProjectPreviewFrame({ project }: { project: Project }) {
         draggable={false}
         className="h-full w-full object-cover object-top"
       />
+    )
+  }
+
+  if (project.id === 'school-mis-mockup') {
+    return (
+      <div className="flex h-full w-full flex-col justify-between bg-bg/90 p-5 text-text sm:p-6">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-accent">
+              Concept Mockup · School MIS
+            </p>
+            <h4 className="mt-0.5 text-sm font-bold sm:text-base">
+              Academic &amp; Student Information System
+            </h4>
+          </div>
+          <span className="rounded-full border border-border bg-surface px-2.5 py-0.5 text-[10px] font-medium text-muted">
+            In Progress
+          </span>
+        </div>
+
+        <div className="my-auto grid grid-cols-3 gap-2.5 py-3">
+          <div className="rounded-xl border border-border bg-surface p-3">
+            <p className="text-[10px] text-muted">Enrolled Students</p>
+            <p className="mt-1 text-base font-bold text-text sm:text-lg">1,248</p>
+            <p className="mt-0.5 text-[10px] text-emerald-600 dark:text-emerald-400">
+              AY 2026–2027
+            </p>
+          </div>
+          <div className="rounded-xl border border-border bg-surface p-3">
+            <p className="text-[10px] text-muted">Active Sections</p>
+            <p className="mt-1 text-base font-bold text-text sm:text-lg">36</p>
+            <p className="mt-0.5 text-[10px] text-accent">Registrar &amp; Faculty</p>
+          </div>
+          <div className="rounded-xl border border-border bg-surface p-3">
+            <p className="text-[10px] text-muted">Attendance Rate</p>
+            <p className="mt-1 text-base font-bold text-text sm:text-lg">96.4%</p>
+            <p className="mt-0.5 text-[10px] text-muted">Daily Logs</p>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-border bg-surface p-3">
+          <div className="flex items-center justify-between border-b border-border/70 pb-1.5 text-[10px] font-semibold text-muted">
+            <span>Planned Modules</span>
+            <span>Role-Based Access (RLS)</span>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-1.5 text-[10px]">
+            <span className="rounded-md border border-border bg-bg px-2 py-0.5">
+              Student Enrollment
+            </span>
+            <span className="rounded-md border border-border bg-bg px-2 py-0.5">
+              Grade Encoding
+            </span>
+            <span className="rounded-md border border-border bg-bg px-2 py-0.5">
+              Class Schedules
+            </span>
+            <span className="rounded-md border border-border bg-bg px-2 py-0.5">
+              Attendance &amp; Reports
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (project.id === 'anime-manga-sync') {
+    return (
+      <div className="flex h-full w-full flex-col justify-between bg-[#0f1320] p-5 text-white sm:p-6">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-sky-400">
+              Concept Mockup · Dual-API Sync
+            </p>
+            <h4 className="mt-0.5 text-sm font-bold sm:text-base">
+              Anime &amp; Manga List Tracker
+            </h4>
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] font-semibold">
+            <span className="rounded-md bg-[#2e51a2] px-2 py-0.5 text-white">
+              MAL
+            </span>
+            <span className="text-zinc-400">⇄</span>
+            <span className="rounded-md bg-[#02a9ff]/20 px-2 py-0.5 text-sky-300">
+              AniList
+            </span>
+          </div>
+        </div>
+
+        <div className="my-auto space-y-2 py-3 text-xs">
+          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5">
+            <div>
+              <p className="font-semibold text-white">Frieren: Beyond Journey&apos;s End</p>
+              <p className="text-[10px] text-zinc-400">Watching · Ep 24 / 28</p>
+            </div>
+            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[10px] text-emerald-300">
+              Synced
+            </span>
+          </div>
+          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5">
+            <div>
+              <p className="font-semibold text-white">Sakamoto Days</p>
+              <p className="text-[10px] text-zinc-400">Reading · Ch 182 · Manga</p>
+            </div>
+            <span className="rounded-full bg-sky-500/15 px-2.5 py-0.5 font-mono text-[10px] text-sky-300">
+              MAL ⇄ AL
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/10 pt-2.5 font-mono text-[10px] text-zinc-400">
+          <span>OAuth2 · AniList GraphQL · MAL REST v2</span>
+          <span className="text-sky-300">In Development</span>
+        </div>
+      </div>
     )
   }
 
