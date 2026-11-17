@@ -112,13 +112,6 @@ const SOCIAL_NETWORKS = [
   },
 ]
 
-const INQUIRY_TYPES = [
-  'Software Dev',
-  'Web Project',
-  'Art Commission',
-  'General',
-]
-
 type SendStatus = 'idle' | 'sending' | 'success' | 'error'
 
 export function Contact() {
@@ -126,7 +119,6 @@ export function Contact() {
 
   const [senderName, setSenderName] = useState('')
   const [senderEmail, setSenderEmail] = useState('')
-  const [inquiryType, setInquiryType] = useState(INQUIRY_TYPES[0])
   const [message, setMessage] = useState('')
   const [sendStatus, setSendStatus] = useState<SendStatus>('idle')
 
@@ -157,8 +149,7 @@ export function Contact() {
           name: senderName,
           email: senderEmail,
           replyto: senderEmail,
-          Category: inquiryType,
-          subject: `[Portfolio · ${inquiryType}] Message from ${senderName}`,
+          subject: `[Portfolio Contact] Message from ${senderName}`,
           message,
         }),
       })
@@ -341,71 +332,44 @@ export function Contact() {
             ) : (
               <form
                 onSubmit={handleSendEmail}
-                className="relative mt-2.5 flex flex-1 flex-col justify-between gap-2.5 sm:mt-3"
+                className="relative mt-2.5 flex flex-1 flex-col justify-between gap-3 sm:mt-3"
               >
-                {/* Topic Selector */}
+                {/* Your Name */}
                 <div>
-                  <span className="block text-[11px] font-medium text-text dark:text-zinc-200">
-                    Topic
-                  </span>
-                  <div className="mt-1 flex flex-wrap gap-1.5">
-                    {INQUIRY_TYPES.map((type) => {
-                      const isSelected = inquiryType === type
-                      return (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setInquiryType(type)}
-                          className={`rounded-lg border px-2.5 py-1 text-[11px] font-medium transition-all sm:text-xs ${
-                            isSelected
-                              ? 'border-accent bg-accent text-white shadow-[0_0_14px_rgba(79,140,255,0.4)]'
-                              : 'border-border bg-bg text-muted hover:border-black/20 hover:text-text dark:border-white/12 dark:bg-[#0a0b0e] dark:text-zinc-300 dark:hover:border-white/25 dark:hover:text-white'
-                          }`}
-                        >
-                          {type}
-                        </button>
-                      )
-                    })}
-                  </div>
+                  <label
+                    htmlFor="sender-name"
+                    className="block text-[11px] font-medium text-text dark:text-zinc-200"
+                  >
+                    Your Name
+                  </label>
+                  <input
+                    id="sender-name"
+                    type="text"
+                    required
+                    value={senderName}
+                    onChange={(e) => setSenderName(e.target.value)}
+                    placeholder="Jane Doe"
+                    className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
+                  />
                 </div>
 
-                {/* Name & Email Row */}
-                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="sender-name"
-                      className="block text-[11px] font-medium text-text dark:text-zinc-200"
-                    >
-                      Your Name
-                    </label>
-                    <input
-                      id="sender-name"
-                      type="text"
-                      required
-                      value={senderName}
-                      onChange={(e) => setSenderName(e.target.value)}
-                      placeholder="Jane Doe"
-                      className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="sender-email"
-                      className="block text-[11px] font-medium text-text dark:text-zinc-200"
-                    >
-                      Your Email
-                    </label>
-                    <input
-                      id="sender-email"
-                      type="email"
-                      required
-                      value={senderEmail}
-                      onChange={(e) => setSenderEmail(e.target.value)}
-                      placeholder="jane@example.com"
-                      className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
-                    />
-                  </div>
+                {/* Your Email */}
+                <div>
+                  <label
+                    htmlFor="sender-email"
+                    className="block text-[11px] font-medium text-text dark:text-zinc-200"
+                  >
+                    Your Email
+                  </label>
+                  <input
+                    id="sender-email"
+                    type="email"
+                    required
+                    value={senderEmail}
+                    onChange={(e) => setSenderEmail(e.target.value)}
+                    placeholder="jane@example.com"
+                    className="mt-1 w-full rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
+                  />
                 </div>
 
                 {/* Message */}
@@ -418,12 +382,12 @@ export function Contact() {
                   </label>
                   <textarea
                     id="email-message"
-                    rows={3}
+                    rows={4}
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Hi Mhelric, I'd love to talk about..."
-                    className="mt-1 min-h-[4.75rem] w-full flex-1 resize-none rounded-lg border border-border bg-bg p-2.5 text-xs leading-relaxed text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
+                    className="mt-1 min-h-[5.5rem] w-full flex-1 resize-none rounded-lg border border-border bg-bg p-2.5 text-xs leading-relaxed text-text placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none dark:border-white/15 dark:bg-[#0a0b0e] dark:text-white dark:placeholder:text-zinc-500"
                   />
                 </div>
 
