@@ -22,7 +22,7 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: 'pass-vault',
-    title: 'Pass-Vault — Zero-Knowledge Password & PIN Manager',
+    title: 'Pass-Vault | Zero-Knowledge Password & PIN Manager',
     category: 'Security • Full-Stack PWA & Native Android APK',
     summary:
       'A zero-knowledge personal vault for passwords, PINs, cards, and recovery notes featuring client-side Argon2id + AES-256-GCM encryption, offline-first IndexedDB delta sync via Supabase, and a signed Android APK with native Fingerprint & Face Unlock.',
