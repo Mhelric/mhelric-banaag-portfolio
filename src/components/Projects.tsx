@@ -20,6 +20,9 @@ const TECH_TAG_STYLES: Record<string, string> = {
   Android: 'border-lime-600/40 bg-lime-500/10 text-lime-700 dark:border-lime-400/30 dark:text-lime-300',
   'AniList GraphQL': 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:border-sky-400/30 dark:text-sky-300',
   'MAL API v2': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:text-indigo-300',
+  'Dexie (IndexedDB)': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/30 dark:text-emerald-300',
+  'TanStack Query': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:border-rose-400/30 dark:text-rose-300',
+  'Netlify / Vercel': 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:text-teal-300',
   'Custom Illustration': 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:border-pink-400/30 dark:text-pink-300',
 }
 
@@ -29,6 +32,7 @@ const PROJECT_PREVIEWS: Record<string, string> = {
   'pass-vault': '/projects/pass-vault.webp',
   'meru-art-studio': '/projects/meru-art-studio.webp',
   'pokedex-lens': '/projects/pokedex-lens.webp',
+  mirusync: '/projects/mirusync.webp',
 }
 
 function ProjectPreviewFrame({ project }: { project: Project }) {
@@ -104,58 +108,6 @@ function ProjectPreviewFrame({ project }: { project: Project }) {
               Attendance &amp; Reports
             </span>
           </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (project.id === 'anime-manga-sync') {
-    return (
-      <div className="flex h-full w-full flex-col justify-between bg-[#0f1320] p-5 text-white sm:p-6">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-wider text-sky-400">
-              Concept Mockup · Dual-API Sync
-            </p>
-            <h4 className="mt-0.5 text-sm font-bold sm:text-base">
-              Anime &amp; Manga List Tracker
-            </h4>
-          </div>
-          <div className="flex items-center gap-1.5 text-[10px] font-semibold">
-            <span className="rounded-md bg-[#2e51a2] px-2 py-0.5 text-white">
-              MAL
-            </span>
-            <span className="text-zinc-400">⇄</span>
-            <span className="rounded-md bg-[#02a9ff]/20 px-2 py-0.5 text-sky-300">
-              AniList
-            </span>
-          </div>
-        </div>
-
-        <div className="my-auto space-y-2 py-3 text-xs">
-          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5">
-            <div>
-              <p className="font-semibold text-white">Frieren: Beyond Journey&apos;s End</p>
-              <p className="text-[10px] text-zinc-400">Watching · Ep 24 / 28</p>
-            </div>
-            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[10px] text-emerald-300">
-              Synced
-            </span>
-          </div>
-          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5">
-            <div>
-              <p className="font-semibold text-white">Sakamoto Days</p>
-              <p className="text-[10px] text-zinc-400">Reading · Ch 182 · Manga</p>
-            </div>
-            <span className="rounded-full bg-sky-500/15 px-2.5 py-0.5 font-mono text-[10px] text-sky-300">
-              MAL ⇄ AL
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-white/10 pt-2.5 font-mono text-[10px] text-zinc-400">
-          <span>OAuth2 · AniList GraphQL · MAL REST v2</span>
-          <span className="text-sky-300">In Development</span>
         </div>
       </div>
     )

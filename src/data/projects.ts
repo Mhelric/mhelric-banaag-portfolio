@@ -120,12 +120,39 @@ export const PROJECTS: Project[] = [
     status: 'in-progress',
   },
   {
-    id: 'anime-manga-sync',
-    title: 'Dual-Sync Anime & Manga Tracker (MAL + AniList)',
-    category: 'API Integration • Cross-Platform Media Tracker',
+    id: 'mirusync',
+    title: 'MiruSync | Dual-Platform Anime & Manga Tracker',
+    category: 'Full-Stack • Monorepo, Cross-Platform PWA & Native Android APK',
     summary:
-      'A unified anime and manga tracker that connects to both MyAnimeList and AniList via OAuth, keeping watchlists, episode/chapter progress, scores, and seasonal airing schedules synced in one place.',
-    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'AniList GraphQL', 'MAL API v2', 'Vite'],
-    status: 'in-progress',
+      'A cross-platform media tracker connecting to MyAnimeList and AniList via OAuth2 + PKCE. Features offline-first IndexedDB delta sync (Dexie), live settings and notifications sync via Supabase Realtime, release calendar with .ics export, and an automated Android APK release pipeline.',
+    techStack: [
+      'TypeScript',
+      'React',
+      'Tailwind CSS',
+      'Capacitor',
+      'Android',
+      'Supabase',
+      'Dexie (IndexedDB)',
+      'TanStack Query',
+      'AniList GraphQL',
+      'MAL API v2',
+      'Netlify / Vercel',
+    ],
+    status: 'shipped',
+    featured: true,
+    liveUrl: 'https://mirusync.vercel.app/',
+    repoUrl: 'https://github.com/Mhelric/MiruSync',
+    caseStudy: {
+      problem:
+        'Anime and manga fans are split between MyAnimeList and AniList, forced to deal with disparate interfaces, slow mobile browser apps, lack of offline support, and no unified cross-device settings sync.',
+      role:
+        'Architected and built the full monorepo (@mirusync/web, @mirusync/mobile, @mirusync/core), engineered unified adapter abstractions for MAL REST and AniList GraphQL, configured Supabase Realtime synchronization, and set up the Capacitor Android native release pipeline.',
+      challenges:
+        'Abstracting vastly different schema structures between AniList (GraphQL) and MyAnimeList (OAuth2 PKCE + REST) into a single unified MediaProvider interface, and designing an offline write queue that guarantees safe reconciliation once connection is restored.',
+      outcome:
+        'Deployed a blazing-fast responsive web app on Vercel and built a native Android APK with live episode push notifications, airing calendar, and real-time settings synchronization.',
+      aiWorkflowNote:
+        'Utilized AI-assisted engineering for rapid boilerplate generation across monorepo packages, GraphQL query schema definition, and complex regex/data-mapping rules while personally owning architecture, security, state management, and native bridge integration.',
+    },
   },
 ]
