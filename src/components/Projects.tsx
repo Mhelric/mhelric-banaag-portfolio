@@ -375,7 +375,8 @@ export function Projects() {
                       aria-label={`Open live preview of ${project.title}`}
                       className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
                     >
-                      {shouldMountIframe ? (
+                      {/* Pass-Vault enforces strict zero-knowledge security headers (X-Frame-Options: DENY), so browsers block iframe embeds. Show its pixel-perfect web preview instead. */}
+                      {shouldMountIframe && project.id !== 'pass-vault' ? (
                         <iframe
                           src={project.liveUrl}
                           title={`${project.title} live preview`}
