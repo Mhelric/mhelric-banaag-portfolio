@@ -1,4 +1,4 @@
-import { useEffect, useState, type TouchEvent } from 'react'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { PROJECTS, type Project } from '../data/projects'
 
 const TECH_TAG_STYLES: Record<string, string> = {
@@ -127,6 +127,8 @@ function ProjectPreviewFrame({ project }: { project: Project }) {
 }
 
 export function Projects() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [isSectionNear, setIsSectionNear] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
@@ -134,6 +136,21 @@ export function Projects() {
   const totalSlides = PROJECTS.length
   const activeProject = PROJECTS[currentIndex]
   const isShipped = activeProject.status === 'shipped'
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionNear(entry.isIntersecting)
+      },
+      { rootMargin: '300px 0px' },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1))
@@ -171,6 +188,7 @@ export function Projects() {
 
   return (
     <section
+      ref={sectionRef}
       id="projects"
       className="flex min-h-[100svh] scroll-mt-0 flex-col justify-center border-t border-border pt-16 pb-4 sm:pt-[4.5rem] sm:pb-6"
       aria-labelledby="projects-heading"
@@ -324,8 +342,9 @@ export function Projects() {
             className="flex transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{ transform: `translate3d(-${currentIndex * 100}%, 0, 0)` }}
           >
-            {PROJECTS.map((project) => {
+            {PROJECTS.map((project, slideIndex) => {
               const projectShipped = project.status === 'shipped'
+              const shouldMountIframe = isSectionNear && slideIndex === currentIndex
               const cleanDomain = project.liveUrl
                 ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
                 : 'In development'
@@ -356,8 +375,18 @@ export function Projects() {
                       aria-label={`Open live preview of ${project.title}`}
                       className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
                     >
-                      <ProjectPreviewFrame project={project} />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/55 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      {shouldMountIframe ? (
+                        <iframe
+                          src={project.liveUrl}
+                          title={`${project.title} live preview`}
+                          loading="lazy"
+                          tabIndex={-1}
+                          className="pointer-events-none h-[200%] w-[200%] origin-top-left scale-50 border-0"
+                        />
+                      ) : (
+                        <ProjectPreviewFrame project={project} />
+                      )}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/55 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
                         <span className="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-black shadow-lg">
                           Visit Live Site ↗
                         </span>
