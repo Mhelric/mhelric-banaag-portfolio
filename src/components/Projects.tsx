@@ -344,7 +344,13 @@ export function Projects() {
           >
             {PROJECTS.map((project, slideIndex) => {
               const projectShipped = project.status === 'shipped'
-              const shouldMountIframe = isSectionNear && slideIndex === currentIndex
+              // Preload current slide as well as neighbors (slideIndex - 1, slideIndex, slideIndex + 1)
+              // or all when section is near, so transitions are instant and never flash a loading/buggy state.
+              const isNearby =
+                Math.abs(slideIndex - currentIndex) <= 1 ||
+                (currentIndex === 0 && slideIndex === totalSlides - 1) ||
+                (currentIndex === totalSlides - 1 && slideIndex === 0)
+              const shouldMountIframe = isSectionNear && isNearby
               const cleanDomain = project.liveUrl
                 ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
                 : 'In development'
@@ -376,14 +382,22 @@ export function Projects() {
                       className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
                     >
                       {/* Pass-Vault enforces strict zero-knowledge security headers (X-Frame-Options: DENY), so browsers block iframe embeds. Show its pixel-perfect web preview instead. */}
-                      {shouldMountIframe && project.id !== 'pass-vault' ? (
-                        <iframe
-                          src={project.liveUrl}
-                          title={`${project.title} live preview`}
-                          loading="lazy"
-                          tabIndex={-1}
-                          className="pointer-events-none h-[200%] w-[200%] origin-top-left scale-50 border-0"
-                        />
+                      {project.id === 'pass-vault' ? (
+                        <ProjectPreviewFrame project={project} />
+                      ) : shouldMountIframe ? (
+                        <div className="relative h-full w-full">
+                          {/* Image preview sits under iframe so there is never a blank/flickering background while iframe paints */}
+                          <div className="absolute inset-0">
+                            <ProjectPreviewFrame project={project} />
+                          </div>
+                          <iframe
+                            src={project.liveUrl}
+                            title={`${project.title} live preview`}
+                            loading="lazy"
+                            tabIndex={-1}
+                            className="relative h-[200%] w-[200%] origin-top-left scale-50 border-0 bg-transparent"
+                          />
+                        </div>
                       ) : (
                         <ProjectPreviewFrame project={project} />
                       )}
