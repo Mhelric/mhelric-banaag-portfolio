@@ -11,9 +11,13 @@ const CAREER_ITEMS = [
     organization: 'TopDeck Studio',
     period: 'Jan 2026 — Present',
     location: 'Limassol, Cyprus · Remote',
+    type: 'Contract',
     current: true,
-    highlight:
-      'Illustrating commercial character and creature assets tailored to international studio production pipelines.',
+    highlights: [
+      'Design and illustrate commercial character and creature assets tailored to international studio briefs and production pipelines.',
+      'Collaborate remotely across time zones, delivering high-resolution artwork on schedule through structured review milestones.',
+    ],
+    tags: ['Character & Creature Design', 'Digital Art', 'Studio Pipeline', 'Remote Collaboration'],
   },
   {
     id: 'incub8-space-intern',
@@ -21,9 +25,13 @@ const CAREER_ITEMS = [
     organization: 'Incub8 Space',
     period: 'Jul 2025 — Aug 2025',
     location: 'Kawit, Cavite · Hybrid',
+    type: 'Internship',
     current: false,
-    highlight:
-      'Engineered backend services, PostgreSQL schemas, and Supabase auth flows; awarded Internship Excellence.',
+    highlights: [
+      'Engineered and maintained backend services, relational database schemas, and authentication flows using Supabase and PostgreSQL.',
+      'Collaborated in a hybrid engineering environment to connect backend data layers with frontend web interfaces.',
+    ],
+    tags: ['Supabase', 'PostgreSQL', 'Backend Development', 'Database Design', 'REST APIs'],
   },
   {
     id: 'meru-art-freelance',
@@ -31,14 +39,46 @@ const CAREER_ITEMS = [
     organization: 'meru_art',
     period: 'Apr 2022 — Present',
     location: 'Philippines · Remote',
+    type: 'Self-Employed',
     current: true,
-    highlight:
-      '4.5+ years delivering commissioned character designs, reference sheets, D&D portraits, and promo visuals.',
+    highlights: [
+      'Over 4.5 years delivering commissioned character designs, reference sheets, D&D portraits, and promotional illustrations.',
+      'Manage full client lifecycle including project scoping, pricing tiers, staged sketch/color approvals, and final asset delivery.',
+    ],
+    tags: ['Commissioned Art', 'Digital Art', 'Client Communication', 'Project Management'],
+  },
+  {
+    id: 'cvsu-bscs',
+    role: 'BS in Computer Science',
+    organization: 'Cavite State University – Cavite City Campus',
+    period: 'Aug 2022 — Sep 2026',
+    location: 'Cavite City, Philippines',
+    type: 'Education',
+    current: false,
+    highlights: [
+      'Completed Bachelor of Science in Computer Science focusing on software engineering, relational databases, web application architecture, and algorithms.',
+    ],
+    tags: ['Computer Science', 'Software Engineering', 'Web Development', 'Data Structures'],
+  },
+  {
+    id: 'mcdonalds-crew',
+    role: 'Service Crew',
+    organization: "McDonald's (087 Cavite City)",
+    period: 'Feb 2025 — Present',
+    location: 'Cavite City · On-site',
+    type: 'Part-Time',
+    current: true,
+    highlights: [
+      'Deliver fast, accurate customer service and team coordination in a high-pressure environment while balancing university studies and remote creative contracts.',
+      'Previously served as Part-Time Service Crew at Chowking (Kawit, Cavite · Aug 2022 – Nov 2022), maintaining strict quality and operational standards during peak hours.',
+    ],
+    tags: ['Customer Service', 'Team Collaboration', 'Operations', 'Time Management'],
   },
 ]
 
 export function MobileExperience() {
   const [activeTab, setActiveTab] = useState<ExpTab>('career')
+  const [openCareerIdx, setOpenCareerIdx] = useState<number>(0)
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null)
 
   return (
@@ -95,36 +135,87 @@ export function MobileExperience() {
       {/* Tab Content Panel */}
       <div className="mt-3.5 flex flex-1 flex-col justify-center overflow-hidden">
         {activeTab === 'career' && (
-          <div className="space-y-2.5">
-            {CAREER_ITEMS.map((item) => (
-              <div
-                key={item.id}
-                className="rounded-xl border border-border bg-surface p-3 shadow-sm dark:bg-[#111216]"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <h3 className="truncate text-sm font-bold text-text">
-                      {item.role}
-                    </h3>
-                    <p className="truncate text-[11px] font-medium text-accent">
-                      {item.organization}
-                    </p>
-                  </div>
-                  <span
-                    className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] ${
-                      item.current
-                        ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                        : 'border-border bg-bg text-muted'
+          <div className="no-scrollbar max-h-full space-y-2 overflow-y-auto pr-0.5">
+            {CAREER_ITEMS.map((item, idx) => {
+              const isOpen = openCareerIdx === idx
+              return (
+                <div
+                  key={item.id}
+                  className={`overflow-hidden rounded-xl border transition-colors ${
+                    isOpen
+                      ? 'border-accent/45 bg-surface shadow-sm dark:bg-[#111216]'
+                      : 'border-border bg-surface/80 dark:bg-[#111216]/80'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenCareerIdx(isOpen ? -1 : idx)}
+                    className="flex w-full items-center justify-between gap-2 p-3 text-left transition-colors active:bg-black/5 dark:active:bg-white/5"
+                  >
+                    <div className="min-w-0">
+                      <h3 className="text-xs font-bold text-text sm:text-sm">
+                        {item.role}
+                      </h3>
+                      <p className="truncate text-[11px] font-medium text-accent">
+                        {item.organization}
+                      </p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-1.5">
+                      <span
+                        className={`rounded-full border px-2 py-0.5 font-mono text-[9.5px] ${
+                          item.current
+                            ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                            : 'border-border bg-bg text-muted'
+                        }`}
+                      >
+                        {item.period}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-border bg-bg text-[10px] text-muted transition-all duration-300 ease-out ${
+                          isOpen ? 'rotate-180 border-accent/40 bg-accent/10 text-accent' : ''
+                        }`}
+                      >
+                        ▾
+                      </span>
+                    </div>
+                  </button>
+
+                  <div
+                    className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                     }`}
                   >
-                    {item.period}
-                  </span>
+                    <div className="overflow-hidden">
+                      <div className="space-y-2 border-t border-border/70 px-3 pt-2 pb-3">
+                        <p className="font-mono text-[10px] text-muted">
+                          {item.type} · {item.location}
+                        </p>
+                        <ul className="space-y-1.5 text-[11px] leading-relaxed text-muted">
+                          {item.highlights.map((hl) => (
+                            <li key={hl} className="flex items-start gap-1.5">
+                              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                              <span>{hl}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <ul className="flex flex-wrap gap-1 pt-0.5">
+                          {item.tags.map((tag) => (
+                            <li
+                              key={tag}
+                              className="rounded-md border border-border bg-bg px-2 py-0.5 text-[10px] font-medium text-muted"
+                            >
+                              {tag}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="mt-1.5 line-clamp-2 text-[11px] leading-snug text-muted">
-                  {item.highlight}
-                </p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
 
