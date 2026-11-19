@@ -1,6 +1,9 @@
+import type { ReactNode } from 'react'
+
 export interface MobileSlideMeta {
   id: string
   label: string
+  icon: ReactNode
 }
 
 interface MobileScrollRailProps {
@@ -28,7 +31,7 @@ export function MobileScrollRail({
           : 'pointer-events-none translate-x-6 opacity-0'
       }`}
     >
-      <div className="flex flex-col items-end gap-1 rounded-2xl border border-border bg-surface/90 p-1.5 shadow-[0_12px_32px_rgba(15,23,42,0.18)] backdrop-blur-md dark:border-white/12 dark:bg-[#111216]/90 dark:shadow-[0_14px_36px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
+      <div className="flex flex-col items-center gap-1 rounded-full border border-border bg-surface/90 p-1.5 shadow-[0_12px_32px_rgba(15,23,42,0.18)] backdrop-blur-md dark:border-white/12 dark:bg-[#111216]/90 dark:shadow-[0_14px_36px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
         {slides.map((slide, idx) => {
           const isActive = idx === activeIndex
           return (
@@ -39,27 +42,16 @@ export function MobileScrollRail({
                 onInteract()
                 onSelect(idx)
               }}
+              aria-label={slide.label}
+              title={slide.label}
               aria-current={isActive ? 'page' : undefined}
-              className={`group flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-right transition-all duration-200 ${
+              className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 ${
                 isActive
-                  ? 'bg-accent/15 text-accent'
-                  : 'text-muted hover:text-text'
+                  ? 'bg-accent text-white shadow-[0_0_14px_rgba(79,140,255,0.55)] scale-105'
+                  : 'text-muted hover:bg-black/5 hover:text-text dark:hover:bg-white/10 dark:hover:text-white'
               }`}
             >
-              <span
-                className={`font-mono text-[10px] tracking-wider uppercase ${
-                  isActive ? 'font-bold text-accent' : 'font-medium'
-                }`}
-              >
-                {slide.label}
-              </span>
-              <span
-                className={`block rounded-full transition-all duration-300 ${
-                  isActive
-                    ? 'h-3.5 w-1.5 bg-accent shadow-[0_0_10px_rgba(79,140,255,0.7)]'
-                    : 'h-1.5 w-1.5 bg-muted/40'
-                }`}
-              />
+              {slide.icon}
             </button>
           )
         })}
