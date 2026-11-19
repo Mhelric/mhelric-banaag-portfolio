@@ -91,11 +91,11 @@ function PassVaultSignInPreview({ isActive }: { isActive: boolean }) {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-[#27273A] bg-[#121217]/90 p-5 space-y-4 backdrop-blur-md shadow-2xl">
+          <div className="rounded-2xl border border-white/15 bg-[#12121a]/55 p-5 space-y-4 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]">
             <div className="text-sm font-semibold text-white">Sign In to Cloud Vault</div>
             <div className="space-y-1.5">
               <div className="text-xs font-medium text-[#94A3B8]">Email Alias / Vault Label</div>
-              <div className="rounded-xl border border-[#27273A] bg-[#1A1A24] px-3.5 py-2.5 text-sm text-[#64748B]">
+              <div className="rounded-xl border border-white/10 bg-white/[0.06] px-3.5 py-2.5 text-sm text-[#94A3B8]">
                 yourname+vault@gmail.com
               </div>
             </div>
@@ -103,7 +103,7 @@ function PassVaultSignInPreview({ isActive }: { isActive: boolean }) {
               <div className="text-xs font-medium text-[#94A3B8]">
                 Master Password (never leaves device) *
               </div>
-              <div className="flex items-center justify-between rounded-xl border border-[#27273A] bg-[#1A1A24] px-3.5 py-2.5 text-sm text-[#64748B]">
+              <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.06] px-3.5 py-2.5 text-sm text-[#94A3B8]">
                 <span>Minimum 8 characters</span>
                 <svg
                   viewBox="0 0 24 24"
