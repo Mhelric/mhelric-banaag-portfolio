@@ -28,6 +28,85 @@ const TECH_TAG_STYLES: Record<string, string> = {
 
 const DEFAULT_TAG_STYLE = 'border-border bg-bg text-muted'
 
+const PASS_VAULT_SIGNIN_GIFS = [
+  'https://pass-vault-mhel.vercel.app/signin-bg.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-2.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-3.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-4.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-5.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-6.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-7.gif',
+  'https://pass-vault-mhel.vercel.app/signin-bg-8.gif',
+]
+
+function PassVaultSignInPreview({ isActive }: { isActive: boolean }) {
+  const [gifIdx, setGifIdx] = useState(0)
+
+  useEffect(() => {
+    if (!isActive) return
+    const id = window.setInterval(() => {
+      setGifIdx((prev) => (prev + 1) % PASS_VAULT_SIGNIN_GIFS.length)
+    }, 3000)
+    return () => window.clearInterval(id)
+  }, [isActive])
+
+  return (
+    <div className="relative flex h-full w-full select-none items-center justify-center overflow-hidden bg-[#09090B] px-4 py-3 text-[#F8FAFC]">
+      {isActive &&
+        PASS_VAULT_SIGNIN_GIFS.map((src, idx) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700 ${
+              idx === gifIdx ? 'opacity-75' : 'opacity-0'
+            }`}
+          />
+        ))}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#09090b]/45 via-[#120d1f]/35 to-[#09090b]/60"
+      />
+
+      <div className="relative z-10 w-full max-w-[260px] sm:max-w-[290px] space-y-2.5">
+        <div className="text-center space-y-1">
+          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 shadow-[0_0_24px_rgba(139,92,246,0.35)] backdrop-blur-sm">
+            <span className="text-sm text-[#C084FC]">🛡</span>
+          </div>
+          <div className="text-sm sm:text-base font-bold tracking-tight text-white">Pass-Vault</div>
+          <p className="text-[9px] text-[#94A3B8] leading-tight">
+            Zero-knowledge encrypted vault for passwords, PINs, cards, and recovery notes.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-[#27273A] bg-[#121217]/90 p-3 space-y-2 backdrop-blur-md shadow-2xl">
+          <div className="text-[10px] font-semibold text-white">Sign In to Cloud Vault</div>
+          <div className="space-y-1">
+            <div className="text-[8px] text-[#94A3B8]">Email Alias / Vault Label</div>
+            <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 text-[9px] text-[#64748B]">
+              yourname+vault@gmail.com
+            </div>
+          </div>
+          <div className="space-y-1">
+            <div className="text-[8px] text-[#94A3B8]">Master Password (never leaves device) *</div>
+            <div className="flex items-center justify-between rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 text-[9px] text-[#64748B]">
+              <span>Minimum 8 characters</span>
+              <span className="text-[10px]">👁</span>
+            </div>
+          </div>
+          <div className="rounded-lg bg-[#8B5CF6] py-1.5 text-center text-[10px] font-semibold text-white shadow-[0_0_18px_rgba(139,92,246,0.45)]">
+            Sign In
+          </div>
+          <div className="text-center text-[8px] text-[#94A3B8]">
+            New to Pass-Vault? <span className="font-medium text-[#C084FC]">Create Encrypted Vault</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const PROJECT_PREVIEWS: Record<string, string> = {
   'pass-vault': '/projects/pass-vault.webp',
   'meru-art-studio': '/projects/meru-art-studio.webp',
@@ -381,9 +460,9 @@ export function Projects() {
                       aria-label={`Open live preview of ${project.title}`}
                       className="group relative block aspect-[16/10] max-h-[50svh] w-full overflow-hidden bg-bg"
                     >
-                      {/* Pass-Vault enforces strict zero-knowledge security headers (X-Frame-Options: DENY), so browsers block iframe embeds. Show its pixel-perfect web preview instead. */}
+                      {/* Pass-Vault enforces strict zero-knowledge security headers (X-Frame-Options: DENY), so browsers block iframe embeds. Show its live animated Sign In preview instead. */}
                       {project.id === 'pass-vault' ? (
-                        <ProjectPreviewFrame project={project} />
+                        <PassVaultSignInPreview isActive={isSectionNear && slideIndex === currentIndex} />
                       ) : shouldMountIframe ? (
                         <div className="relative h-full w-full">
                           {/* Image preview sits under iframe so there is never a blank/flickering background while iframe paints */}
