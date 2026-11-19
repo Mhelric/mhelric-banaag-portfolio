@@ -163,7 +163,7 @@ export const PROJECTS: Project[] = [
     ],
     status: 'shipped',
     featured: true,
-    liveUrl: 'https://lovey-games.vercel.app/',
+    liveUrl: 'https://lovey-game.vercel.app/',
     repoUrl: 'https://github.com/Mhelric/lovey-game',
     caseStudy: {
       problem:
