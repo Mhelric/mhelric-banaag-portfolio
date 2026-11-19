@@ -267,10 +267,9 @@ export function Navbar() {
             href="#hero"
             onClick={() => setActiveId('hero')}
             aria-label="Mhelric Banaag — Home"
-            className="inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 font-mono text-xs font-semibold tracking-wider text-text transition-colors hover:text-accent"
+            className="inline-flex items-center rounded-full px-2.5 py-1.5 text-text transition-colors hover:text-accent"
           >
             <BrandLogo className="h-[15px] w-auto shrink-0" strokeWidth={3.2} />
-            <span className="hidden sm:inline">MHELRIC</span>
           </a>
 
           <span
