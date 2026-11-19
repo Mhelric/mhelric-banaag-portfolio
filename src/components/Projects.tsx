@@ -51,55 +51,81 @@ function PassVaultSignInPreview({ isActive }: { isActive: boolean }) {
   }, [isActive])
 
   return (
-    <div className="relative flex h-full w-full select-none items-center justify-center overflow-hidden bg-[#09090B] px-4 py-3 text-[#F8FAFC]">
-      {isActive &&
-        PASS_VAULT_SIGNIN_GIFS.map((src, idx) => (
-          <img
-            key={src}
-            src={src}
-            alt=""
-            aria-hidden="true"
-            className={`pointer-events-none absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700 ${
-              idx === gifIdx ? 'opacity-75' : 'opacity-0'
-            }`}
-          />
-        ))}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#09090b]/45 via-[#120d1f]/35 to-[#09090b]/60"
-      />
+    <div className="relative h-full w-full select-none overflow-hidden bg-[#09090B]">
+      <div className="relative flex h-[200%] w-[200%] origin-top-left scale-50 items-center justify-center px-6 py-8 text-[#F8FAFC]">
+        {isActive &&
+          PASS_VAULT_SIGNIN_GIFS.map((src, idx) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              aria-hidden="true"
+              className={`pointer-events-none absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700 ${
+                idx === gifIdx ? 'opacity-75' : 'opacity-0'
+              }`}
+            />
+          ))}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#09090b]/45 via-[#120d1f]/35 to-[#09090b]/60"
+        />
 
-      <div className="relative z-10 w-full max-w-[260px] sm:max-w-[290px] space-y-2.5">
-        <div className="text-center space-y-1">
-          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 shadow-[0_0_24px_rgba(139,92,246,0.35)] backdrop-blur-sm">
-            <span className="text-sm text-[#C084FC]">🛡</span>
+        <div className="relative z-10 w-full max-w-md space-y-5">
+          <div className="text-center space-y-2">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-[#8B5CF6]/40 bg-[#8B5CF6]/15 shadow-[0_0_36px_rgba(139,92,246,0.35)] backdrop-blur-sm">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#C084FC"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-8 w-8"
+              >
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+              </svg>
+            </div>
+            <div className="text-2xl font-bold tracking-tight text-white">Pass-Vault</div>
+            <p className="mx-auto max-w-sm text-xs text-[#94A3B8]">
+              Zero-knowledge encrypted vault for passwords, PINs, cards, and recovery notes.
+            </p>
           </div>
-          <div className="text-sm sm:text-base font-bold tracking-tight text-white">Pass-Vault</div>
-          <p className="text-[9px] text-[#94A3B8] leading-tight">
-            Zero-knowledge encrypted vault for passwords, PINs, cards, and recovery notes.
-          </p>
-        </div>
 
-        <div className="rounded-xl border border-[#27273A] bg-[#121217]/90 p-3 space-y-2 backdrop-blur-md shadow-2xl">
-          <div className="text-[10px] font-semibold text-white">Sign In to Cloud Vault</div>
-          <div className="space-y-1">
-            <div className="text-[8px] text-[#94A3B8]">Email Alias / Vault Label</div>
-            <div className="rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 text-[9px] text-[#64748B]">
-              yourname+vault@gmail.com
+          <div className="rounded-2xl border border-[#27273A] bg-[#121217]/90 p-5 space-y-4 backdrop-blur-md shadow-2xl">
+            <div className="text-sm font-semibold text-white">Sign In to Cloud Vault</div>
+            <div className="space-y-1.5">
+              <div className="text-xs font-medium text-[#94A3B8]">Email Alias / Vault Label</div>
+              <div className="rounded-xl border border-[#27273A] bg-[#1A1A24] px-3.5 py-2.5 text-sm text-[#64748B]">
+                yourname+vault@gmail.com
+              </div>
             </div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-[8px] text-[#94A3B8]">Master Password (never leaves device) *</div>
-            <div className="flex items-center justify-between rounded-lg border border-[#27273A] bg-[#1A1A24] px-2.5 py-1.5 text-[9px] text-[#64748B]">
-              <span>Minimum 8 characters</span>
-              <span className="text-[10px]">👁</span>
+            <div className="space-y-1.5">
+              <div className="text-xs font-medium text-[#94A3B8]">
+                Master Password (never leaves device) *
+              </div>
+              <div className="flex items-center justify-between rounded-xl border border-[#27273A] bg-[#1A1A24] px-3.5 py-2.5 text-sm text-[#64748B]">
+                <span>Minimum 8 characters</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#94A3B8"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4 shrink-0"
+                >
+                  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
             </div>
-          </div>
-          <div className="rounded-lg bg-[#8B5CF6] py-1.5 text-center text-[10px] font-semibold text-white shadow-[0_0_18px_rgba(139,92,246,0.45)]">
-            Sign In
-          </div>
-          <div className="text-center text-[8px] text-[#94A3B8]">
-            New to Pass-Vault? <span className="font-medium text-[#C084FC]">Create Encrypted Vault</span>
+            <div className="rounded-xl bg-[#8B5CF6] py-3 text-center text-sm font-semibold text-white shadow-[0_0_24px_rgba(139,92,246,0.45)]">
+              Sign In
+            </div>
+            <div className="pt-1 text-center text-xs text-[#94A3B8]">
+              New to Pass-Vault?{' '}
+              <span className="font-semibold text-[#C084FC]">Create Encrypted Vault</span>
+            </div>
           </div>
         </div>
       </div>
