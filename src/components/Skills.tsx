@@ -1,4 +1,5 @@
 import { Reveal } from './Reveal'
+import { ToolsMarquee } from './ToolsMarquee'
 
 interface SkillGroup {
   title: string
@@ -122,6 +123,10 @@ export function Skills() {
           </Reveal>
         ))}
       </div>
+
+      <Reveal delayMs={320}>
+        <ToolsMarquee />
+      </Reveal>
 
       {/* Clean Workflow Callout */}
       <Reveal delayMs={360}>

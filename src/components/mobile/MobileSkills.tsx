@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ToolsMarquee } from '../ToolsMarquee'
 
 interface SkillGroup {
   title: string
@@ -152,6 +153,8 @@ export function MobileSkills() {
           )
         })}
       </div>
+
+      <ToolsMarquee />
     </section>
   )
 }
