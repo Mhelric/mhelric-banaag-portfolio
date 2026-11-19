@@ -163,6 +163,90 @@ const TOOLS: ToolItem[] = [
       </svg>
     ),
   },
+  {
+    name: 'Node.js',
+    colorClass: 'text-[#5FA04E]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L3.075 6.68c-.085.049-.139.144-.139.242v10.149c0 .097.054.189.137.235l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L2.28 18.675c-.57-.329-.922-.945-.922-1.604V6.921c0-.659.352-1.275.922-1.603l8.795-5.082c.557-.315 1.296-.315 1.848 0l8.794 5.082c.57.329.924.944.924 1.603v10.149c0 .659-.354 1.273-.924 1.604l-8.794 5.078c-.28.163-.6.247-.925.247Z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'TanStack Query',
+    colorClass: 'text-[#FF4154]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 3" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+  {
+    name: 'ESLint',
+    colorClass: 'text-[#4B32C3]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M12 1.85c-.38 0-.75.1-1.08.29L3.54 6.4c-.67.39-1.08 1.1-1.08 1.87v8.46c0 .77.41 1.48 1.08 1.87l7.38 4.26c.67.39 1.49.39 2.16 0l7.38-4.26c.67-.39 1.08-1.1 1.08-1.87V8.27c0-.77-.41-1.48-1.08-1.87l-7.38-4.26a2.16 2.16 0 0 0-1.08-.29Zm0 3.74 5.5 3.18v6.35L12 18.3l-5.5-3.18V8.77L12 5.59Z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Vitest',
+    colorClass: 'text-[#729B1B]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M21.4 3.6 11.8 21.1a.9.9 0 0 1-1.6 0L2.6 7.2a.9.9 0 0 1 .8-1.3h4.5l3.1 5.7 5.8-9.3h3.8a.9.9 0 0 1 .8 1.3Z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'VS Code',
+    colorClass: 'text-[#007ACC]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Antigravity IDE',
+    colorClass: 'text-[#4F8CFF]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+        <path d="M12 3 4 21h4.2l1.6-3.8h4.4L15.8 21H20L12 3Z" />
+        <path d="M10.5 13.5 12 9.8l1.5 3.7" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Gemini',
+    colorClass: 'text-[#8E75FF]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12Z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Krita',
+    colorClass: 'text-[#3BABFF]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.7 6.3-4.9 6.6a1.5 1.5 0 0 1-2.1.3l-.9-.7a1.5 1.5 0 0 1-.2-2.1l6.1-5.1a1 1 0 0 1 1.5 0l.5.5a1 1 0 0 1 0 1.5Zm-8.2 7.8a1.8 1.8 0 0 1 1.8 1.8c0 1-.8 1.9-2.2 1.9-.9 0-1.6-.4-1.9-1.1.7-.2 1.1-.7 1.3-1.3.2-.8.5-1.3 1-1.3Z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Aseprite',
+    colorClass: 'text-[#7D929E]',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="M4 3h16v2h2v12h-2v4H4v-4H2V5h2V3Zm2 4v10h12V7H6Zm3 2h2v4H9V9Zm4 0h2v4h-2V9Z" />
+      </svg>
+    ),
+  },
 ]
 
 export function ToolsMarquee() {
@@ -181,7 +265,7 @@ export function ToolsMarquee() {
       {/* Seamless Marquee Track */}
       <div
         className="marquee-track flex w-max items-center gap-2.5 pt-7 pb-1 hover:[animation-play-state:paused]"
-        style={{ animationDuration: '32s' }}
+        style={{ animationDuration: '44s' }}
       >
         {[...TOOLS, ...TOOLS].map((tool, index) => (
           <div
