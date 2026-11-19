@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ARTWORKS } from '../../data/artworks'
 import { MobileBottomSheet } from './MobileBottomSheet'
 
-const CARRD_URL = 'https://meru-art.carrd.co/'
+const MERU_ART_STUDIO_URL = 'https://meru-art-studio.vercel.app/'
 const ARTSTATION_URL = 'https://meru_art.artstation.com/projects'
 
 const COMMISSION_TIERS = [
@@ -100,12 +100,12 @@ export function MobileArt() {
           ArtStation ↗
         </a>
         <a
-          href={CARRD_URL}
+          href={MERU_ART_STUDIO_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex flex-1 items-center justify-center rounded-xl border border-border bg-surface px-3 py-2 text-xs font-medium text-text"
         >
-          Carrd Pricing ↗
+          Meru Art Studio ↗
         </a>
       </div>
 
@@ -230,12 +230,12 @@ export function MobileArt() {
           </div>
 
           <a
-            href={CARRD_URL}
+            href={MERU_ART_STUDIO_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-full items-center justify-center rounded-xl bg-accent py-2.5 text-xs font-semibold text-white"
           >
-            Open Full Commission Sheet ↗
+            Open Meru Art Studio ↗
           </a>
         </div>
       </MobileBottomSheet>

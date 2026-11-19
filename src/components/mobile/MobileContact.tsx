@@ -9,7 +9,7 @@ const ELSEWHERE = [
   { label: 'LinkedIn', handle: 'in/mhelric-banaag', href: 'https://www.linkedin.com/in/mhelric-banaag-7797622b0/' },
   { label: 'GitHub', handle: '@Mhelric', href: 'https://github.com/Mhelric' },
   { label: 'ArtStation', handle: 'meru_art', href: 'https://meru_art.artstation.com/projects' },
-  { label: 'Commissions', handle: 'meru-art.carrd.co', href: 'https://meru-art.carrd.co/' },
+  { label: 'Meru Art Studio', handle: 'meru-art-studio.vercel.app', href: 'https://meru-art-studio.vercel.app/' },
 ]
 
 const SOCIALS = [
