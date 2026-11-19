@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ARTWORKS } from '../data/artworks'
 
-const CARRD_URL = 'https://meru-art.carrd.co/'
+const MERU_ART_STUDIO_URL = 'https://meru-art-studio.vercel.app/'
 const ARTSTATION_URL = 'https://meru_art.artstation.com/projects'
 
 const COMMISSION_TIERS = [
@@ -242,12 +242,12 @@ export function ArtGallery() {
           </button>
 
           <a
-            href={CARRD_URL}
+            href={MERU_ART_STUDIO_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 whitespace-nowrap rounded-lg bg-accent px-4 py-2 text-center text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
           >
-            Commission Sheet ↗
+            Meru Art Studio ↗
           </a>
         </div>
       </div>
@@ -367,12 +367,12 @@ export function ArtGallery() {
                     ArtStation ↗
                   </a>
                   <a
-                    href={CARRD_URL}
+                    href={MERU_ART_STUDIO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 whitespace-nowrap rounded-lg bg-accent px-3.5 py-2 text-center text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
                   >
-                    Commission Rates ↗
+                    Meru Art Studio ↗
                   </a>
                 </div>
               </div>
@@ -490,12 +490,12 @@ export function ArtGallery() {
               </a>
 
               <a
-                href={CARRD_URL}
+                href={MERU_ART_STUDIO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 whitespace-nowrap rounded-lg bg-accent px-5 py-2.5 text-center text-xs font-medium text-white transition-opacity hover:opacity-90 sm:flex-initial"
               >
-                Open Commission Sheet (Carrd) ↗
+                Open Meru Art Studio ↗
               </a>
             </div>
           </div>

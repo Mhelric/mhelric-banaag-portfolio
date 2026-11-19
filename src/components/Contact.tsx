@@ -43,9 +43,9 @@ const ELSEWHERE_LINKS: LinkItem[] = [
     ),
   },
   {
-    label: 'Commissions (Carrd)',
-    handle: 'meru-art.carrd.co',
-    href: 'https://meru-art.carrd.co/',
+    label: 'Meru Art Studio',
+    handle: 'meru-art-studio.vercel.app',
+    href: 'https://meru-art-studio.vercel.app/',
     icon: (
       <svg
         viewBox="0 0 24 24"

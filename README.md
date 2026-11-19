@@ -67,4 +67,4 @@ npm run build
 - **GitHub:** [@Mhelric](https://github.com/Mhelric)
 - **LinkedIn:** [Mhelric Banaag](https://www.linkedin.com/in/mhelric-banaag-7797622b0/)
 - **ArtStation:** [meru_art](https://meru_art.artstation.com/projects)
-- **Commissions:** [meru-art.carrd.co](https://meru-art.carrd.co/)
+- **Commissions (Meru Art Studio):** [meru-art-studio.vercel.app](https://meru-art-studio.vercel.app/)
