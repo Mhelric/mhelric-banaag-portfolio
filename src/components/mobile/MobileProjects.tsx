@@ -97,7 +97,7 @@ export function MobileProjects() {
     <section
       id="projects"
       aria-labelledby="mobile-projects-heading"
-      className="flex h-[100svh] snap-start snap-always flex-col justify-center px-4 pt-16 pb-20"
+      className="flex h-[100svh] snap-start snap-always flex-col justify-center px-4 pt-16 pb-6"
     >
       {/* Header Row */}
       <div className="flex items-end justify-between gap-2">

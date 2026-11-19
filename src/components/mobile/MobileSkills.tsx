@@ -70,7 +70,7 @@ export function MobileSkills() {
     <section
       id="skills"
       aria-labelledby="mobile-skills-heading"
-      className="flex h-[100svh] snap-start snap-always flex-col justify-center px-4 pt-16 pb-20"
+      className="flex h-[100svh] snap-start snap-always flex-col justify-center px-4 pt-16 pb-6"
     >
       <div>
         <p className="text-[11px] font-medium uppercase tracking-widest text-accent">

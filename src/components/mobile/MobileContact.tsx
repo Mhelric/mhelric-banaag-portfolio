@@ -78,7 +78,7 @@ export function MobileContact() {
     <section
       id="contact"
       aria-labelledby="mobile-contact-heading"
-      className="flex h-[100svh] snap-start snap-always flex-col justify-between px-4 pt-16 pb-20"
+      className="flex h-[100svh] snap-start snap-always flex-col justify-between px-4 pt-16 pb-6"
     >
       <div className="my-auto space-y-3.5">
         <div>

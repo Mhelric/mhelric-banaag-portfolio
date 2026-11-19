@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { MobileArt } from './MobileArt'
-import { MobileBottomPill, type MobileSlideMeta } from './MobileBottomPill'
 import { MobileContact } from './MobileContact'
 import { MobileExperience } from './MobileExperience'
 import { MobileHeader } from './MobileHeader'
 import { MobileHero } from './MobileHero'
 import { MobileProjects } from './MobileProjects'
+import { MobileScrollRail, type MobileSlideMeta } from './MobileScrollRail'
 import { MobileSkills } from './MobileSkills'
 
 const SLIDES: MobileSlideMeta[] = [
@@ -19,7 +19,20 @@ const SLIDES: MobileSlideMeta[] = [
 
 export function MobileLayout() {
   const deckRef = useRef<HTMLDivElement | null>(null)
+  const hideTimerRef = useRef<number | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [railVisible, setRailVisible] = useState(false)
+
+  const revealRailTemporarily = useCallback(() => {
+    setRailVisible(true)
+    if (hideTimerRef.current !== null) {
+      window.clearTimeout(hideTimerRef.current)
+    }
+    hideTimerRef.current = window.setTimeout(() => {
+      setRailVisible(false)
+      hideTimerRef.current = null
+    }, 1450)
+  }, [])
 
   const scrollToSlide = (index: number) => {
     const deck = deckRef.current
@@ -29,6 +42,14 @@ export function MobileLayout() {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
+
+  useEffect(() => {
+    return () => {
+      if (hideTimerRef.current !== null) {
+        window.clearTimeout(hideTimerRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const deck = deckRef.current
@@ -62,6 +83,7 @@ export function MobileLayout() {
 
       <main
         ref={deckRef}
+        onScroll={revealRailTemporarily}
         className="no-scrollbar h-[100svh] w-full snap-y snap-mandatory overflow-y-auto overscroll-y-contain scroll-smooth"
       >
         <MobileHero onExploreProjects={() => scrollToSlide(1)} />
@@ -72,10 +94,12 @@ export function MobileLayout() {
         <MobileContact />
       </main>
 
-      <MobileBottomPill
+      <MobileScrollRail
         slides={SLIDES}
         activeIndex={activeIndex}
+        visible={railVisible}
         onSelect={scrollToSlide}
+        onInteract={revealRailTemporarily}
       />
     </div>
   )
