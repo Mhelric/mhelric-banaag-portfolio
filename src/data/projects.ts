@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'lovey-games',
-    title: "Lovey Games | Cartoon Cat Couple's Arcade",
+    title: "Lovey Game | Cartoon Cat Couple's Arcade",
     category: 'Mini Side Project • Real-Time Multiplayer & Android APK',
     summary:
       'A cozy real-time multiplayer couple’s arcade featuring Traditional Filipino Dama, Seeded Snakes & Ladders, Cat Uno, and Doodle Clash — engineered with Preact, inline SVG vectors, <45 KB gzipped JS, Supabase Realtime + PostgreSQL state recovery, and a lightweight signed Android APK.',

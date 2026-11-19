@@ -44,18 +44,16 @@ function MobileProjectPreview({ project }: { project: Project }) {
     )
   }
 
-  if (project.id === 'lovey-games') {
+  if (project.id === 'lovey-games' && project.liveUrl) {
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-rose-500/15 via-surface to-amber-500/15 p-4 text-center">
-        <span className="rounded-full border border-rose-500/30 bg-rose-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-rose-500 dark:text-rose-300">
-          4-GAME REAL-TIME ARCADE
-        </span>
-        <p className="mt-2 text-base font-bold tracking-tight text-text">
-          Lovey Games
-        </p>
-        <p className="mt-1 max-w-[220px] text-[11px] text-muted">
-          Dama · Snakes &amp; Ladders · Cat Uno · Doodle Clash
-        </p>
+      <div className="relative h-full w-full overflow-hidden bg-bg">
+        <iframe
+          src={project.liveUrl}
+          title={`${project.title} live preview`}
+          loading="lazy"
+          tabIndex={-1}
+          className="pointer-events-none h-[200%] w-[200%] origin-top-left scale-50 border-0 bg-transparent"
+        />
       </div>
     )
   }
