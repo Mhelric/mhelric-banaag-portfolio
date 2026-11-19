@@ -133,9 +133,9 @@ export function MobileExperience() {
       </div>
 
       {/* Tab Content Panel */}
-      <div className="mt-3.5 flex flex-1 flex-col justify-center overflow-hidden">
+      <div className="mt-3.5">
         {activeTab === 'career' && (
-          <div className="no-scrollbar max-h-full space-y-2 overflow-y-auto pr-0.5">
+          <div className="space-y-2">
             {CAREER_ITEMS.map((item, idx) => {
               const isOpen = openCareerIdx === idx
               return (
