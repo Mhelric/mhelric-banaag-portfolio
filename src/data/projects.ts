@@ -15,6 +15,7 @@ export interface Project {
   status: 'shipped' | 'in-progress'
   liveUrl?: string
   repoUrl?: string
+  apkUrl?: string
   featured?: boolean
   caseStudy?: CaseStudy
 }
@@ -40,6 +41,7 @@ export const PROJECTS: Project[] = [
     status: 'shipped',
     featured: true,
     liveUrl: 'https://pass-vault-mhel.vercel.app/',
+    apkUrl: 'https://github.com/Mhelric/password-manager/releases/latest',
     caseStudy: {
       problem:
         'Everyday accounts, banking PINs, SIM/PUK codes, and 2FA recovery notes often end up scattered across plain text files or cloud notes apps where servers can read plaintext data or fail completely offline.',
@@ -133,6 +135,7 @@ export const PROJECTS: Project[] = [
     featured: true,
     liveUrl: 'https://mirusync.vercel.app/',
     repoUrl: 'https://github.com/Mhelric/MiruSync',
+    apkUrl: 'https://github.com/Mhelric/MiruSync/releases/latest',
     caseStudy: {
       problem:
         'Anime and manga fans are split between MyAnimeList and AniList, forced to deal with disparate interfaces, slow mobile browser apps, lack of offline support, and no unified cross-device settings sync.',
@@ -165,6 +168,7 @@ export const PROJECTS: Project[] = [
     featured: true,
     liveUrl: 'https://lovey-game.vercel.app/',
     repoUrl: 'https://github.com/Mhelric/lovey-game',
+    apkUrl: 'https://github.com/Mhelric/lovey-game/releases/latest',
     caseStudy: {
       problem:
         'Long-distance couples often deal with bloated, ad-heavy mobile game apps that lag or crash on entry-level Android phones like the Samsung Galaxy J2 Pro while lacking shared persistent rooms and real-time reconnect recovery.',

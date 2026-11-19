@@ -387,6 +387,31 @@ export function Projects() {
                 </a>
               )}
 
+              {activeProject.apkUrl && (
+                <a
+                  href={activeProject.apkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 whitespace-nowrap items-center justify-center gap-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-xs font-medium text-emerald-700 transition-colors hover:bg-emerald-500/20 dark:border-emerald-400/35 dark:text-emerald-300 dark:hover:bg-emerald-500/20 sm:flex-initial"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-3.5 w-3.5 shrink-0"
+                    aria-hidden="true"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                  </svg>
+                  Download Latest APK
+                </a>
+              )}
+
               {activeProject.caseStudy && (
                 <button
                   type="button"
@@ -616,6 +641,30 @@ export function Projects() {
                   className="flex-1 whitespace-nowrap rounded-lg border border-border bg-bg px-4 py-2 text-center text-xs font-medium text-text hover:border-black/20 dark:hover:border-white/25 sm:flex-initial"
                 >
                   View Source on GitHub
+                </a>
+              )}
+              {selectedProject.apkUrl && (
+                <a
+                  href={selectedProject.apkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 whitespace-nowrap items-center justify-center gap-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-center text-xs font-medium text-emerald-700 transition-colors hover:bg-emerald-500/20 dark:border-emerald-400/35 dark:text-emerald-300 dark:hover:bg-emerald-500/20 sm:flex-initial"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-3.5 w-3.5 shrink-0"
+                    aria-hidden="true"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                  </svg>
+                  Download Latest APK
                 </a>
               )}
               {selectedProject.liveUrl && (
