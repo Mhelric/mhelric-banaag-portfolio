@@ -147,6 +147,38 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    id: 'lovey-games',
+    title: "Lovey Games | Cartoon Cat Couple's Arcade",
+    category: 'Mini Side Project • Real-Time Multiplayer & Android APK',
+    summary:
+      'A cozy real-time multiplayer couple’s arcade featuring Traditional Filipino Dama, Seeded Snakes & Ladders, Cat Uno, and Doodle Clash — engineered with Preact, inline SVG vectors, <45 KB gzipped JS, Supabase Realtime + PostgreSQL state recovery, and a lightweight signed Android APK.',
+    techStack: [
+      'TypeScript',
+      'Preact',
+      'Supabase',
+      'Capacitor',
+      'Android',
+      'Vite',
+      'Vercel',
+    ],
+    status: 'shipped',
+    featured: true,
+    liveUrl: 'https://lovey-games.vercel.app/',
+    repoUrl: 'https://github.com/Mhelric/lovey-game',
+    caseStudy: {
+      problem:
+        'Long-distance couples often deal with bloated, ad-heavy mobile game apps that lag or crash on entry-level Android phones like the Samsung Galaxy J2 Pro while lacking shared persistent rooms and real-time reconnect recovery.',
+      role:
+        'Built the pure TypeScript game engines (Dama, Mulberry32-seeded Snakes & Ladders, Uno, Doodle Clash), zero-dependency Supabase REST/WebSocket sync, procedural Web Audio SFX, and automated the signed Capacitor Android APK pipeline with in-app update prompts.',
+      challenges:
+        'Keeping the entire gzipped JS bundle under 45 KB and DOM node count under 400 with compositor-only animations so both a 2018 Samsung Galaxy J2 Pro (60 Hz) and a modern 120 Hz Poco X7 Pro run smoothly without scrollbars or frame drops.',
+      outcome:
+        'Shipped a 4-game real-time multiplayer web arcade on Vercel and a compact, self-updating Android APK with custom Cartoon Cat avatars, floating stickers, and instant match rejoin.',
+      aiWorkflowNote:
+        'Used AI-assisted engineering for rapid SVG avatar variants, layout tuning across 360×640 viewports, and Capacitor release automation while owning the deterministic game engines, realtime sync protocol, and performance budgets.',
+    },
+  },
+  {
     id: 'school-mis-mockup',
     title: 'Sample School MIS — Academic & Student Portal',
     category: 'Full-Stack • Education MIS & Role-Based Dashboard',

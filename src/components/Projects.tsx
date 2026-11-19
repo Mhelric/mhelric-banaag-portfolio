@@ -9,6 +9,7 @@ const TECH_TAG_STYLES: Record<string, string> = {
   'SerpAPI (Google Lens)': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:border-violet-400/30 dark:text-violet-300',
   Vercel: 'border-zinc-500/35 bg-zinc-500/10 text-zinc-700 dark:border-zinc-400/30 dark:bg-zinc-400/10 dark:text-zinc-200',
   TypeScript: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:border-blue-500/30 dark:text-blue-300',
+  Preact: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:border-purple-400/30 dark:text-purple-300',
   React: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:text-cyan-300',
   'Tailwind CSS': 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:border-teal-400/30 dark:text-teal-300',
   Supabase: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:border-emerald-500/30 dark:text-emerald-300',
