@@ -28,7 +28,7 @@ export function MobileHero({ onExploreProjects }: MobileHeroProps) {
       </div>
 
       {/* Playful Architectural Portrait Stage */}
-      <div className="relative mx-auto my-2 flex w-full max-w-[340px] flex-1 items-end justify-center overflow-hidden rounded-3xl border border-border/80 bg-surface/40 px-3 pt-4 dark:border-white/10 dark:bg-[#111216]/55">
+      <div className="relative mx-auto my-2 flex w-full max-w-[360px] flex-1 items-end justify-center overflow-hidden rounded-3xl border border-border/80 bg-surface/40 px-3 pt-2 dark:border-white/10 dark:bg-[#111216]/55">
         {/* Subtle Architectural Corner Ticks */}
         <span
           aria-hidden="true"
@@ -66,7 +66,7 @@ export function MobileHero({ onExploreProjects }: MobileHeroProps) {
           height={1773}
           decoding="async"
           fetchPriority="high"
-          className="relative z-10 hidden h-full max-h-[30svh] w-auto object-contain object-bottom dark:block"
+          className="relative z-10 hidden h-full max-h-[37svh] w-auto object-contain object-bottom dark:block"
         />
         <img
           src="/mhelric-profile-light.webp"
@@ -74,7 +74,7 @@ export function MobileHero({ onExploreProjects }: MobileHeroProps) {
           width={1215}
           height={1773}
           decoding="async"
-          className="relative z-10 block h-full max-h-[30svh] w-auto object-contain object-bottom dark:hidden"
+          className="relative z-10 block h-full max-h-[37svh] w-auto object-contain object-bottom dark:hidden"
         />
 
         {/* Bottom stage fade */}
