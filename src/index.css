@@ -120,7 +120,7 @@ body::before {
 }
 
 .efw-level--01 {
-  --path-len: 145;
+  --path-len: 152;
   animation: 0.52s cubic-bezier(0.65, 0, 0.35, 1) 0.07s forwards efw-logo-draw;
 }
 
@@ -130,7 +130,7 @@ body::before {
 }
 
 .efw-level--03 {
-  --path-len: 62;
+  --path-len: 68;
   animation: 0.34s cubic-bezier(0.65, 0, 0.35, 1) 0.85s forwards efw-logo-draw;
 }
 

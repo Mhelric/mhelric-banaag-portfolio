@@ -1,5 +1,6 @@
 import { useEffect, useState, type MouseEvent, type ReactNode } from 'react'
 import { flushSync } from 'react-dom'
+import { BrandLogo } from './BrandLogo'
 
 type ViewTransitionDocument = Document & {
   startViewTransition?: (updateCallback: () => void) => {
@@ -265,14 +266,16 @@ export function Navbar() {
           <a
             href="#hero"
             onClick={() => setActiveId('hero')}
-            className="hidden items-center rounded-full px-2.5 py-1.5 font-mono text-xs font-semibold tracking-wider text-text transition-colors hover:text-accent sm:inline-flex"
+            aria-label="Mhelric Banaag — Home"
+            className="inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 font-mono text-xs font-semibold tracking-wider text-text transition-colors hover:text-accent"
           >
-            MHELRIC
+            <BrandLogo className="h-[15px] w-auto shrink-0" strokeWidth={3.2} />
+            <span className="hidden sm:inline">MHELRIC</span>
           </a>
 
           <span
             aria-hidden="true"
-            className="hidden h-4 w-px bg-border sm:inline-block dark:bg-white/10"
+            className="h-4 w-px bg-border dark:bg-white/10"
           />
 
           {/* Interactive Icon-to-Label Section Pills */}

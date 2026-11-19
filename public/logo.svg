@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 52" fill="none">
+  <style>
+    .mb-stroke { stroke: #ededed; }
+    @media (prefers-color-scheme: light) {
+      .mb-stroke { stroke: #0a0a0b; }
+    }
+  </style>
+  <path
+    class="mb-stroke"
+    d="M5 48V4L26.5 27L48 4V48"
+    stroke-width="2.4"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+  />
+  <path
+    class="mb-stroke"
+    d="M48 16H72V31H48"
+    stroke-width="2.4"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+  />
+  <path
+    class="mb-stroke"
+    d="M72 31H91V48H60"
+    stroke-width="2.4"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+  />
+</svg>

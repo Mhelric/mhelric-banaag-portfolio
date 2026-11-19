@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
+import { BrandLogo } from './BrandLogo'
 
 const EMAIL_ADDRESS = 'mhelricbanaag102703@gmail.com'
 const WEB3FORMS_ACCESS_KEY = '5d885f30-c0bc-431e-b43f-5397a423e263'
@@ -430,10 +431,13 @@ export function Contact() {
 
       {/* Minimalist Footer */}
       <footer className="mt-3 flex flex-col items-center justify-between gap-2 border-t border-border pt-3 text-xs text-muted sm:mt-4 sm:flex-row">
-        <p>
-          © {new Date().getFullYear()} Mhelric Banaag. Built with React,
-          TypeScript &amp; Tailwind CSS.
-        </p>
+        <div className="flex items-center gap-2.5">
+          <BrandLogo className="h-3.5 w-auto shrink-0 text-text" strokeWidth={3.2} />
+          <p>
+            © {new Date().getFullYear()} Mhelric Banaag. Built with React,
+            TypeScript &amp; Tailwind CSS.
+          </p>
+        </div>
         <a href="#hero" className="transition-colors hover:text-text">
           Back to top
         </a>

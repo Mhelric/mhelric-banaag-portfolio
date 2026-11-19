@@ -1,16 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <!-- Dark Rounded Canvas -->
   <rect width="64" height="64" rx="14" fill="#0a0a0b" />
-  
+
   <!-- Subtle Grid Lines -->
   <path d="M16 0v64M32 0v64M48 0v64M0 16h64M0 32h64M0 48h64" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
-  
-  <!-- Outer Border -->
+
+  <!-- Subtle Electric Blue Outer Border -->
   <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" stroke="#4f8cff" stroke-opacity="0.45" stroke-width="2" />
-  
-  <!-- Geometric 'M' Monogram -->
-  <path d="M14 46V18h6.5l8.5 14.5L37.5 18H44v28h-6V28.5L30.5 41h-3L20 28.5V46h-6Z" fill="#ededed" />
-  
-  <!-- Electric Blue '.DEV' Dot -->
-  <circle cx="51" cy="42" r="4.5" fill="#4f8cff" />
+
+  <!-- MB Architectural Monogram -->
+  <g transform="translate(5.21, 17.49) scale(0.558)" stroke="#ededed" stroke-width="4.2" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M5 48V4L26.5 27L48 4V48" />
+    <path d="M48 16H72V31H48" />
+    <path d="M72 31H91V48H60" />
+  </g>
 </svg>

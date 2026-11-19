@@ -35,36 +35,36 @@ export function IntroSplash() {
         {/* 3-Level Architectural Line-Drawing Monogram (MB) */}
         <svg
           className="efw-brand-symbol"
-          viewBox="0 0 88 48"
+          viewBox="0 0 96 52"
           aria-hidden="true"
         >
           {/* Level 01: Primary 'M' Architectural Frame */}
           <path
             className="efw-level efw-level--01"
-            d="M4 44V4L24 24L44 4V44"
+            d="M5 48V4L26.5 27L48 4V48"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.4"
             strokeLinecap="square"
             strokeLinejoin="miter"
           />
           {/* Level 02: Upper 'B' Stepped Chamber */}
           <path
             className="efw-level efw-level--02"
-            d="M44 14H66V28H44"
+            d="M48 16H72V31H48"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.4"
             strokeLinecap="square"
             strokeLinejoin="miter"
           />
           {/* Level 03: Lower 'B' Stepped Chamber */}
           <path
             className="efw-level efw-level--03"
-            d="M66 28H84V44H44"
+            d="M72 31H91V48H60"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.4"
             strokeLinecap="square"
             strokeLinejoin="miter"
           />
