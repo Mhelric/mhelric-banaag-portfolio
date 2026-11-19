@@ -111,15 +111,6 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    id: 'school-mis-mockup',
-    title: 'Sample School MIS — Academic & Student Portal',
-    category: 'Full-Stack • Education MIS & Role-Based Dashboard',
-    summary:
-      'A clean Management Information System (MIS) mockup for a sample school featuring student enrollment, class schedules, attendance logs, grade encoding, and role-based Registrar, Faculty, and Student dashboards.',
-    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Vite'],
-    status: 'in-progress',
-  },
-  {
     id: 'mirusync',
     title: 'MiruSync | Dual-Platform Anime & Manga Tracker',
     category: 'Full-Stack • Monorepo, Cross-Platform PWA & Native Android APK',
@@ -154,5 +145,14 @@ export const PROJECTS: Project[] = [
       aiWorkflowNote:
         'Utilized AI-assisted engineering for rapid boilerplate generation across monorepo packages, GraphQL query schema definition, and complex regex/data-mapping rules while personally owning architecture, security, state management, and native bridge integration.',
     },
+  },
+  {
+    id: 'school-mis-mockup',
+    title: 'Sample School MIS — Academic & Student Portal',
+    category: 'Full-Stack • Education MIS & Role-Based Dashboard',
+    summary:
+      'A clean Management Information System (MIS) mockup for a sample school featuring student enrollment, class schedules, attendance logs, grade encoding, and role-based Registrar, Faculty, and Student dashboards.',
+    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Vite'],
+    status: 'in-progress',
   },
 ]
